@@ -1,0 +1,52 @@
+/*================================================================================
+	Item Name: Vuexy - Vuejs, HTML & Laravel Admin Dashboard Template
+	Version: 2.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+.main-menu.menu-light .navigation>li.active>a,
+.main-menu.menu-light .navigation>li ul .active {
+    background: linear-gradient(118deg,#354555,rgb(53, 69, 85));
+    box-shadow: 0 0 10px 1px rgb(53 69 85 / 70%);
+}
+
+.main-menu .navbar-header .navbar-brand .brand-logo img {
+    max-width: 50px;
+}
+
+.main-menu .navbar-header {
+    height: 6rem;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-text {
+    padding-left: 2.5rem;
+}
+
+.main-menu .navbar-header .navbar-brand .brand-text,
+a, a:hover   {
+     color: #354555;
+}
+
+.page-item.active .page-link {
+    background-color: #354555;
+    color: #fff !important;
+}
+
+.bg-primary, .btn-primary, .btn-primary:hover {
+    background-color: #003638!important;
+    border-color: #003638!important;
+}
+
+.btn-primary:hover:not(.disabled):not(:disabled) {
+    box-shadow: 0 8px 25px -8px #003638;
+}
+
+.form-control, .input-group-text {
+    border: 1px solid rgb(155, 171, 188);
+}
