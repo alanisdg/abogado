@@ -8,6 +8,8 @@ use App\Repository\Interfaces\ISkillRepository;
 use App\Repository\SkillRepository;
 use App\Repository\Interfaces\IProjectRepository;
 use App\Repository\ProjectRepository;
+use Illuminate\Support\Facades\Schema;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -28,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 }
