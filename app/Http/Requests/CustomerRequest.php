@@ -24,25 +24,34 @@ class CustomerRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'dni'     =>  'required|unique:customers,dni',
-            'name'    =>  'required',
-            'surname' =>  'required',
-            'email'   =>  'required|unique:customers,email',
-            'phone'   =>  'required',
-            'address' =>  'required',
+            'first_name'    =>  'required',
+            'last_name'     =>  'required',
+            'address'       =>  'required',
         ];
+
+        if ($this->getMethod() == 'POST') {
+            $rules += [
+                'email'         =>  'required|unique:customers,email',
+                'phone'         =>  'required|unique:customers,phone',
+                'rut'           =>  'required|unique:customers,rut',
+            ];
+        } else {
+            $rules += ['email'  =>  'required|unique:customers,email,' . $this->customer->id];
+            $rules += ['phone'  =>  'required|unique:customers,phone,' . $this->customer->id];
+            $rules += ['rut'    =>  'required|unique:customers,rut,' . $this->customer->id];
+        }
 
         return $rules;
     }
     public function attributes()
     {
         return [
-            'dni'      =>  'DNI',
-            'name'     =>  'Nombre',
-            'surname'  =>  'Apellido',
-            'email'    =>  'Correo Electrónico',
-            'pnone'    =>  'Teléfono',
-            'address'  =>  'Dirección',
+            'rut'           =>  'RUT',
+            'first_name'    =>  'Nombre',
+            'last_name'      =>  'Apellido',
+            'address'       =>  'Dirección',
+            'email'         =>  'Correo Electrónico',
+            'phone'         =>  'Número de Teléfono',
         ];
     }
     /**
@@ -53,14 +62,15 @@ class CustomerRequest extends FormRequest
     public function messages()
     {
         return [
-            'dni.required'     => 'Indique su :attribute',
-            'dni.unique'       => 'Su :attribute ya se encuentra registrado',
-            'name.required'    => 'Ingrese su :attribute.',
-            'surname.required' => 'Ingrese su :attribute.',
-            'email.required'   => 'Ingrese el :attribute.',
-            'email.unique'     => 'El :attribute ingresado, ya se encuentra registrado.',
-            'phone.required'   => 'Ingrese un Número de :attribute.',
-            'address.required' => 'Ingrese su :attribute de Residencia.',
+            'rut.required'          => 'Indique el :attribute del cliente',
+            'rut.unique'            => 'El :attribute ingrsado, ya se encuentra registrado',
+            'first_name.required'   => 'Ingrese el :attribute del Cliente.',
+            'last_name.required'    => 'Ingrese el :attribute del Cliente.',
+            'email.required'        => 'Ingrese el :attribute del Cliente.',
+            'email.unique'          => 'El :attribute ingresado, ya se encuentra registrado.',
+            'phone.required'        => 'Ingrese un :attribute del Cliente.',
+            'phone.unique'          => 'El :attribute ingresado, ya se encuentra registrado.',
+            'address.required'      => 'Ingrese la :attribute de Residencia.',
         ];
     }
 }

@@ -38,13 +38,18 @@ a, a:hover   {
     color: #fff !important;
 }
 
-.bg-primary, .btn-primary, .btn-primary:hover {
+.bg-primary {
     background-color: #003638!important;
     border-color: #003638!important;
 }
 
+.btn-primary, .btn-primary:hover {
+    background-color: rgb(155, 171, 188)!important;
+    border-color: #9babbc!important;
+}
+
 .btn-primary:hover:not(.disabled):not(:disabled) {
-    box-shadow: 0 8px 25px -8px #003638;
+    box-shadow: 0 8px 25px -8px #9babbc;
 }
 
 .form-control, .input-group-text {
