@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\LawyerController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -27,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
         Route::group(['middleware' => ['role:root|administrator']], function() {
             // Customers
                 Route::resource('customers', CustomerController::class);
+            // Customers
+                Route::resource('lawyers', LawyerController::class);
         });
 
     /* Customers */

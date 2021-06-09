@@ -1,6 +1,6 @@
-@extends('backend.layouts.app')
+@extends('layouts.app')
 
-@section('title', __('Zones'))
+@section('title', $config['moduleName'])
 
 @section('content')
     <section id="basic-datatable">
@@ -9,15 +9,19 @@
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h4 class="mb-0">{{ __($config['moduleName']) }}</h4>
+                            <h4 class="mb-0">{{ $config['moduleName'] }}</h4>
+                        </div>
+                        <div class="dt-buttons btn-group flex-wrap">
+                            <a href="{{ $config['routeLink'].'/create' }}" class="btn btn-primary mt-50"> Agregar Abogado</a>
                         </div>
                     </div>
                     <table class="table" id="tableCrud">
                         <thead>
                             <tr>
-                                <th>{{ __('Name') }}</th>
-                                <th>{{ __('State') }}</th>
-                                <th>{{ __('Options') }}</th>
+                                <th>RUT</th>
+                                <th>ABOGADO</th>
+                                <th>CARGO</th>
+                                <th>ACCIONES</th>
                             </tr>
                         </thead>
                     </table>
@@ -45,29 +49,28 @@
                 buttons: [
                 ],
                 ajax: {
-                    url: '{{ url("shipping/zones") }}',
+                    url: '{{ url("lawyers") }}',
                     data: function (data) {
-                        data.name = $('input[name=name]').val();
-                        data.state = $('input[name=state]').val();
-                        data.type = $('input[name=type]').val();
+                        data.lawyer_rut = $('input[name=lawyer_rut]').val();
+                        data.lawyer_first_name = $('input[name=lawyer_first_name]').val();
+                        data.lawyer_last_name = $('input[name=lawyer_last_name]').val();
+                        data.charge = $('input[name=charge]').val();
                     },
                 },
                 columns: [
-                    {data: 'name'},
-                    {data: 'state'},
+                    {data: 'lawyer_rut'},
+                    {data: 'lawyer_first_name'},
+                    {data: 'charge'},
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
-                    if (data.type == 1) {
-                        tr = '<td class="text-left" style="width: 40%; color: #002b5d;">'+ (data.name ? data.name : "") +'</td>'
-                    } else {
-                        tr = '<td class="text-left" style="width: 40%; color: #ff5f00;">'+ (data.name ? data.name : "") +'</td>'
-                    }
-                    tr += '<td class="text-left" style="width: 50%">'+ (data.state ? data.state : "") +'</td>'
-                    tr += '<td style="width: 10%">'
+                    tr = '<td class="text-left" style="width: 20%">'+ (data.lawyer_rut ? data.lawyer_rut : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 40%">'+ (data.lawyer_first_name ? data.lawyer_first_name : "") + ' ' + (data.lawyer_last_name ? data.lawyer_last_name : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 20%">'+ (data.charge ? data.charge : "") +'</td>'
+                    tr += '<td style="width: 20%">'
                     tr +=   '<div class="pull-right">'
-                    tr += 		'<a title="{{ __("Edit") }}" href="'+ BASE_URL +'/shipping/zones/edit/'+data.id+'" class="btn btn-sm btn-warning waves-effect waves-float waves-light" style="margin-left:3px;">'
-                    tr += 			"{{ __("Edit") }}"
+                    tr += 		'<a title="Editar" href="'+ BASE_URL +'/lawyers/'+data.id+'/edit" class="btn btn-sm btn-warning waves-effect waves-float waves-light" style="margin-left:3px;">'
+                    tr += 			"Editar"
                     tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'

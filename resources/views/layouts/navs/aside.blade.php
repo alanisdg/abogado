@@ -31,6 +31,12 @@
                     <span class="menu-title text-truncate">Clientes</span>
                 </a>
             </li>
+            <li class="{{ active('lawyers*') }} nav-item">
+                <a class="d-flex align-items-center" href="{{ url('lawyers') }}">
+                    <i data-feather='briefcase'></i>
+                    <span class="menu-title text-truncate">Abogados</span>
+                </a>
+            </li>
             {{--<li class="nav-item has-sub {!! classActivePath('shipping') !!}">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather='map'></i>
