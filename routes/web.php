@@ -10,6 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\LawyerController;
+use App\Http\Controllers\BranchOfficeController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -30,6 +31,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::resource('customers', CustomerController::class);
             // Customers
                 Route::resource('lawyers', LawyerController::class);
+            // Customers
+                Route::resource('branch-offices', BranchOfficeController::class);
         });
 
     /* Customers */

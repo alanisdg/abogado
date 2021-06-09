@@ -25,6 +25,12 @@
                 <span>Modulos</span>
                 <i data-feather="more-horizontal"></i>
             </li>
+            <li class="{{ active('branch-offices*') }} nav-item">
+                <a class="d-flex align-items-center" href="{{ url('branch-offices') }}">
+                    <i data-feather='shopping-bag'></i>
+                    <span class="menu-title text-truncate">Sucursales</span>
+                </a>
+            </li>
             <li class="{{ active('customers*') }} nav-item">
                 <a class="d-flex align-items-center" href="{{ url('customers') }}">
                     <i data-feather='users'></i>
