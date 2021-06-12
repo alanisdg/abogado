@@ -71,6 +71,11 @@ class CustomerController extends Controller
         $addCustomer->rut = $request->input('rut');
         $addCustomer->first_name = $request->input('first_name');
         $addCustomer->last_name = $request->input('last_name');
+        $addCustomer->civil_status = $request->input('civil_status');
+        $addCustomer->profession = $request->input('profession');
+        $addCustomer->nationality = $request->input('nationality');
+        $addCustomer->commune = $request->input('commune');
+        $addCustomer->region = $request->input('region');
         $addCustomer->address = $request->input('address');
         $addCustomer->email = $request->input('email');
         $addCustomer->phone = $request->input('phone');
@@ -119,6 +124,11 @@ class CustomerController extends Controller
         $editCustomer->rut = $request->input('rut');
         $editCustomer->first_name = $request->input('first_name');
         $editCustomer->last_name = $request->input('last_name');
+        $editCustomer->civil_status = $request->input('civil_status');
+        $editCustomer->profession = $request->input('profession');
+        $editCustomer->nationality = $request->input('nationality');
+        $editCustomer->commune = $request->input('commune');
+        $editCustomer->region = $request->input('region');
         $editCustomer->address = $request->input('address');
         $editCustomer->email = $request->input('email');
         $editCustomer->phone = $request->input('phone');
@@ -137,5 +147,17 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         //
+    }
+
+    /**
+     * Search customer
+     */
+    public function searchCustomer(Request $request)
+    {
+        $dataCustomer = Customer::whereRut($request->input("customer_rut"))->first();
+        if (is_null($dataCustomer)) {
+            $dataCustomer = 2;
+        }
+        return response()->json($dataCustomer);
     }
 }

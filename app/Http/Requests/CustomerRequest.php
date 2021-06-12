@@ -26,6 +26,11 @@ class CustomerRequest extends FormRequest
         $rules = [
             'first_name'    =>  'required',
             'last_name'     =>  'required',
+            'civil_status'  =>  'required',
+            'profession'    =>  'required',
+            'nationality'   =>  'required',
+            'commune'       =>  'required',
+            'region'        =>  'required',
             'address'       =>  'required',
         ];
 
@@ -48,7 +53,12 @@ class CustomerRequest extends FormRequest
         return [
             'rut'           =>  'RUT',
             'first_name'    =>  'Nombre',
-            'last_name'      =>  'Apellido',
+            'last_name'     =>  'Apellido',
+            'civil_staus'   =>  'Estado Civil',
+            'profession'    =>  'Profesión',
+            'nationality'   =>  'Nacionalidad',
+            'commune'       =>  'Comuna',
+            'region'        =>  'Región',
             'address'       =>  'Dirección',
             'email'         =>  'Correo Electrónico',
             'phone'         =>  'Número de Teléfono',
@@ -66,6 +76,11 @@ class CustomerRequest extends FormRequest
             'rut.unique'            => 'El :attribute ingrsado, ya se encuentra registrado',
             'first_name.required'   => 'Ingrese el :attribute del Cliente.',
             'last_name.required'    => 'Ingrese el :attribute del Cliente.',
+            'civil_status.required' => 'Ingrese el :attribute del Cliente.',
+            'profession.required'   => 'Describa la :attribute del Cliente.',
+            'nationality.required'  => 'Ingrese la :attribute del Cliente.',
+            'commune.required'      => 'Indique la :attribute del Cliente.',
+            'region.required'       => 'Especifique la :attribute del Cliente.',
             'email.required'        => 'Ingrese el :attribute del Cliente.',
             'email.unique'          => 'El :attribute ingresado, ya se encuentra registrado.',
             'phone.required'        => 'Ingrese un :attribute del Cliente.',

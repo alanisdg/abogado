@@ -43,7 +43,7 @@ a, a:hover   {
     border-color: #003638!important;
 }
 
-.btn-primary, .btn-primary:hover {
+.btn-primary, .btn-primary:hover, .btn-primary:focus {
     background-color: rgb(155, 171, 188)!important;
     border-color: #9babbc!important;
 }
@@ -54,4 +54,30 @@ a, a:hover   {
 
 .form-control, .input-group-text {
     border: 1px solid rgb(155, 171, 188);
+}
+
+input:hover,
+.form-control:focus,
+.btn:focus {
+    border-color: #003638;
+}
+
+label {
+    color: #354555;
+    font-size: 0.999rem;
+}
+
+.bs-stepper .bs-stepper-header .step.active .step-trigger .bs-stepper-box {
+    background-color: #354555;
+    color: #FFF;
+    box-shadow: 0 3px 6px 0 rgb(53, 69, 85);
+}
+
+.bs-stepper .bs-stepper-header .step.active .step-trigger .bs-stepper-label .bs-stepper-title {
+    color: #354555;
+}
+
+.bg-info {
+    background-color: #003638!important;
+    color: #FFF;
 }

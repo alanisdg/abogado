@@ -30,7 +30,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("first_name", old('first_name', @$row->first_name), ["class" => "form-control", "onkeyup" => "upperCase(this);"]) !!}
+                                        {!! Form::text("first_name", old('first_name', @$row->first_name), ["class" => "form-control", "onkeyup" => "upperCase(this);", "required"]) !!}
                                 </div>
                                 @error('first_name')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -44,7 +44,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("last_name", old('last_name', @$row->last_name), ["class" => "form-control", "onkeyup" => "upperCase(this);"]) !!}
+                                        {!! Form::text("last_name", old('last_name', @$row->last_name), ["class" => "form-control", "onkeyup" => "upperCase(this);", "required"]) !!}
                                 </div>
                                 @error('last_name')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -53,33 +53,20 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="first-name-icon">RUT <span class="text-danger"><strong>*</strong></span></label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("rut", old('rut', @$row->rut), ["class" => "form-control", "id" => "rut"]) !!}
+                                        {!! Form::text("rut", old('rut', @$row->rut), ["class" => "form-control", "id" => "rut", "required"]) !!}
                                 </div>
                                 @error('rut')
                                     <div class="text-danger">{{ ($message) }}</div>
                                 @enderror
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label for="first-name-icon">Dirección <span class="text-danger"><strong>*</strong></span></label>
-                                {!! Form::textarea("address", old('address', @$row->address), ["class" => "form-control", "size" => "1x3", "onkeyup" => "upperCase(this);"]) !!}
-                                @error('address')
-                                    <div class="text-danger">{{ ($message) }}</div>
-                                @enderror
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="first-name-icon">Correo Electrónico <span class="text-danger"><strong>*</strong></span></label>
@@ -87,25 +74,26 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='mail'></i></span>
                                     </div>
-                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control"]) !!}
+                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control", "required"]) !!}
                                 </div>
                                 @error('email')
                                     <div class="text-danger">{{ ($message) }}</div>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
                             <div class="form-group">
-                                <label for="first-name-icon">Teléfono <span class="text-danger"><strong>*</strong></span></label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='phone'></i></span>
-                                    </div>
-                                        {!! Form::text("phone", old('phone', @$row->phone), ["class" => "form-control", "id" => "phone"]) !!}
-                                </div>
-                                @error('phone')
-                                    <div class="text-danger">{{ ($message) }}</div>
-                                @enderror
+                                <label for="first-name-icon">Cargo <span class="text-danger"><strong>*</strong></span></label>
+                                <select name="rol" class="form-control" required>
+                                    <option value="">Seleccione...</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}" @if(old('rol') == $role->id OR @$role->id == @$rolId) selected @endif >
+                                            {{ $role->description }}
+                                        </option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -127,13 +115,7 @@
 @section('scripts')
     <script src="https://unpkg.com/imask"></script>
     <script>
-        // Phone
-            var phoneMask = IMask(
-                document.getElementById('phone'), {
-                    mask: '(+56) 000 000 000'
-                }
-            );
-        // Phone
+        // Rut
             var phoneMask = IMask(
                 document.getElementById('rut'), {
                     mask: '000000000-0'

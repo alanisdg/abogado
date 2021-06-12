@@ -25,51 +25,26 @@
                 <span>Modulos</span>
                 <i data-feather="more-horizontal"></i>
             </li>
-            <li class="{{ active('branch-offices*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('branch-offices') }}">
-                    <i data-feather='shopping-bag'></i>
-                    <span class="menu-title text-truncate">Sucursales</span>
+
+            @role('executive_administrator')
+                <li class="{{ active('users*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('users') }}">
+                        <i data-feather='users'></i>
+                        <span class="menu-title text-truncate">Usuarios</span>
+                    </a>
+                </li>
+            @endrole
+            <li class="{{ active('contract*') }} nav-item">
+                <a class="d-flex align-items-center" href="{{ url('contract/create/customer') }}">
+                    <i data-feather='edit-3'></i>
+                    <span class="menu-title text-truncate">Crear Contrato</span>
                 </a>
             </li>
-            <li class="{{ active('customers*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('customers') }}">
-                    <i data-feather='users'></i>
-                    <span class="menu-title text-truncate">Clientes</span>
+            <li class="{{ active('list-contracts*') }} nav-item">
+                <a class="d-flex align-items-center" href="{{ url('list-contracts/list') }}">
+                    <i data-feather='list'></i>
+                    <span class="menu-title text-truncate">Listar Contratos</span>
                 </a>
-            </li>
-            <li class="{{ active('lawyers*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('lawyers') }}">
-                    <i data-feather='briefcase'></i>
-                    <span class="menu-title text-truncate">Abogados</span>
-                </a>
-            </li>
-            {{--<li class="nav-item has-sub {!! classActivePath('shipping') !!}">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather='map'></i>
-                    <span class="menu-title text-truncate"">Envíos</span>
-                </a>
-                <ul class="menu-content">
-                    <li class="{{ active('shipping/percentage*') }}">
-                        <a class="d-flex align-items-center" href="{{ url('shipping/percentage') }}">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">Porcentage</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>--}}
-            <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
-                    <i data-feather='settings'></i>
-                    <span class="menu-title text-truncate" data-i18n="Invoice">Configuraciones</span>
-                </a>
-                <ul class="menu-content">
-                    <li>
-                        <a class="d-flex align-items-center" href="">
-                            <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="List">Usuarios</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>

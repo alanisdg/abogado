@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
+        'rut',
         'first_name',
         'last_name',
         'email',
@@ -25,6 +26,14 @@ class User extends Authenticatable
         'img_file',
         'status'
     ];
+
+    /**
+     * Relations with contract
+     */
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'user_id');
+    }
 
     /**
      * The attributes that should be hidden for arrays.

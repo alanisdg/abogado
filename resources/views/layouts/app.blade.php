@@ -35,7 +35,7 @@
                     <div class="content-header row">
                     </div>
 
-                    @include('partials.breadcrumbs')
+                    {{--@include('partials.breadcrumbs')--}}
 
                     <div class="content-body">
                         @yield('content')
