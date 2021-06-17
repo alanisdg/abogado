@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="{{ asset('backend/css/assets/vendors/css/vendors.min.css') }}" rel="stylesheet" type="text/css"/>
 {{--<link rel="stylesheet" href="{{ asset('backend/css/assets/vendors/css/charts/apexcharts.css') }}" rel="stylesheet" type="text/css"/>--}}
 <link rel="stylesheet" href="{{ asset('backend/css/assets/vendors/css/extensions/toastr.min.css') }}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="{{ asset('backend/css/assets/vendors/css/forms/wizard/bs-stepper.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/bootstrap-extended.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/colors.min.css') }}" rel="stylesheet" type="text/css"/>
@@ -21,7 +22,9 @@
 
 {{--<link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/forms/form-validation.css') }}" rel="stylesheet" type="text/css"/>--}}
 {{--<link rel="stylesheet" href="{{ asset('backend/css/assets/pages/dashboard-ecommerce.min.css') }}" rel="stylesheet" type="text/css"/>--}}
-{{--<link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/charts/chart-apex.min.css') }}" rel="stylesheet" type="text/css"/>--}}
+<link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/forms/pickers/form-flat-pickr.min.css') }}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/forms/pickers/form-pickadate.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/extensions/ext-component-toastr.min.css') }}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/forms/form-wizard.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/pages/page-auth.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css"/>

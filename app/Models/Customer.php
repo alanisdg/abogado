@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Customer extends Model
 {
     protected $table = "customers";
-    protected $fillable = ["rut", "first_name", "last_name", "address", "phone", "email"];
+    protected $fillable = ["rut", "customer", "civil_status", "profession", "nationality", "commune", "region", "address", "phone", "email"];
+    /**
+     * Relations with contracts
+     */
+    public function contracts()
+    {
+        return $this->hasMany(Contract::class, 'customer_id');
+    }
 }

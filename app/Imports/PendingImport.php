@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Imports;
+
+use App\Models\Pending;
+use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
+
+class PendingImport implements ToModel, WithHeadingRow
+{
+    /**
+    * @param array $row
+    *
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function model(array $row)
+    {
+        return new Pending([
+            'interview_date' => $row['fecha_entrevista'],
+            'second_date' => $row['fecha_segunda_cita'],
+            'rut' => $row['rut'],
+            //'email' => $row['correo_electronico'],
+            'names' => $row['nombres'],
+            'surnames' => $row['apellidos'],
+            'balance_dd' => $row['saldo_dd'],
+            'phone' => $row['telefono'],
+            'creditor_1' => $row['acreedor_1'],
+            'creditor_balance_1' => $row['saldo_acreedor_1'],
+            'creditor_2' => $row['acreedor_2'],
+            'creditor_balance_2' => $row['saldo_acreedor_2'],
+            'heritage' => $row['patrimonio'],
+            'active_demand' => $row['demandas_activas'],
+            'demand_1' => $row['demanda_1'],
+            'state_1' => $row[ 'estado_1'],
+            'demand_2' => $row['demanda_2'],
+            'state_2' => $row['estado_2'],
+            'status' => 1
+        ]);
+    }
+}

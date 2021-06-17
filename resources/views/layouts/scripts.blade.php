@@ -4,6 +4,7 @@
 
 <script src="{{ asset('backend/js/vendors/tables/datatable/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('backend/js/vendors/tables/datatable/datatables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('backend/js/vendors/forms/wizard/bs-stepper.min.js') }}"></script>
 {{--<script src="{{ asset('backend/js/vendors/tables/datatable/dataTables.responsive.min.js') }}"></script>
 <script src="{{ asset('backend/js/vendors/tables/datatable/responsive.bootstrap4.js') }}"></script>--}}
 
@@ -16,6 +17,8 @@
 
 <script src="{{ asset('backend/js/scripts/extensions/ext-component-toastr.min.js') }}"></script>
 <script src="{{ asset('backend/js/scripts/table-datatables-basic.min.js') }}"></script>
+<script src="{{ asset('backend/js/scripts/forms/form-wizard.min.js') }}"></script>
+<script src="{{ asset('backend/js/scripts/forms/pickers/form-pickers.min.js') }}"></script>
 <script src="{{ asset('backend/js/scripts.js') }}"></script>
 
 {!! Toastr::message() !!}
