@@ -27,10 +27,22 @@
             </li>
 
             @role('executive_administrator')
+                <li class="{{ active('pending*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('pending') }}">
+                        <i data-feather='upload'></i>
+                        <span class="menu-title text-truncate">Cargar BD</span>
+                    </a>
+                </li>
                 <li class="{{ active('users*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('users') }}">
                         <i data-feather='users'></i>
                         <span class="menu-title text-truncate">Usuarios</span>
+                    </a>
+                </li>
+                <li class="{{ active('list-pending*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('list-pending') }}">
+                        <i data-feather='alert-circle'></i>
+                        <span class="menu-title text-truncate">Pendientes</span>
                     </a>
                 </li>
             @endrole
@@ -44,6 +56,12 @@
                 <a class="d-flex align-items-center" href="{{ url('list-contracts/list') }}">
                     <i data-feather='list'></i>
                     <span class="menu-title text-truncate">Listar Contratos</span>
+                </a>
+            </li>
+            <li class="{{ active('causes*') }} nav-item">
+                <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
+                    <i data-feather='file-text'></i>
+                    <span class="menu-title text-truncate">Causas</span>
                 </a>
             </li>
         </ul>

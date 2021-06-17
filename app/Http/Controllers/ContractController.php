@@ -171,9 +171,21 @@ class ContractController extends Controller
      * @param  \App\Models\Contract  $contract
      * @return \Illuminate\Http\Response
      */
-    public function edit(Contract $contract)
+    public function edit($id)
     {
-        //
+        // Data contract
+            $dataContract = Contract::with(['customer', 'cause'])->find($id);
+        // Data cause
+            foreach ($dataContract->cause as $value) {
+                $cause = $value;
+            }
+
+        // Return view
+        return view($this->config["routeView"] . "edit")
+            ->with("breadcrumAction", "")
+            ->with("row", $dataContract)
+            ->with("cause", $cause)
+            ->with("config", $this->config);
     }
 
     /**
@@ -185,7 +197,27 @@ class ContractController extends Controller
      */
     public function update(Request $request, Contract $contract)
     {
-        //
+        // Data contract
+            $contract = Contract::find($request->input('contract_id'));
+
+        // Update data customer
+            $contract->customer->update([
+                "rut" => $request->input("rut"),
+                "customer"      => $request->input("customer"),
+                "civil_status"  => $request->input("civil_status"),
+                "profession"    => $request->input("profession"),
+                "nationality"   => $request->input("email"),
+                "commune"       => $request->input("commune"),
+                "region"        => $request->input("region"),
+                "address"       => $request->input("address"),
+                "phone"         => $request->input("phone"),
+                "email"         => $request->input("email")
+            ]);
+
+        // Return response
+            Toastr::success("", "¡Detalles de Contrato Actualizado!");
+            return redirect('contract/edit/'.$contract->id.'');
+
     }
 
     /**

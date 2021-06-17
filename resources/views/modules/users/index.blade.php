@@ -75,20 +75,23 @@
                     tr = '<td class="text-left" style="width: 13%">'+ (data.first_name ? data.first_name : "") +'</td>'
                     tr += '<td class="text-left" style="width: 13%">'+ (data.last_name ? data.last_name : "") + '</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.rut ? data.rut : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 19%">'+ (data.email ? data.email : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 20%"><span class="bg-info">'+ (data.roles[0].description ? data.roles[0].description : "") +'</span></td>'
+                    tr += '<td class="text-left" style="width: 16%">'+ (data.email ? data.email : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 18%"><span class="text-info">'+ (data.roles[0].description ? data.roles[0].description : "") +'</span></td>'
                     if (data.status == 1) {
-                        tr += '<td class="text-left" style="width: 10%"><span class="bg-info">Activo</span></td>'
+                        tr += '<td class="text-left" style="width: 10%"><span class="text-info">Activo</span></td>'
                     } else {
-                        tr += '<td class="text-left" style="width: 10%"><span class="bg-danger">Inactivo</span></td>'
+                        tr += '<td class="text-left" style="width: 10%"><span class="text-danger">Inactivo</span></td>'
                     }
-                    tr += '<td style="width: 10%">'
+                    tr += '<td style="width: 25%">'
                     tr +=   '<div class="pull-right">'
-                    tr += 		'<button id="'+data.id+'" title="Actualizar Estado" class="btn btn-sm btn-primary waves-effect waves-float waves-light" style="margin-left:3px;" onclick="updateStatus(this.id);">'
-                    tr += 			"<i data-feather='edit'></i>"
-                    tr += 		'</button>'
-                    tr += 		'<a title="Editar Usuario" href="'+ BASE_URL +'/users/'+data.id+'/edit" class="btn btn-sm btn-primary waves-effect waves-float waves-light" style="margin-left:3px;">'
-                    tr += 			"<i data-feather='edit'></i>"
+                    tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id);">'
+                    tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
+                    tr += 		'</a>'
+                    tr += 		'<a title="Editar Usuario" href="'+ BASE_URL +'/users/'+data.id+'/edit" class="" style="margin-left:5px;">'
+                    tr += 			'<img src="../backend/images/assets/edit.svg" style="width: 15%">'
+                    tr += 		'</a>'
+                    tr += 		'<a title="Eliminar Usuario" href="'+ BASE_URL +'/users/delete-user/'+data.id+'" class="" style="margin-left:5px;">'
+                    tr += 			'<img src="../backend/images/assets/delete.svg" style="width: 15%">'
                     tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'

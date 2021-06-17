@@ -67,15 +67,20 @@
             </div>
           <div class="bs-stepper-content">
             <div id="customers" class="content active dstepper-block">
-                <form class="">
+                <form class="" autocomplete="off">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="date">Fecha</label>
                             <input type="text" name="date" id="contract_date" class="form-control" value="{{ date("Y-m-d") }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="total_contract">Total de Contrato</label>
-                            <input type="text" name="total_contract" id="total_contract" class="form-control">
+                            <label for="first-name-icon">Total del Contrato </label>
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
+                                </div>
+                                {!! Form::text("total_contract", old('total_contract', @$row->total_contract), ["class" => "form-control", "id" => "total_contract"]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -114,7 +119,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="amount_fees">Monto de Cuotas</label>
-                            <input type="text" name="amount_fees" id="amount_fees" class="form-control">
+                            <input type="text" name="amount_fees" id="amount_fees" class="form-control" readonly onclick="calculateCuotes()" onfocus="calculateCuotes()">
                         </div>
                     </div>
                 </form>
@@ -145,8 +150,7 @@
             "keyup": function(event) {
                 $(event.target).val(function(index, value) {
                 return value.replace(/\D/g, "")
-                    .replace(/([0-9])([0-9]{2})$/, '$1,$2')
-                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
                 });
             }
         });
@@ -158,8 +162,7 @@
             "keyup": function(event) {
                 $(event.target).val(function(index, value) {
                 return value.replace(/\D/g, "")
-                    .replace(/([0-9])([0-9]{2})$/, '$1,$2')
-                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
+                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
                 });
             }
         });
@@ -177,27 +180,45 @@
             }
         });
 
+        // Calculate cuotes
+            function calculateCuotes()
+            {
+                // Varibales
+                    let total_contract = document.getElementById('total_contract').value,
+                        first_payment_amount = document.getElementById('first_payment_amount').value
+                        amount_installments = document.getElementById('amount_installments').value
+
+                // Calculate
+                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
+                    first_payment_amount = Number(first_payment_amount.replace(/[^0-9\.]+/g,""))
+                    totalCost = (parseFloat(total_contract) - parseFloat(first_payment_amount)) / amount_installments
+
+                // Assignate
+                    document.getElementById('amount_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+
+            }
+
         // Validate localstorage, contract parameters
-        document.addEventListener("DOMContentLoaded", function () {
-            // Get current customer variable
-                let contract_parameters = JSON.parse(localStorage.getItem('contract_parameters'))
-                let cuotes = JSON.parse(localStorage.getItem('cuotes'))
+            document.addEventListener("DOMContentLoaded", function () {
+                // Get current customer variable
+                    let contract_parameters = JSON.parse(localStorage.getItem('contract_parameters'))
+                    let cuotes = JSON.parse(localStorage.getItem('cuotes'))
 
-                document.getElementById("contract_date").value = contract_parameters[0]
-                document.getElementById("number_rit").value = contract_parameters[2]
-                document.getElementById("cours").value = contract_parameters[4]
-                document.getElementById("matter").value = contract_parameters[6]
+                    document.getElementById("contract_date").value = contract_parameters[0]
+                    document.getElementById("number_rit").value = contract_parameters[2]
+                    document.getElementById("cours").value = contract_parameters[4]
+                    document.getElementById("matter").value = contract_parameters[6]
 
-                document.getElementById("total_contract").value = contract_parameters[1]
-                document.getElementById("first_payment_date").value = contract_parameters[3]
-                document.getElementById("first_payment_amount").value = contract_parameters[5]
+                    document.getElementById("total_contract").value = contract_parameters[1]
+                    document.getElementById("first_payment_date").value = contract_parameters[3]
+                    document.getElementById("first_payment_amount").value = contract_parameters[5]
 
-                document.getElementById("amount_installments").value = cuotes[0]
-                document.getElementById("amount_fees").value = cuotes[1]
+                    document.getElementById("amount_installments").value = cuotes[0]
+                    document.getElementById("amount_fees").value = cuotes[1]
 
-                // Create localstorage
-                    localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
-                    localStorage.setItem('cuotes', JSON.stringify(cuotes))
+                    // Create localstorage
+                        localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
+                        localStorage.setItem('cuotes', JSON.stringify(cuotes))
             })
 
         // Phone

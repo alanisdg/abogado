@@ -169,7 +169,6 @@
             function searchCustomer() {
 
                 let url = '/contract/create/search-customer';
-
                 window.localStorage.removeItem('customer_rut');
 
                 let customer_rut = document.getElementById('customer_rut').value
@@ -203,17 +202,17 @@
                         else {
 
                             let customer = [
-                                    data.first_name,
-                                    data.last_name,
-                                    data.civil_status,
-                                    data.rut,
-                                    data.profession,
-                                    data.nationality,
-                                    data.address,
-                                    data.phone,
-                                    data.commune,
-                                    data.email,
-                                    data.region,
+                                data.first_name,
+                                data.last_name,
+                                data.civil_status,
+                                data.rut,
+                                data.profession,
+                                data.nationality,
+                                data.address,
+                                data.phone,
+                                data.commune,
+                                data.email,
+                                data.region,
                             ]
 
                             localStorage.setItem('customer_rut', data.rut)
@@ -313,7 +312,7 @@
         // Empty inputs
             function emptyInputs()
             {
-                document.getElementById("data_customer").value = ""
+                document.getElementById("customer_rut").value = ""
                 document.getElementById("civil_status").value = ""
                 document.getElementById("rut").value = ""
                 document.getElementById("profession").value = ""

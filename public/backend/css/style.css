@@ -43,7 +43,7 @@ a, a:hover   {
     border-color: #003638!important;
 }
 
-.btn-primary, .btn-primary:hover, .btn-primary:focus {
+.btn-primary, .btn-primary:hover, .btn-primary:focus, .input-group:hover, .input-group:focus {
     background-color: rgb(155, 171, 188)!important;
     border-color: #9babbc!important;
 }
@@ -80,4 +80,8 @@ label {
 .bg-info {
     background-color: #003638!important;
     color: #FFF;
+}
+
+.text-info {
+    color: #003638!important;
 }

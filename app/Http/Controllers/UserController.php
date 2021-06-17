@@ -11,6 +11,7 @@ use App\Models\Role;
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -168,5 +169,16 @@ class UserController extends Controller
         $dataUser->save();
 
         return response()->json(1);
+    }
+
+    /**
+     * Delete user
+     */
+    public function deleteUser($id)
+    {
+        $dataUser = User::whereId($id)->delete();
+
+        Toastr::success("", "¡Usuario Eliminado!");
+        return redirect('users');
     }
 }

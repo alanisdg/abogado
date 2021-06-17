@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Listado de Contratos')
+@section('title', $config['moduleName'])
 
 @section('content')
     <section id="basic-datatable">
@@ -9,20 +9,18 @@
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h4 class="mb-0">Listado de Contratos</h4>
-                        </div>
-                        <div class="dt-buttons btn-group flex-wrap">
-                            <a href="{{ url('contract/create/customer') }}" class="btn btn-primary mt-50"> Nuevo Contrato</a>
+                            <h4 class="mb-0">{{ $config['moduleName'] }}</h4>
                         </div>
                     </div>
                     <table class="table" id="tableCrud">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Usuario</th>
-                                <th>Cliente</th>
-                                <th>Contrato</th>
-                                <th>Opciones</th>
+                                <th>NOMBRE</th>
+                                <th>APELLIDO</th>
+                                <th>RUT</th>
+                                <th>TELEFONO</th>
+                                <th>ESTADO</th>
+                                <th>OPCIONES</th>
                             </tr>
                         </thead>
                     </table>
@@ -50,36 +48,42 @@
                 buttons: [
                 ],
                 ajax: {
-                    url: '{{ url("list-contracts/list") }}',
+                    url: '{{ url("list-pending") }}',
                     data: function (data) {
-                        data.contract_date = $('input[name=contract_date]').val();
-                        data.user = $('input[name=user]').val();
-                        data.customer = $('input[name=customer]').val();
-                        data.type_contract = $('input[name=type_contract]').val();
+                        data.names = $('input[name=names]').val();
+                        data.surnames = $('input[name=surnames]').val();
+                        data.rut = $('input[name=rut]').val();
+                        data.phone = $('input[name=phone]').val();
+                        data.status = $('input[name=status]').val();
                     },
                 },
                 columns: [
-                    {data: 'contract_date'},
-                    {data: 'user'},
-                    {data: 'customer'},
-                    {data: 'type_contract'},
+                    {data: 'names'},
+                    {data: 'surnames'},
+                    {data: 'rut'},
+                    {data: 'phone'},
+                    {data: 'status'},
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
-                    tr = '<td class="text-left" style="width: 10%">'+ (data.contract_date ? data.contract_date : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 20%">'+ (data.user.first_name ? data.user.first_name : "") + ' ' + (data.user.last_name ? data.user.last_name : "") + '</td>'
-                    tr += '<td class="text-left" style="width: 20%">'+ (data.customer.customer ? data.customer.customer : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 35%">'+ (data.type_contract ? data.type_contract : "") +'</td>'
+                    tr = '<td class="text-left" style="width: 20%">'+ (data.names ? data.names : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 20%">'+ (data.surnames ? data.surnames : "") + '</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.rut ? data.rut : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
+                    if (data.status == 1) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-warning">PENDIENTE</span></td>'
+                    } else {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-danger">PERDIDO</span></td>'
+                    }
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
-                    tr += 		'<a title="Anexo" href="" class="" style="margin-left:3px;">'
-                    tr += 			'<img src="../backend/images/assets/attach.png" style="width: 15%">'
-                    tr += 		'</a>'
-                    tr += 		'<a title="Finiquito" href="" class="" style="margin-left:8px;">'
-                    tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
-                    tr += 		'</a>'
-                    tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/edit/'+data.id+'" class="" style="margin-left:8px;">'
-                    tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
+                    if (data.status == 1) {
+                        tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id);">'
+                        tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
+                        tr += 		'</a>'
+                    }
+                    tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-pending/details/'+data.id+'" class="" style="margin-left:8px;">'
+                    tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
                     tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
@@ -91,9 +95,11 @@
         // Update status
             function updateStatus(id) {
 
-                let userId = id
+                let pending_id = id
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                let url = '/users/update-status';
+                let url = '/pending/update-status';
+
+                console.log(pending_id)
 
                 fetch(url, {
                     headers: {
@@ -105,7 +111,7 @@
                     method: 'post',
                     credentials: "same-origin",
                     body: JSON.stringify({
-                        user_id: userId
+                        id: pending_id
                     })
                 })
                 .then((response) => response.json())
@@ -126,5 +132,13 @@
                 });
 
             }
+
+        // Clear localstorage
+            document.addEventListener("DOMContentLoaded", function () {
+                localStorage.removeItem('customer')
+                localStorage.removeItem('cuotes')
+                localStorage.removeItem('contract_parameters')
+                localStorage.removeItem('current_customer')
+            })
     </script>
 @endsection

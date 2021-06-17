@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Listado de Contratos')
+@section('title', $config['moduleName'])
 
 @section('content')
     <section id="basic-datatable">
@@ -9,20 +9,21 @@
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h4 class="mb-0">Listado de Contratos</h4>
+                            <h4 class="mb-0">{{ $config['moduleName'] }}</h4>
                         </div>
                         <div class="dt-buttons btn-group flex-wrap">
-                            <a href="{{ url('contract/create/customer') }}" class="btn btn-primary mt-50"> Nuevo Contrato</a>
+                            <a href="{{ url('causes/add') }}" class="btn btn-primary mt-50"> Agregar Causa</a>
                         </div>
                     </div>
                     <table class="table" id="tableCrud">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Usuario</th>
-                                <th>Cliente</th>
-                                <th>Contrato</th>
-                                <th>Opciones</th>
+                                <th>FECHA CONTRATO</th>
+                                <th>NUMERO DE RIT</th>
+                                <th>CORTE</th>
+                                <th>MATERIA</th>
+                                <th>ESTADO</th>
+                                <th>OPCIONES</th>
                             </tr>
                         </thead>
                     </table>
@@ -50,36 +51,37 @@
                 buttons: [
                 ],
                 ajax: {
-                    url: '{{ url("list-contracts/list") }}',
+                    url: '{{ url("causes/list") }}',
                     data: function (data) {
-                        data.contract_date = $('input[name=contract_date]').val();
-                        data.user = $('input[name=user]').val();
-                        data.customer = $('input[name=customer]').val();
-                        data.type_contract = $('input[name=type_contract]').val();
+                        data.contract = $('input[name=contract]').val();
+                        data.number_rit = $('input[name=number_rit]').val();
+                        data.court = $('input[name=court]').val();
+                        data.matter = $('input[name=matter]').val();
+                        data.status = $('input[name=status]').val();
                     },
                 },
                 columns: [
-                    {data: 'contract_date'},
-                    {data: 'user'},
-                    {data: 'customer'},
-                    {data: 'type_contract'},
+                    {data: 'contract'},
+                    {data: 'number_rit'},
+                    {data: 'court'},
+                    {data: 'matter'},
+                    {data: 'status'},
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
-                    tr = '<td class="text-left" style="width: 10%">'+ (data.contract_date ? data.contract_date : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 20%">'+ (data.user.first_name ? data.user.first_name : "") + ' ' + (data.user.last_name ? data.user.last_name : "") + '</td>'
-                    tr += '<td class="text-left" style="width: 20%">'+ (data.customer.customer ? data.customer.customer : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 35%">'+ (data.type_contract ? data.type_contract : "") +'</td>'
-                    tr += '<td style="width: 15%">'
+                    tr = '<td class="text-left" style="width: 15%">'+ (data.contract.contract_date ? data.contract.contract_date : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.number_rit ? data.number_rit : "") + '</td>'
+                    tr += '<td class="text-left" style="width: 20%">'+ (data.court ? data.court : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 25%">'+ (data.matter ? data.matter : "") +'</td>'
+                    if (data.status == 1) {
+                        tr += '<td class="text-left" style="width: 10%"></td>'
+                    } else {
+                        tr += '<td class="text-left" style="width: 10%"></td>'
+                    }
+                    tr += '<td style="width: 10%">'
                     tr +=   '<div class="pull-right">'
-                    tr += 		'<a title="Anexo" href="" class="" style="margin-left:3px;">'
-                    tr += 			'<img src="../backend/images/assets/attach.png" style="width: 15%">'
-                    tr += 		'</a>'
-                    tr += 		'<a title="Finiquito" href="" class="" style="margin-left:8px;">'
-                    tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
-                    tr += 		'</a>'
-                    tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/edit/'+data.id+'" class="" style="margin-left:8px;">'
-                    tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
+                    tr += 		'<a title="Tareas" href="#" class="" style="margin-left:3px;">'
+                    tr += 			'<img src="../backend/images/assets/homework.svg" style="width: 25%">'
                     tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
