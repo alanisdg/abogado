@@ -64,6 +64,12 @@
                     <span class="menu-title text-truncate">Causas</span>
                 </a>
             </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
+                    <i data-feather='info'></i>
+                    <span class="menu-title text-truncate">Cobranzas</span>
+                </a>
+            </li>
         </ul>
     </div>
   </div>

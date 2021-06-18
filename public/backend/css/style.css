@@ -85,3 +85,13 @@ label {
 .text-info {
     color: #003638!important;
 }
+
+.dropdown-item:focus, .dropdown-item:hover {
+    color: #354555;
+    background-color: rgba(53,69,85,.12);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: #FFF;
+    background-color: #354555;
+}

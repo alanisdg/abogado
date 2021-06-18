@@ -72,7 +72,7 @@
                     tr += '<td class="text-left" style="width: 35%">'+ (data.type_contract ? data.type_contract : "") +'</td>'
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
-                    tr += 		'<a title="Anexo" href="" class="" style="margin-left:3px;">'
+                    tr += 		'<a title="Anexos" href="'+ BASE_URL +'/list-contracts/annexes/'+data.id+'" class="" style="margin-left:3px;">'
                     tr += 			'<img src="../backend/images/assets/attach.png" style="width: 15%">'
                     tr += 		'</a>'
                     tr += 		'<a title="Finiquito" href="" class="" style="margin-left:8px;">'

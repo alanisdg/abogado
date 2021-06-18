@@ -1,19 +1,11 @@
 @extends('layouts.app')
 
-@if ($typeForm == 'create')
-    @section('title', $config['add'])
-@else
-    @section('title', $config['edit'])
-@endif
+@section('title', $config['add'])
 
 @section('content')
     <div class="">
         <div class="card-header">
-            @if ($typeForm == 'create')
-                <h2 class="card-title">{{ $config['add'] }}</h2>
-            @else
-                <h4 class="card-title">{{ $config['edit'] }}</h4>
-            @endif
+            <h2 class="card-title">{{ $config['add'] }}</h2>
         </div>
     </div>
     <section class="horizontal-wizard">
@@ -68,6 +60,7 @@
           <div class="bs-stepper-content">
             <div id="customers" class="content active dstepper-block">
                 <form class="" autocomplete="off">
+                    <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="date">Fecha</label>
@@ -100,7 +93,12 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="first_payment_amount">Monto Primer Pago</label>
-                            <input type="text" name="first_payment_amount" id="first_payment_amount" class="form-control">
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
+                                </div>
+                                {!! Form::text("first_payment_amount", old('first_payment_amount', @$row->first_payment_amount), ["class" => "form-control", "id" => "first_payment_amount"]) !!}
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -119,12 +117,26 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="amount_fees">Monto de Cuotas</label>
-                            <input type="text" name="amount_fees" id="amount_fees" class="form-control" readonly onclick="calculateCuotes()" onfocus="calculateCuotes()">
+                            <div class="input-group input-group-merge">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
+                                </div>
+                                {!! Form::text("amount_fees", old('amount_fees', @$row->amount_fees), ["class" => "form-control", "id" => "amount_fees", "readonly", "onclick" => "calculateCuotes()", "onfocus" => "calculateCuotes()"]) !!}
+                            </div>
                         </div>
                     </div>
                 </form>
                 <div class="d-flex justify-content-between">
-                    <a href="{{ url('contract/create/type-contract') }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                    @if ($config["typeRegister"] == "annexed")
+                        @php
+                            $url = "/list-contracts/annexes/add/type_contract";
+                        @endphp
+                    @else
+                        @php
+                            $url = "/contract/create/type-contract";
+                        @endphp
+                    @endif
+                    <a href="{{ $url }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                         <span class="align-middle d-sm-inline-block d-none">Regresar</span>
                     </a>
@@ -163,19 +175,6 @@
                 $(event.target).val(function(index, value) {
                 return value.replace(/\D/g, "")
                     .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
-                });
-            }
-        });
-
-        $("#amount_fees").on({
-            "focus": function(event) {
-                $(event.target).select();
-            },
-            "keyup": function(event) {
-                $(event.target).val(function(index, value) {
-                return value.replace(/\D/g, "")
-                    .replace(/([0-9])([0-9]{2})$/, '$1,$2')
-                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
                 });
             }
         });
@@ -237,6 +236,9 @@
         // Store parameters
             function storeParameters() {
 
+                let type_register = document.getElementById('type_register').value
+                let url = (type_register == "annexed") ? "/list-contracts/annexes/add/confirm" : "/contract/create/confirmation"
+
                 let parameters = [
                     document.getElementById('contract_date').value,
                     document.getElementById('total_contract').value,
@@ -255,7 +257,7 @@
                 localStorage.setItem('contract_parameters', JSON.stringify(parameters))
                 localStorage.setItem('cuotes', JSON.stringify(cuotes))
 
-                window.location.href = "/contract/create/confirmation";
+                window.location.href = url;
             }
     </script>
 @endsection

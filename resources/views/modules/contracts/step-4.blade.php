@@ -1,19 +1,11 @@
 @extends('layouts.app')
 
-@if ($typeForm == 'create')
-    @section('title', $config['add'])
-@else
-    @section('title', $config['edit'])
-@endif
+@section('title', $config['add'])
 
 @section('content')
     <div class="">
         <div class="card-header">
-            @if ($typeForm == 'create')
-                <h2 class="card-title">Cofirmación</h2>
-            @else
-                <h4 class="card-title">{{ $config['edit'] }}</h4>
-            @endif
+            <h2 class="card-title">Cofirmación</h2>
         </div>
     </div>
     <section class="horizontal-wizard">
@@ -162,7 +154,12 @@
                                         <div class="row">
                                             <div class="form-group col-md-4">
                                                 <label class="form-label" for="first_payment_amount">Monto Primer Pago</label>
-                                                <input type="text" name="first_payment_amount" id="first_payment_amount" class="form-control" readonly>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
+                                                    </div>
+                                                    {!! Form::text("first_payment_amount", old('first_payment_amount', @$row->first_payment_amount), ["class" => "form-control", "id" => "first_payment_amount", "disabled"]) !!}
+                                                </div>
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="form-label" for="amount_installments">Cantidad de Cuotas</label>
@@ -170,7 +167,12 @@
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label class="form-label" for="amount_fees">Monto de Cuotas</label>
-                                                <input type="text" name="amount_fees" id="amount_fees" class="form-control" readonly>
+                                                <div class="input-group input-group-merge">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
+                                                    </div>
+                                                    {!! Form::text("amount_fees", old('amount_fees', @$row->amount_fees), ["class" => "form-control", "id" => "amount_fees", "readonly", "disabled"]) !!}
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -179,7 +181,16 @@
                         </div>
                     </section>
                     <div class="d-flex justify-content-between">
-                        <a href="{{ url('contract/create/parameters') }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                        @if ($config["typeRegister"] == "annexed")
+                            @php
+                                $url = "/list-contracts/annexes/add/parameters";
+                            @endphp
+                        @else
+                            @php
+                                $url = "/contract/create/parameters";
+                            @endphp
+                        @endif
+                        <a href="{{ $url }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                             <span class="align-middle d-sm-inline-block d-none">Regresar</span>
                         </a>
@@ -188,6 +199,7 @@
                             <input type="hidden" name="data_customer" id="data_customer">
                             <input type="hidden" name="data_parameters" id="data_parameters">
                             <input type="hidden" name="data_cuotes" id="data_cuotes">
+                            <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
 
                             <button type="button" onclick="sendForm()" class="btn btn-primary btn-next waves-effect waves-float waves-light">
                                 <span class="align-middle d-sm-inline-block d-none">Confirmar</span>
@@ -244,11 +256,12 @@
         // Send form
             function sendForm() {
                 // Variables
-                    let customer = document.getElementById('data_customer').value
-                    let parameters = document.getElementById('data_parameters').value
-                    let cuotes = document.getElementById('data_cuotes').value
-                    let url = '/contract/register'
-                    let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                    let customer = document.getElementById('data_customer').value,
+                        parameters = document.getElementById('data_parameters').value,
+                        cuotes = document.getElementById('data_cuotes').value,
+                        type_register = document.getElementById('type_register').value,
+                        url = '/contract/register',
+                        token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
                 // Send info
                     fetch(url, {
@@ -263,22 +276,32 @@
                         body: JSON.stringify({
                             data_customer: customer,
                             data_parameters: parameters,
-                            data_cuotes: cuotes
+                            data_cuotes: cuotes,
+                            data_type_register: type_register
                         })
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        if (data == 1) {
-                            toastr["success"]("", "¡Contrato Creado!")
-
+                        console.log(data)
+                        if (data.response_code == 1) {
                             localStorage.removeItem('customer')
                             localStorage.removeItem('cuotes')
                             localStorage.removeItem('contract_parameters')
                             localStorage.removeItem('current_customer')
 
-                            window.setTimeout(function () {
-                                window.location.href = "/list-contracts/list"
-                            }, 5000)
+                            if (type_register === "annexed") {
+                                toastr["success"]("", "¡Anexo Creado!")
+
+                                window.setTimeout(function () {
+                                    window.location.href = "/list-contracts/annexes/"+data.contract_id
+                                }, 5000)
+                            } else {
+                                toastr["success"]("", "¡Contrato Creado!")
+
+                                window.setTimeout(function () {
+                                    window.location.href = "/list-contracts/list"
+                                }, 5000)
+                            }
                         }
                     })
                     .catch(function(error) {

@@ -30,7 +30,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("first_name", old('first_name', @$row->first_name), ["class" => "form-control", "onkeyup" => "upperCase(this);", "required"]) !!}
+                                        {!! Form::text("first_name", old('first_name', @$row->first_name), ["class" => "form-control", "onkeyup" => "upperCase(this);"]) !!}
                                 </div>
                                 @error('first_name')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -44,7 +44,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("last_name", old('last_name', @$row->last_name), ["class" => "form-control", "onkeyup" => "upperCase(this);", "required"]) !!}
+                                        {!! Form::text("last_name", old('last_name', @$row->last_name), ["class" => "form-control", "onkeyup" => "upperCase(this);"]) !!}
                                 </div>
                                 @error('last_name')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -60,7 +60,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                        {!! Form::text("rut", old('rut', @$row->rut), ["class" => "form-control", "id" => "rut", "required"]) !!}
+                                        {!! Form::text("rut", old('rut', @$row->rut), ["class" => "form-control", "id" => "rut"]) !!}
                                 </div>
                                 @error('rut')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -74,7 +74,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='mail'></i></span>
                                     </div>
-                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control", "required"]) !!}
+                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control"]) !!}
                                 </div>
                                 @error('email')
                                     <div class="text-danger">{{ ($message) }}</div>
@@ -83,10 +83,10 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
                             <div class="form-group">
                                 <label for="first-name-icon">Cargo <span class="text-danger"><strong>*</strong></span></label>
-                                <select name="rol" class="form-control" required>
+                                <select name="rol" class="form-control">
                                     <option value="">Seleccione...</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}" @if(old('rol') == $role->id OR @$role->id == @$rolId) selected @endif >
@@ -94,6 +94,24 @@
                                         </option>
                                     @endforeach
                                 </select>
+
+                                @error('rol')
+                                    <div class="text-danger">{{ ($message) }}</div>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="first-name-icon">Contraseña <span class="text-danger"><strong>*</strong></span></label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='key'></i></span>
+                                    </div>
+                                        <input type="password" class="form-control" name="password">
+                                </div>
+                                @error('password')
+                                    <div class="text-danger">{{ ($message) }}</div>
+                                @enderror
                             </div>
                         </div>
                     </div>

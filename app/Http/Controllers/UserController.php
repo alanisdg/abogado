@@ -13,6 +13,9 @@ use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 
+// Request
+use App\Http\Requests\UsersRequest;
+
 class UserController extends Controller
 {
     protected $config = [
@@ -66,18 +69,15 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UsersRequest $request)
     {
-        // Password generate
-            $password = bin2hex(random_bytes(4));
-
         // Register user
             $addUser = New User();
             $addUser->rut = $request->input('rut');
             $addUser->first_name = $request->input('first_name');
             $addUser->last_name = $request->input('last_name');
             $addUser->email = $request->input('email');
-            $addUser->password = bcrypt($password);
+            $addUser->password = bcrypt($request->input('password'));
             $addUser->status = 1;
             if ($addUser->save()) {
 
@@ -128,14 +128,16 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UsersRequest $request, User $user)
     {
             $updateUser = User::find($user->id);
             $updateUser->rut = $request->input('rut');
             $updateUser->first_name = $request->input('first_name');
             $updateUser->last_name = $request->input('last_name');
             $updateUser->email = $request->input('email');
-            $updateUser->status = 1;
+            if ($request->input("password") != null) {
+                $updateUser->password = bcrypt($request->input("password"));
+            }
             if ($updateUser->save()) {
 
                 // Update role

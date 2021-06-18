@@ -1,20 +1,11 @@
 @extends('layouts.app')
 
-@if ($typeForm == 'create')
-    @section('title', $config['add'])
-@else
-    @section('title', $config['edit'])
-@endif
-
+@section('title', $config['add'])
 
 @section('content')
     <div class="">
         <div class="card-header">
-            @if ($typeForm == 'create')
-                <h2 class="card-title">{{ $config['add'] }}</h2>
-            @else
-                <h4 class="card-title">{{ $config['edit'] }}</h4>
-            @endif
+            <h2 class="card-title">{{ $config['add'] }}</h2>
         </div>
     </div>
     <section class="horizontal-wizard">
@@ -68,80 +59,85 @@
             </div>
           <div class="bs-stepper-content">
             <div id="customers" class="content active dstepper-block">
-                <div class="content-header">
-                    <div class="row">
-                        <div class="col-3"><h5 class="mb-0">Buscar Cliente</h5></div>
-                    </div>
-                    <div class="row mt-1">
-                        <div class="col-3">
-                            <input type="text" class="form-control" placeholder="RUT del Cliente" id="customer_rut">
+                @if ($config["typeRegister"]  == "contract")
+                    <div class="content-header">
+                        <div class="row">
+                            <div class="col-3"><h5 class="mb-0">Buscar Cliente</h5></div>
                         </div>
-                        <div class="col-1" style="padding-left: 0">
-                            <button class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
+                        <div class="row mt-1">
+                            <div class="col-3">
+                                <input type="text" class="form-control" placeholder="RUT del Cliente" id="customer_rut">
+                            </div>
+                            <div class="col-1" style="padding-left: 0">
+                                <button class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
+                            </div>
                         </div>
                     </div>
-                </div>
+                @endif
                 <form class="mt-3">
+                    <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="customer">Cliente</label>
-                            <input type="text" name="name_customer" id="name_customer" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("name_customer", old('name_customer', @$contract->customer->customer), ["class" => "form-control", "id" => "name_customer", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="customer">Estado Civil</label>
-                            <input type="text" name="civil_status" id="civil_status" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("civil_status", old('civil_status', @$contract->customer->civil_status), ["class" => "form-control", "id" => "civil_status", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="rut">RUT</label>
-                            <input type="text" name="rut" id="rut" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("rut", old('rut', @$contract->customer->rut), ["class" => "form-control", "id" => "rut"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="profession">Profesión</label>
-                            <input type="text" name="profession" id="profession" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("profession", old('profession', @$contract->customer->profession), ["class" => "form-control", "id" => "profession", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="nationality">Nacionalidad</label>
-                            <input type="text" name="nationality" id="nationality" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("nationality", old('nationality', @$contract->customer->nationality), ["class" => "form-control", "id" => "nationality", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="customer">Dirección</label>
-                            <input type="text" name="address" id="address" class="form-control" onkeyup = "upperCase(this);">
+                            <label class="form-label" for="address">Dirección</label>
+                            {!! Form::text("address", old('address', @$contract->customer->address), ["class" => "form-control", "id" => "address", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="phone">Teléfono</label>
-                            <input type="text" name="phone" id="phone" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("phone", old('phone', @$contract->customer->phone), ["class" => "form-control", "id" => "phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="commune">Comuna</label>
-                            <input type="text" name="commune" id="commune" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("commune", old('commune', @$contract->customer->commune), ["class" => "form-control", "id" => "commune", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="email">Email</label>
-                            <input type="text" name="email" id="email" class="form-control">
+                            {!! Form::text("email", old('email', @$contract->customer->email), ["class" => "form-control", "id" => "email"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="region">Región</label>
-                            <input type="text" name="region" id="region" class="form-control" onkeyup = "upperCase(this);">
+                            {!! Form::text("region", old('region', @$contract->customer->region), ["class" => "form-control", "id" => "region", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                 </form>
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-primary btn-next waves-effect waves-float waves-light" onclick="storeCustomer();">
+                    @if ($config["typeRegister"]  == "annexed")
+                        <a href="{{ url('list-contracts/annexes/'.$contract->id) }}" class="btn btn-danger btn-next waves-effect waves-float waves-light">
+                            <i data-feather='x-circle'></i>
+                            <span class="align-middle d-sm-inline-block d-none">Cancelar</span>
+                        </a>
+                    @endif
+                    <a href="#" class="btn btn-primary btn-next waves-effect waves-float waves-light" onclick="storeCustomer();">
                         <span class="align-middle d-sm-inline-block d-none">Siguiente</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </button>
-                    {{--<a href="{{ url('contract/create/type-contract') }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
-                        <span class="align-middle d-sm-inline-block d-none">Siguiente</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                    </a>--}}
+                    </a>
                 </div>
             </div>
           </div>
@@ -164,6 +160,11 @@
                     mask: '000000000-0'
                 }
             );
+        // Phone
+            var phoneMask = IMask(
+            document.getElementById('phone'), {
+                mask: '(+56)000-000-000'
+            });
 
         // Search customer
             function searchCustomer() {
@@ -272,6 +273,9 @@
 
                 let current_customer = localStorage.getItem('current_customer')
 
+                let type_register = document.getElementById('type_register').value
+                let url = (type_register == "annexed") ? "/list-contracts/annexes/add/type_contract" : "/contract/create/type-contract"
+
                 // Si no existen datos en localstorage actualmente, se crea una nueva variable
                 if (current_customer == null) {
                     let dataCustomer = [
@@ -288,7 +292,7 @@
                     ]
 
                     localStorage.setItem('customer', JSON.stringify(dataCustomer))
-                    window.location.href = "/contract/create/type-contract";
+                    window.location.href = url
                 }
                 else { // Se actualiza la el arreglo actual
                     let dataCustomer = [
@@ -305,7 +309,7 @@
                     ]
 
                     localStorage.setItem('customer', JSON.stringify(dataCustomer))
-                    window.location.href = "/contract/create/type-contract";
+                    window.location.href = url
                 }
             }
 

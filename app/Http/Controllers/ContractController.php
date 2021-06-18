@@ -24,7 +24,7 @@ class ContractController extends Controller
         "routeView" => "modules.contracts.",
         "routeLink" => "contracts",
         "add" => "Crear Contrato",
-        "edit" => "Editar Contrato"
+        "typeRegister" => "contract"
     ];
 
     public function __construct()
@@ -38,7 +38,10 @@ class ContractController extends Controller
      */
     public function index(Request $request)
     {
-        $array = Contract::with(['user', 'customer'])->orderBy('id', 'DESC')->get();
+        $array = Contract
+                        ::with(['user', 'customer'])
+                        ->whereNull('annex_code')
+                        ->orderBy('id', 'DESC')->get();
 
         if ($request->ajax()) {
             return Datatables::of($array)->make(true);
@@ -104,6 +107,24 @@ class ContractController extends Controller
         $parameters = json_decode($request->input('data_parameters'));
         $cuotes = json_decode($request->input('data_cuotes'));
 
+        if ($request->input("data_type_register") == "annexed") {
+            // We look for contracts that have an annex code
+                $dataContract = Contract::whereNotNull("annex_code")->first();
+                if (!is_null($dataContract)) {
+                    $annexCode = $dataContract->annex_code;
+                    $annexCode++;
+                } else {
+                    $annexCode = "AX 1";
+                }
+
+            // Current contract id
+                $currentContractId = session("idContract");
+        }
+        else {
+            $annexCode = null;
+            $currentContractId = null;
+        }
+
         // Register customer
             $addCustomer = new Customer();
             $addCustomer->rut = $customer[2];
@@ -119,6 +140,8 @@ class ContractController extends Controller
             if ($addCustomer->save()) {
                 // Register contract
                     $addContract = new Contract();
+                    $addContract->number_contract = $currentContractId;
+                    $addContract->annex_code = $annexCode;
                     $addContract->user_id = Auth::user()->id;
                     $addContract->type_contract = "CONTRATO DE PRESTACIÓN DE SERVICIOS JURIDICOS";
                     $addContract->customer_id = $addCustomer->id;
@@ -150,7 +173,7 @@ class ContractController extends Controller
                     }
 
                 // Return response
-                    return response()->json(1);
+                    return response()->json(["response_code" => 1, "contract_id" => session("idContract")]);
             }
     }
 

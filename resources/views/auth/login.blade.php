@@ -50,7 +50,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-primary btn-block" tabindex="4">Sign in</button>
+                        <button class="btn btn-primary btn-block" tabindex="4">Acceder <i data-feather='log-in'></i></button>
                     </form>
                 </div>
             </div>

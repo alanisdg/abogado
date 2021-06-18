@@ -1,20 +1,11 @@
 @extends('layouts.app')
 
-@if ($typeForm == 'create')
-    @section('title', $config['add'])
-@else
-    @section('title', $config['edit'])
-@endif
-
+@section('title', $config['add'])
 
 @section('content')
     <div class="">
         <div class="card-header">
-            @if ($typeForm == 'create')
-                <h2 class="card-title">Tipo de Contrato</h2>
-            @else
-                <h4 class="card-title">{{ $config['edit'] }}</h4>
-            @endif
+            <h2 class="card-title">Tipo de Contrato</h2>
         </div>
     </div>
     <section class="horizontal-wizard">
@@ -87,11 +78,22 @@
                     </div>
                 </form>
                 <div class="d-flex justify-content-between mt-3">
-                    <a href="{{ url('contract/create/customer') }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                    @if ($config["typeRegister"] == "annexed")
+                        @php
+                            $url = "/list-contracts/annexes/add/customer/".session("idContract");
+                            $url2 = "/list-contracts/annexes/add/parameters";
+                        @endphp
+                    @else
+                        @php
+                            $url = "/contract/create/customer";
+                            $url2 = "/contract/create/parameters";
+                        @endphp
+                    @endif
+                    <a href="{{ $url }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left align-middle mr-sm-25 mr-0"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                         <span class="align-middle d-sm-inline-block d-none">Regresar</span>
                     </a>
-                    <a href="{{ url('contract/create/parameters') }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
+                    <a href="{{ $url2 }}" class="btn btn-primary btn-next waves-effect waves-float waves-light">
                         <span class="align-middle d-sm-inline-block d-none">Siguiente</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right align-middle ml-sm-25 ml-0"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </a>
