@@ -66,10 +66,10 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-3">
-                                <input type="text" class="form-control" placeholder="RUT del Cliente" id="customer_rut">
+                                <input type="text" class="form-control" placeholder="RUT del Cliente" id="customer_rut" autofocus>
                             </div>
                             <div class="col-1" style="padding-left: 0">
-                                <button class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
+                                <button type="button" class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
                             </div>
                         </div>
                     </div>
@@ -162,16 +162,17 @@
             );
         // Phone
             var phoneMask = IMask(
-            document.getElementById('phone'), {
-                mask: '(+56)000-000-000'
-            });
+                document.getElementById('phone'), {
+                    mask: '(+56)000-000-000'
+                }
+            );
 
         // Search customer
             function searchCustomer() {
 
-                let url = '/contract/create/search-customer';
                 window.localStorage.removeItem('customer_rut');
 
+                let url = '/contract/create/search-customer';
                 let customer_rut = document.getElementById('customer_rut').value
                 let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -197,6 +198,9 @@
                         if (data == 2) {
                             emptyInputs()
                             clearVariables()
+
+                            document.getElementById('rut').value = customer_rut
+                            document.getElementById('name_customer').focus()
 
                             toastr["error"]("", "¡No existe un Cliente asociado al RUT consultado!")
                         }
@@ -231,13 +235,13 @@
                             document.getElementById("region").value = data.region
                         }
                     })
-                    .catch(function(error) {
+                    /*.catch(function(error) {
                         //emptyInputs()
-                        clearVariables()
+                        //clearVariables()
                         location.reload()
 
                         toastr["error"]("", "¡Error en la consulta de clientes!")
-                    });
+                    });*/
                 }
             }
 

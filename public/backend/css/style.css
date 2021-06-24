@@ -95,3 +95,8 @@ label {
     color: #FFF;
     background-color: #354555;
 }
+
+.input-group:not(.bootstrap-touchspin):focus-within .form-control, .input-group:not(.bootstrap-touchspin):focus-within .input-group-text {
+    border-color: #003638;
+    box-shadow: none;
+}

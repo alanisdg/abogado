@@ -86,8 +86,12 @@ Route::middleware(['auth'])->group(function () {
     /* Route Causes */
         Route::group(['prefix' => 'causes'], function () {
             /* List causes */
-                Route::get('list', [CauseController::class, 'index'])->name('causes/list');
-                Route::get('add', [CauseController::class, 'create'])->name('causes/add');
+                Route::get('contracts', [CauseController::class, 'index'])->name('causes/contracts');
+                Route::get('contracts/record-causes/{id}', [CauseController::class, 'recordCauses'])->name('causes/contracts/record-causes');
+                Route::get('contracts/record-causes/add-cause/{id}', [CauseController::class, 'create'])->name('causes/contracts/record-causes/add-cause');
+                Route::post('contracts/record-causes/add-cause/store', [CauseController::class, 'store'])->name('causes/contracts/record-causes/add-cause/store');
+                Route::get('contracts/record-causes/add-cause/edit/{id}', [CauseController::class, 'edit'])->name('causes/contracts/record-causes/add-cause/edit');
+                Route::post('contracts/record-causes/add-cause/update', [CauseController::class, 'update'])->name('causes/contracts/record-causes/add-cause/update');
         });
 });
 

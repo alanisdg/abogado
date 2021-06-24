@@ -155,7 +155,6 @@ class CustomerController extends Controller
     public function searchCustomer(Request $request)
     {
         $dataCustomer = Customer::whereRut($request->input("customer_rut"))->first();
-        dd($dataCustomer);
         if (is_null($dataCustomer)) {
             $dataCustomer = 2;
         }

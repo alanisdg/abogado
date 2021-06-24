@@ -23,7 +23,7 @@ class Contract extends Model
     /**
      * Relations with causes
      */
-    public function cause()
+    public function causes()
     {
         return $this->hasMany(Cause::class, 'contract_id');
     }

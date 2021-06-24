@@ -59,7 +59,7 @@
                 </a>
             </li>
             <li class="{{ active('causes*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
+                <a class="d-flex align-items-center" href="{{ url('causes/contracts') }}">
                     <i data-feather='file-text'></i>
                     <span class="menu-title text-truncate">Causas</span>
                 </a>

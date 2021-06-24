@@ -1,76 +1,59 @@
 @extends('layouts.app')
 
-@section('title', 'Registro de Causa')
+@if ($typeForm == 'create')
+    @section('title', 'Registro de Causa')
+@else
+    @section('title', 'Editar Causa')
+@endif
 
 @section('content')
     <div class="card">
         <div class="card-header">
-            <h4 class="card-title">Registro de Causa</h4>
+            @if ($typeForm == 'create')
+                <h4 class="card-title">Registro de Causa</h4>
+            @else
+                <h4 class="card-title">Editar Causa</h4>
+            @endif
         </div>
         <div class="card-body">
-                {!! Form::open(['url' => '', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical', 'enctype' => 'multipart/form-data']) !!}
+            @if ($typeForm == 'create')
+                {!! Form::open(['url' => 'causes/contracts/record-causes/add-cause/store', 'method' => 'post', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
+            @else
+                {!! Form::open(['url' => 'causes/contracts/record-causes/add-cause/update', 'method' => 'post', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
 
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="date">Fecha</label>
-                            <input type="text" name="date" id="contract_date" class="form-control" value="{{ date("Y-m-d") }}" readonly>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="first-name-icon">Total del Contrato </label>
-                            <div class="input-group input-group-merge">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
-                                </div>
-                                {!! Form::text("total_contract", old('total_contract', @$row->total_contract), ["class" => "form-control", "id" => "total_contract"]) !!}
-                            </div>
-                        </div>
+                <input type="hidden" value="{{ $row->id }}" name="cause_id" readonly>
+            @endif
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-label" for="number_rit">Número de RIT</label>
+                        {!! Form::text("number_rit", old('number_rit', @$row->number_rit), ["class" => "form-control", "required", "autofocus", "onkeyup" => "upperCase(this);"]) !!}
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="number_rit">Número de RIT</label>
-                            <input type="text" name="number_rit" id="number_rit" class="form-control" onkeyup = "upperCase(this);">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="first_payment_date">Fecha del Primer Pago</label>
-                            <input type="date" name="first_payment_date" id="first_payment_date" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="cours">Tribunal</label>
-                            <input type="text" name="cours" id="cours" class="form-control" onkeyup = "upperCase(this);">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="first_payment_amount">Monto Primer Pago</label>
-                            <input type="text" name="first_payment_amount" id="first_payment_amount" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="matter">Materia</label>
-                            <input type="text" name="matter" id="matter" class="form-control" onkeyup = "upperCase(this);">
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="amount_installments">Cantidad de Cuotas</label>
-                            <input type="number" name="amount_installments" id="amount_installments" class="form-control">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-6">
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-label" for="cours">Tribunal</label>
+                        {!! Form::text("cours", old('cours', @$row->court), ["class" => "form-control", "required", "onkeyup" => "upperCase(this);"]) !!}
 
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="form-label" for="amount_fees">Monto de Cuotas</label>
-                            <input type="text" name="amount_fees" id="amount_fees" class="form-control" readonly onclick="calculateCuotes()" onfocus="calculateCuotes()">
-                        </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-label" for="matter">Materia</label>
+                        {!! Form::text("matter", old('matter', @$row->matter), ["class" => "form-control", "required", "onkeyup" => "upperCase(this);"]) !!}
+                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("causes/list") }}" id="cancel"><i data-feather='corner-up-left'></i> Regresar</a>
-                        </div>
+                <div class="row">
+                    <div class="col-12">
+                        <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("causes/contracts/record-causes/".@$row->contract_id) }}" id="cancel"><i data-feather='corner-up-left'></i> Regresar</a>
+                        @if ($typeForm == 'create')
+                            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light"><i data-feather='save'></i> Registrar</button>
+                        @else
+                            <button type="submit" class="btn btn-primary waves-effect waves-float waves-light"><i data-feather='refresh-ccw'></i> Actualizar</button>
+                        @endif
                     </div>
-                {!! Form::close() !!}
+                </div>
+            {!! Form::close() !!}
         </div>
     </div>
 @endsection
