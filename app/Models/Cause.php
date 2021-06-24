@@ -14,4 +14,11 @@ class Cause extends Model
     {
         return $this->belongsTo(Contract::class, 'contract_id');
     }
+    /**
+     * Relations with task
+     */
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }

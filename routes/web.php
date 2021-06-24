@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PendingController;
 use App\Http\Controllers\CauseController;
 use App\Http\Controllers\AnnexedController;
+use App\Http\Controllers\TaskController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -92,6 +93,14 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('contracts/record-causes/add-cause/store', [CauseController::class, 'store'])->name('causes/contracts/record-causes/add-cause/store');
                 Route::get('contracts/record-causes/add-cause/edit/{id}', [CauseController::class, 'edit'])->name('causes/contracts/record-causes/add-cause/edit');
                 Route::post('contracts/record-causes/add-cause/update', [CauseController::class, 'update'])->name('causes/contracts/record-causes/add-cause/update');
+
+            /* Task */
+                Route::get('{id}/tasks/', [TaskController::class, 'index']);
+                Route::get('{id}/tasks/add', [TaskController::class, 'create']);
+                Route::post('tasks/add/store', [TaskController::class, 'store']);
+                Route::get('tasks/edit/{id}', [TaskController::class, 'edit']);
+                Route::post('tasks/edit/update', [TaskController::class, 'update']);
+                Route::post('tasks/complete', [TaskController::class, 'complete']);
         });
 });
 

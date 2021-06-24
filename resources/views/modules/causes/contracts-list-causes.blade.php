@@ -40,6 +40,10 @@
                                         <a href="{{ url('causes/contracts/record-causes/add-cause/edit/'.$item->id) }}">
                                             <img src="{{ asset('backend/images/assets/edit.svg') }}" title="Editar Causa" alt="" width="20">
                                         </a>
+
+                                        <a href="{{ url('causes/'.$item->id.'/tasks') }}">
+                                            <img src="{{ asset('backend/images/assets/to-do.svg') }}" title="Tareas" alt="" width="20">
+                                        </a>
                                     </td>
                                 </tr>
                             @empty

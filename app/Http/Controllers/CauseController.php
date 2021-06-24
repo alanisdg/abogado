@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 // Models
 use App\Models\Cause;
 use App\Models\Contract;
+
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
