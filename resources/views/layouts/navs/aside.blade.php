@@ -25,7 +25,6 @@
                 <span>Modulos</span>
                 <i data-feather="more-horizontal"></i>
             </li>
-
             @role('executive_administrator')
                 <li class="{{ active('pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('pending') }}">
@@ -39,37 +38,41 @@
                         <span class="menu-title text-truncate">Usuarios</span>
                     </a>
                 </li>
+            @endrole
+            @hasanyrole('executive_administrator|legal_administrator|legal_executive')
+                <li class="{{ active('contract*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('contract/create/customer') }}">
+                        <i data-feather='edit-3'></i>
+                        <span class="menu-title text-truncate">Crear Contrato</span>
+                    </a>
+                </li>
                 <li class="{{ active('list-pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('list-pending') }}">
                         <i data-feather='alert-circle'></i>
                         <span class="menu-title text-truncate">Pendientes</span>
                     </a>
                 </li>
+                <li class="{{ active('list-contracts*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('list-contracts/list') }}">
+                        <i data-feather='list'></i>
+                        <span class="menu-title text-truncate">Listar Contratos</span>
+                    </a>
+                </li>
+                <li class="{{ active('causes*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('causes/contracts') }}">
+                        <i data-feather='file-text'></i>
+                        <span class="menu-title text-truncate">Causas</span>
+                    </a>
+                </li>
             @endrole
-            <li class="{{ active('contract*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('contract/create/customer') }}">
-                    <i data-feather='edit-3'></i>
-                    <span class="menu-title text-truncate">Crear Contrato</span>
-                </a>
-            </li>
-            <li class="{{ active('list-contracts*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('list-contracts/list') }}">
-                    <i data-feather='list'></i>
-                    <span class="menu-title text-truncate">Listar Contratos</span>
-                </a>
-            </li>
-            <li class="{{ active('causes*') }} nav-item">
-                <a class="d-flex align-items-center" href="{{ url('causes/contracts') }}">
-                    <i data-feather='file-text'></i>
-                    <span class="menu-title text-truncate">Causas</span>
-                </a>
-            </li>
-            <li class=" nav-item">
-                <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
-                    <i data-feather='info'></i>
-                    <span class="menu-title text-truncate">Cobranzas</span>
-                </a>
-            </li>
+            @hasanyrole('executive_administrator|legal_administrator|collection_executive')
+                <li class=" nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
+                        <i data-feather='info'></i>
+                        <span class="menu-title text-truncate">Cobranzas</span>
+                    </a>
+                </li>
+            @endrole
         </ul>
     </div>
   </div>

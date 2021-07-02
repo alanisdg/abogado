@@ -36,6 +36,9 @@
                                     <td>{{ $item->annex_code }}</td>
                                     <td>{{ $item->type_contract }}</td>
                                     <td>{{ $item->total_contract }}<strong>$</strong> </td>
+                                    <td>
+                                        <a href="{{ url('list-contracts/annexes/edit/'.$item->id) }}"><img src="{{ asset('backend/images/assets/edit.svg') }}" alt="" title="Editar Anexo" width="20"></a>
+                                    </td>
                                 </tr>
                             @empty
                                 <tr class="text-center">

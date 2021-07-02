@@ -304,13 +304,13 @@
                             }
                         }
                     })
-                    .catch(function(error) {
+                    /*.catch(function(error) {
                         //emptyInputs()
                         clearVariables()
                         location.reload()
 
                         toastr["error"]("", "¡Error en la consulta de clientes!")
-                    });
+                    });*/
             }
     </script>
 @endsection

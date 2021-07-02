@@ -46,5 +46,25 @@ class RolesPermissionSeeder extends Seeder
                 'status' => 1
             ]);
             $user1->assignRole($role2);
+
+        //Create legal executive
+            $user2 = User::create([
+                'first_name' => 'Ejecutivo',
+                'last_name'  => 'Legal',
+                'email'    => 'ejecutivolegal@mail.com',
+                'password' => bcrypt('qwerty123'),
+                'status' => 1
+            ]);
+            $user2->assignRole($role3);
+
+        //Create collections executive
+            $user3 = User::create([
+                'first_name' => 'Ejecutivo',
+                'last_name'  => 'Cobranza',
+                'email'    => 'ejecutivocobranza@mail.com',
+                'password' => bcrypt('qwerty123'),
+                'status' => 1
+            ]);
+            $user3->assignRole($role4);
     }
 }

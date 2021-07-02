@@ -15,6 +15,8 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use PDF;
+use Illuminate\Support\Facades\Mail;
 
 class ContractController extends Controller
 {
@@ -107,9 +109,9 @@ class ContractController extends Controller
         $parameters = json_decode($request->input('data_parameters'));
         $cuotes = json_decode($request->input('data_cuotes'));
 
-        if ($request->input("data_type_register") == "annexed") {
+        if ($request->input("data_type_register") === "annexed") {
             // We look for contracts that have an annex code
-                $dataContract = Contract::whereNotNull("annex_code")->first();
+                $dataContract = Contract::whereNotNull("annex_code")->orderBy('id', 'desc')->first();
                 if (!is_null($dataContract)) {
                     $annexCode = $dataContract->annex_code;
                     $annexCode++;
@@ -171,6 +173,25 @@ class ContractController extends Controller
                             "status" => 1
                         ]);
                     }
+                // Data email
+                    $emailDetails = [
+                        'title' => 'Contrato de Prestación de Servicios',
+                        'user' => Auth::user(),
+                        'email' => $customer[8]
+                    ];
+
+                // Generate pdf
+                    $pdf = PDF::loadView('modules.contracts.pdfs.contract', $emailDetails, [
+                        'format' => 'A4'
+                    ]);
+
+                //Send mail
+                    Mail::send('emails.send-contract', $emailDetails, function($message) use ($emailDetails, $pdf) {
+                        $message->from('admin@sasfa.cl', 'Consolidame');
+                        $message->to($emailDetails['email']);
+                        $message->subject('Contratos - AppBoProc');
+                        $message->attachData($pdf->output(),'Contrato.pdf');
+                    });
 
                 // Return response
                     return response()->json(["response_code" => 1, "contract_id" => session("idContract")]);
@@ -197,9 +218,9 @@ class ContractController extends Controller
     public function edit($id)
     {
         // Data contract
-            $dataContract = Contract::with(['customer', 'cause'])->find($id);
+            $dataContract = Contract::with(['customer', 'causes'])->find($id);
         // Data cause
-            foreach ($dataContract->cause as $value) {
+            foreach ($dataContract->causes as $value) {
                 $cause = $value;
             }
 
@@ -238,9 +259,14 @@ class ContractController extends Controller
             ]);
 
         // Return response
-            Toastr::success("", "¡Detalles de Contrato Actualizado!");
-            return redirect('contract/edit/'.$contract->id.'');
-
+            if (!is_null($request->input('annexed'))) {
+                Toastr::success("", "¡Detalles de Anexo Actualizado!");
+                return redirect('list-contracts/annexes/edit/'.$contract->id.'');
+            }
+            else {
+                Toastr::success("", "¡Detalles de Contrato Actualizado!");
+                return redirect('contract/edit/'.$contract->id.'');
+            }
     }
 
     /**

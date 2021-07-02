@@ -96,4 +96,24 @@ class AnnexedController extends Controller
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
     }
+
+    /**
+     * Edit
+     */
+    public function edit($id)
+    {
+        // Data contract
+            $dataContract = Contract::with(['customer', 'causes'])->find($id);
+        // Data cause
+            foreach ($dataContract->causes as $value) {
+                $cause = $value;
+            }
+
+        // Return view
+        return view($this->config["routeView"] . "edit-annexed")
+            ->with("breadcrumAction", "")
+            ->with("row", $dataContract)
+            ->with("cause", $cause)
+            ->with("config", $this->config);
+    }
 }

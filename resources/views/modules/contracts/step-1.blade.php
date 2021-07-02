@@ -74,7 +74,7 @@
                         </div>
                     </div>
                 @endif
-                <form class="mt-3">
+                <form class="mt-3" autocomplete="off">
                     <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
                     <div class="row">
                         <div class="form-group col-md-6">
