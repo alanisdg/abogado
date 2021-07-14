@@ -18,6 +18,8 @@
         <div class="card-body">
             @if ($typeForm == 'create')
                 {!! Form::open(['url' => 'causes/contracts/record-causes/add-cause/store', 'method' => 'post', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
+
+                <input type="hidden" name="contract_id" value="{{ @$contract_id }}">
             @else
                 {!! Form::open(['url' => 'causes/contracts/record-causes/add-cause/update', 'method' => 'post', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
 

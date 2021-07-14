@@ -170,11 +170,11 @@ class ContractController extends Controller
                             "contract_id" => $addContract->id,
                             "installment_number" => $number_cuote,
                             "amount" => $cuotes[1],
-                            "status" => 1
+                            "status" => "PENDIENTE"
                         ]);
                     }
                 // Data email
-                    $emailDetails = [
+                    /*$emailDetails = [
                         'title' => 'Contrato de Prestación de Servicios',
                         'user' => Auth::user(),
                         'email' => $customer[8]
@@ -191,7 +191,7 @@ class ContractController extends Controller
                         $message->to($emailDetails['email']);
                         $message->subject('Contratos - AppBoProc');
                         $message->attachData($pdf->output(),'Contrato.pdf');
-                    });
+                    });*/
 
                 // Return response
                     return response()->json(["response_code" => 1, "contract_id" => session("idContract")]);
@@ -225,11 +225,11 @@ class ContractController extends Controller
             }
 
         // Return view
-        return view($this->config["routeView"] . "edit")
-            ->with("breadcrumAction", "")
-            ->with("row", $dataContract)
-            ->with("cause", $cause)
-            ->with("config", $this->config);
+            return view($this->config["routeView"] . "edit")
+                ->with("breadcrumAction", "")
+                ->with("row", $dataContract)
+                ->with("cause", $cause)
+                ->with("config", $this->config);
     }
 
     /**
@@ -278,5 +278,20 @@ class ContractController extends Controller
     public function destroy(Contract $contract)
     {
         //
+    }
+
+    /**
+     * Actualize contract
+     */
+    public function actualizeContract($id)
+    {
+        // Data contract
+            $dataContract = Contract::with(['customer', 'causes'])->find($id);
+
+        // Return view
+            return view($this->config["routeView"] . "actualize")
+                    ->with("breadcrumAction", "")
+                    ->with("row", $dataContract)
+                    ->with("config", $this->config);
     }
 }

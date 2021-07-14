@@ -15,6 +15,8 @@ use App\Http\Controllers\PendingController;
 use App\Http\Controllers\CauseController;
 use App\Http\Controllers\AnnexedController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\ActualizationController;
+use App\Http\Controllers\CollectionController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -29,7 +31,6 @@ Route::middleware(['auth'])->group(function () {
     /* Logout */
         Route::get('logout', [LoginController::class, 'logout']);
 
-    /* Routes executive_administrator */
         Route::group(['middleware' => ['role:executive_administrator']], function() {
             // Customers
                 Route::post('users/update-status', [UserController::class, "updateStatus"])->name('users/update-status');
@@ -41,15 +42,17 @@ Route::middleware(['auth'])->group(function () {
                 Route::post('pending/upload', [PendingController::class, "store"])->name('pending/upload');
         });
 
-    /* Routes legal administrator */
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
            /* Routes Contracts Create*/
                 Route::group(['prefix' => 'contract'], function () {
+                        Route::get('edit/{id}', [ContractController::class, 'edit'])->name('contract/edit');
+                        Route::post('update', [ContractController::class, 'update'])->name('contract/update');
+                        Route::get('actualize/{id}', [ContractController::class, 'actualizeContract'])->name('contract/actualize');
+                        Route::post('{id}/actualize/register', [ActualizationController::class, 'registerActualize']);
+
                     /* Step 1 */
                         Route::get('create/customer', [ContractController::class, 'step1'])->name('contract/create/customer');
                         Route::post('create/search-customer', [CustomerController::class, 'searchCustomer'])->name('contract/create/search-customer');
-                        Route::get('edit/{id}', [ContractController::class, 'edit'])->name('contract/edit');
-                        Route::post('update', [ContractController::class, 'update'])->name('contract/update');
 
                     /* Step 2 */
                         Route::get('create/type-contract', [ContractController::class, 'step2'])->name('contract/create/type-contract');
@@ -104,5 +107,10 @@ Route::middleware(['auth'])->group(function () {
                         Route::post('tasks/complete', [TaskController::class, 'complete']);
                 });
         });
+
+        // Collections
+            Route::get('collections', [CollectionController::class, "listFees"])->name('collections');
+            Route::post('search/collections', [CollectionController::class, "searchCollections"])->name('search/collections');
+
 });
 

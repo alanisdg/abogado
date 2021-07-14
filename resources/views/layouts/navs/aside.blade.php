@@ -66,8 +66,8 @@
                 </li>
             @endrole
             @hasanyrole('executive_administrator|legal_administrator|collection_executive')
-                <li class=" nav-item">
-                    <a class="d-flex align-items-center" href="{{ url('causes/list') }}">
+                <li class="{{ active('collections*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('collections') }}">
                         <i data-feather='info'></i>
                         <span class="menu-title text-truncate">Cobranzas</span>
                     </a>

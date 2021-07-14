@@ -27,11 +27,20 @@ class Contract extends Model
     {
         return $this->hasMany(Cause::class, 'contract_id');
     }
+
     /**
      * Relations with collections
      */
     public function collections()
     {
         return $this->hasMany(Collection::class, 'contract_id');
+    }
+
+    /**
+     * Updates
+     */
+    public function updates()
+    {
+        return $this->hasMany(Contract::class);
     }
 }

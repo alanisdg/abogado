@@ -15,7 +15,7 @@
                             </span>
                         </div>
                         <div class="dt-buttons btn-group flex-wrap">
-                            <a href="{{ url('causes/contracts/record-causes/'.$causes->id) }}" class="btn btn-danger mt-50"> Regresar</a>
+                            <a href="{{ url('causes/contracts/record-causes/'.$causes->contract_id) }}" class="btn btn-danger mt-50"> Regresar</a>
                             <a href="{{ url('causes/'.$causes->id.'/tasks/add') }}" class="btn btn-primary mt-50"> Agregar</a>
                         </div>
                     </div>

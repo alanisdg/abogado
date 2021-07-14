@@ -81,7 +81,7 @@
                     tr += 		'<a title="Finiquito" href="" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
                     tr += 		'</a>'
-                    tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/edit/'+data.id+'" class="" style="margin-left:8px;">'
+                    tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/actualize/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
                     tr += 		'</a>'
                     tr += 	'</div>'
