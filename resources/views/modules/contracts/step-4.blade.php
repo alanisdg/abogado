@@ -142,13 +142,17 @@
                                             <div class="divider-text"><h4>COBRANZA</h4></div>
                                         </div>
                                         <div class="row">
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-4">
                                                 <label class="form-label" for="total_contract">Total de Contrato</label>
                                                 <input type="text" name="total_contract" id="total_contract" class="form-control" readonly>
                                             </div>
-                                            <div class="form-group col-md-6">
+                                            <div class="form-group col-md-4">
                                                 <label class="form-label" for="first_payment_date">Fecha del Primer Pago</label>
                                                 <input type="date" name="first_payment_date" id="first_payment_date" class="form-control" readonly>
+                                            </div>
+                                            <div class="form-group col-md-4">
+                                                <label class="form-label" for="first_installment_payment_date">Fecha de Pago Primera Cuota</label>
+                                                <input type="date" name="first_installment_payment_date" id="first_installment_payment_date" class="form-control" readonly>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -238,12 +242,13 @@
 
                 document.getElementById("contract_date").value = contract_parameters[0]
                 document.getElementById("number_rit").value = contract_parameters[2]
-                document.getElementById("cours").value = contract_parameters[4]
-                document.getElementById("matter").value = contract_parameters[6]
+                document.getElementById("cours").value = contract_parameters[5]
+                document.getElementById("matter").value = contract_parameters[7]
+                document.getElementById("first_installment_payment_date").value = contract_parameters[4]
 
                 document.getElementById("total_contract").value = contract_parameters[1]
                 document.getElementById("first_payment_date").value = contract_parameters[3]
-                document.getElementById("first_payment_amount").value = contract_parameters[5]
+                document.getElementById("first_payment_amount").value = contract_parameters[6]
 
                 document.getElementById("amount_installments").value = cuotes[0]
                 document.getElementById("amount_fees").value = cuotes[1]

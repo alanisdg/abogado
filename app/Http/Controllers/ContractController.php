@@ -109,6 +109,8 @@ class ContractController extends Controller
         $parameters = json_decode($request->input('data_parameters'));
         $cuotes = json_decode($request->input('data_cuotes'));
 
+        //dd($customer, $parameters, $cuotes);
+
         if ($request->input("data_type_register") === "annexed") {
             // We look for contracts that have an annex code
                 $dataContract = Contract::whereNotNull("annex_code")->orderBy('id', 'desc')->first();
@@ -134,11 +136,12 @@ class ContractController extends Controller
             $addCustomer->civil_status = $customer[1];
             $addCustomer->profession = $customer[3];
             $addCustomer->nationality = $customer[4];
-            $addCustomer->commune = $customer[7];
-            $addCustomer->region = $customer[9];
+            $addCustomer->commune = $customer[8];
+            $addCustomer->region = $customer[10];
             $addCustomer->address = $customer[5];
             $addCustomer->phone = $customer[6];
-            $addCustomer->email = $customer[8];
+            $addCustomer->home_phone = $customer[7];
+            $addCustomer->email = $customer[9];
             if ($addCustomer->save()) {
                 // Register contract
                     $addContract = new Contract();
@@ -149,30 +152,52 @@ class ContractController extends Controller
                     $addContract->customer_id = $addCustomer->id;
                     $addContract->contract_date = $parameters[0];
                     $addContract->total_contract = $parameters[1];
+                    $addContract->first_payment_amount = $parameters[6];
+                    $addContract->first_installment_payment_date = $parameters[4];
+                    $addContract->number_installments = $cuotes[0] + 1;
+                    $addContract->amount_fees = $cuotes[1];
                     $addContract->save();
 
                 // Register causes
                     $addCause = new Cause();
                     $addCause->contract_id = $addContract->id;
                     $addCause->number_rit = $parameters[2];
-                    $addCause->court = $parameters[4];
-                    $addCause->matter = $parameters[6];
+                    $addCause->court = $parameters[5];
+                    $addCause->matter = $parameters[7];
                     $addCause->status = 1;
                     $addCause->save();
 
                 // Registers collections
-                    $number_cuote = 0;
-
-                    for ($i=0; $i < $cuotes[0]; $i++) {
-                        $number_cuote = $number_cuote + 1;
-
+                    $number_cuote = 1;
+                    // The payment of the first installment is added
                         Collection::create([
                             "contract_id" => $addContract->id,
-                            "installment_number" => $number_cuote,
-                            "amount" => $cuotes[1],
+                            "installment_number" => 1,
+                            "payment_date" => $parameters[4],
+                            "amount" => $parameters[6],
                             "status" => "PENDIENTE"
                         ]);
-                    }
+
+                    // Referential date
+                        $referentialDate = $parameters[4];
+
+                    //We add all the fees
+                        for ($i=0; $i < $cuotes[0]; $i++) {
+                            $number_cuote = $number_cuote + 1;
+
+                            // Tomamos la fecha referencial y le añadimos 30 dias
+                            $referentialD = date('Y-m-d', strtotime($referentialDate. ' + 30 days'));
+
+                            Collection::create([
+                                "contract_id" => $addContract->id,
+                                "installment_number" => $number_cuote,
+                                "payment_date" => $referentialD,
+                                "amount" => $cuotes[1],
+                                "status" => "PENDIENTE"
+                            ]);
+
+                            $referentialDate = $referentialD;
+                        }
                 // Data email
                     /*$emailDetails = [
                         'title' => 'Contrato de Prestación de Servicios',
@@ -219,6 +244,7 @@ class ContractController extends Controller
     {
         // Data contract
             $dataContract = Contract::with(['customer', 'causes'])->find($id);
+
         // Data cause
             foreach ($dataContract->causes as $value) {
                 $cause = $value;
@@ -255,6 +281,7 @@ class ContractController extends Controller
                 "region"        => $request->input("region"),
                 "address"       => $request->input("address"),
                 "phone"         => $request->input("phone"),
+                "home_phone"    => $request->input("home_phone"),
                 "email"         => $request->input("email")
             ]);
 
@@ -293,5 +320,51 @@ class ContractController extends Controller
                     ->with("breadcrumAction", "")
                     ->with("row", $dataContract)
                     ->with("config", $this->config);
+    }
+
+    /**
+     * Terminate contract
+     */
+    public function terminateContract($id)
+    {
+        // Data contract
+            $dataContract = Contract::with(['causes', 'collections'])->find($id);
+
+            foreach ($dataContract->causes as $cause) {
+                // Tasks
+                    foreach ($cause->tasks as $task) {
+                        // We close the task of the cause
+                            $task->update(["date_realization" => date("Y-m-d"), "status" => 2]);
+                    }
+
+                // Update cause
+                    $cause->update(["status" => 2]);
+            }
+
+        // Collections
+
+
+        // Finisch contract
+            $dataContract->update(["status" => 2]);
+
+        // Return
+            Toastr::success("", "¡Contrato Finiquitado!");
+            return redirect('list-contracts/list');
+    }
+
+    /**
+     * Settlement contract
+     */
+    public function settlementContract($id)
+    {
+        // Data contract
+            $dataContract = Contract::with(['collections', 'customer'])->find($id);
+
+        // Share data to view
+            view()->share('contract', $dataContract);
+            $pdf = PDF::loadView('modules.contracts.pdfs.contract-settlement');
+
+        // Download pdf
+            return $pdf->download('Finiquito_Contrato.pdf');
     }
 }

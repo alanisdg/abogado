@@ -66,16 +66,21 @@
                             {!! Form::text("phone", old('phone', @$row->customer->phone), ["class" => "form-control", "id" => "phone", "onkeyup" => "upperCase(this);", "required"]) !!}
                         </div>
                         <div class="form-group col-md-4">
+                            <label class="form-label" for="phone">Teléfono Casa</label>
+                            {!! Form::text("home_phone", old('home_phone', @$row->customer->home_phone), ["class" => "form-control", "id" => "home_phone", "onkeyup" => "upperCase(this);", "required"]) !!}
+                        </div>
+                        <div class="form-group col-md-4">
                             <label class="form-label" for="commune">Comuna</label>
                             {!! Form::text("commune", old('commune', @$row->customer->commune), ["class" => "form-control", "id" => "customer", "onkeyup" => "upperCase(this);", "required"]) !!}
                         </div>
-                        <div class="form-group col-md-4">
+
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
                             <label class="form-label" for="region">Región</label>
                             {!! Form::text("region", old('region', @$row->customer->region), ["class" => "form-control", "id" => "customer", "onkeyup" => "upperCase(this);", "required"]) !!}
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
+                        <div class="form-group col-md-6">
                             <label class="form-label" for="customer">Dirección</label>
                             {!! Form::text("address", old('address', @$row->customer->address), ["class" => "form-control", "id" => "customer", "onkeyup" => "upperCase(this);", "required"]) !!}
                         </div>
@@ -121,6 +126,10 @@
             );
             var phoneMask = IMask(
                 document.getElementById('phone'), {
+                    mask: '(+56) 000-000-000'
+            });
+            var phoneMask = IMask(
+                document.getElementById('home_phone'), {
                     mask: '(+56) 000-000-000'
             });
         // Clear localstorage

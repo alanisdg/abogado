@@ -54,11 +54,11 @@ class AnnexedController extends Controller
     {
         // Create session variable contract
             session(['idContract' => $id]);
-
+            
         // Return view
             return view($this->config["routeView"] . "step-1")
                 ->with("breadcrumAction", "")
-                ->with('contract', $contract = Contract::find($id))
+                ->with('contract', Contract::find($id))
                 ->with("config", $this->config);
     }
 

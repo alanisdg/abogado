@@ -65,6 +65,10 @@ Route::middleware(['auth'])->group(function () {
 
                     /* Register contract */
                         Route::post('register', [ContractController::class, 'store'])->name('contract/register');
+
+                    /* Terminate contract */
+                        Route::get('setle/{id}', [ContractController::class, 'terminateContract'])->name('contract/setle');
+                        Route::get('setle/print/{id}', [ContractController::class, 'settlementContract'])->name('contract/setle/print');
                 });
 
             // Pending

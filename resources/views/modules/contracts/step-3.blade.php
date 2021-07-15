@@ -107,6 +107,14 @@
                             <input type="text" name="matter" id="matter" class="form-control" onkeyup = "upperCase(this);">
                         </div>
                         <div class="form-group col-md-6">
+                            <label class="form-label" for="first_installment_payment_date">Fecha de Pago Primera Cuota</label>
+                            <input type="date" name="first_installment_payment_date" id="first_installment_payment_date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                        </div>
+                        <div class="form-group col-md-6">
                             <label class="form-label" for="amount_installments">Cantidad de Cuotas</label>
                             <input type="number" name="amount_installments" id="amount_installments" class="form-control">
                         </div>
@@ -205,19 +213,20 @@
 
                     document.getElementById("contract_date").value = contract_parameters[0]
                     document.getElementById("number_rit").value = contract_parameters[2]
-                    document.getElementById("cours").value = contract_parameters[4]
-                    document.getElementById("matter").value = contract_parameters[6]
+                    document.getElementById("cours").value = contract_parameters[5]
+                    document.getElementById("matter").value = contract_parameters[7]
 
                     document.getElementById("total_contract").value = contract_parameters[1]
                     document.getElementById("first_payment_date").value = contract_parameters[3]
-                    document.getElementById("first_payment_amount").value = contract_parameters[5]
+                    document.getElementById("first_payment_amount").value = contract_parameters[6]
+                    document.getElementById("first_installment_payment_date").value = contract_parameters[4]
 
                     document.getElementById("amount_installments").value = cuotes[0]
                     document.getElementById("amount_fees").value = cuotes[1]
 
-                    // Create localstorage
-                        localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
-                        localStorage.setItem('cuotes', JSON.stringify(cuotes))
+                // Create localstorage
+                    localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
+                    localStorage.setItem('cuotes', JSON.stringify(cuotes))
             })
 
         // Phone
@@ -244,6 +253,7 @@
                     document.getElementById('total_contract').value,
                     document.getElementById('number_rit').value,
                     document.getElementById('first_payment_date').value,
+                    document.getElementById('first_installment_payment_date').value,
                     document.getElementById('cours').value,
                     document.getElementById('first_payment_amount').value,
                     document.getElementById('matter').value

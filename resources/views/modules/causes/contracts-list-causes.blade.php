@@ -35,11 +35,13 @@
                                     <td>{{ $item->number_rit }}</td>
                                     <td>{{ $item->court }}</td>
                                     <td>{{ $item->matter }}</td>
-                                    <td>{{ $item->status }}</td>
+                                    <td>{{ ($item->status == 2) ? "CERRADA" : "ABIERTA" }}</td>
                                     <td>
-                                        <a href="{{ url('causes/contracts/record-causes/add-cause/edit/'.$item->id) }}">
-                                            <img src="{{ asset('backend/images/assets/edit.svg') }}" title="Editar Causa" alt="" width="20">
-                                        </a>
+                                        @if ($item->status != 2)
+                                            <a href="{{ url('causes/contracts/record-causes/add-cause/edit/'.$item->id) }}">
+                                                <img src="{{ asset('backend/images/assets/edit.svg') }}" title="Editar Causa" alt="" width="20">
+                                            </a>
+                                        @endif
 
                                         <a href="{{ url('causes/'.$item->id.'/tasks') }}">
                                             <img src="{{ asset('backend/images/assets/to-do.svg') }}" title="Tareas" alt="" width="20">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Causas (Registro de Tareas)')
+@section('title', 'Registro de Tareas')
 
 @section('content')
     <section id="basic-datatable">
@@ -9,10 +9,7 @@
                 <div class="card table-responsive" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h3 class="mb-0">Causas (Registro de Tareas)</h3><br>
-                            <span class="mt-3">
-                                {{--<strong>Cliente: </strong>{{ $row->customer->customer }} || {{ $row->type_contract }}--}}
-                            </span>
+                            <h3 class="mb-0">Registro de Tareas</h3><br>
                         </div>
                         <div class="dt-buttons btn-group flex-wrap">
                             <a href="{{ url('causes/contracts/record-causes/'.$causes->contract_id) }}" class="btn btn-danger mt-50"> Regresar</a>

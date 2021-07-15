@@ -108,7 +108,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="phone">Teléfono</label>
+                            <label class="form-label" for="phone">Teléfono Celular</label>
                             {!! Form::text("phone", old('phone', @$contract->customer->phone), ["class" => "form-control", "id" => "phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
@@ -118,12 +118,18 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="email">Email</label>
-                            {!! Form::text("email", old('email', @$contract->customer->email), ["class" => "form-control", "id" => "email"]) !!}
+                            <label class="form-label" for="home_phone">Teléfono Casa</label>
+                            {!! Form::text("home_phone", old('home_phone', @$contract->customer->home_phone), ["class" => "form-control", "id" => "home_phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="region">Región</label>
                             {!! Form::text("region", old('region', @$contract->customer->region), ["class" => "form-control", "id" => "region", "onkeyup" => "upperCase(this);"]) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label class="form-label" for="email">Email</label>
+                            {!! Form::text("email", old('email', @$contract->customer->email), ["class" => "form-control", "id" => "email"]) !!}
                         </div>
                     </div>
                 </form>
@@ -163,6 +169,12 @@
         // Phone
             var phoneMask = IMask(
                 document.getElementById('phone'), {
+                    mask: '(+56)000-000-000'
+                }
+            );
+
+            var phoneMask = IMask(
+                document.getElementById('home_phone'), {
                     mask: '(+56)000-000-000'
                 }
             );
@@ -207,14 +219,14 @@
                         else {
 
                             let customer = [
-                                data.first_name,
-                                data.last_name,
+                                data.customer,
                                 data.civil_status,
                                 data.rut,
                                 data.profession,
                                 data.nationality,
                                 data.address,
                                 data.phone,
+                                data.home_phone,
                                 data.commune,
                                 data.email,
                                 data.region,
@@ -223,13 +235,14 @@
                             localStorage.setItem('customer_rut', data.rut)
                             localStorage.setItem('customer', JSON.stringify(customer))
 
-                            document.getElementById("customer").value = data.first_name+ ' ' +data.last_name
+                            document.getElementById("name_customer").value = data.customer
                             document.getElementById("civil_status").value = data.civil_status
                             document.getElementById("rut").value = data.rut
                             document.getElementById("profession").value = data.profession
                             document.getElementById("nationality").value = data.nationality
                             document.getElementById("address").value = data.address
                             document.getElementById("phone").value = data.phone
+                            document.getElementById("home_phone").value = data.home_phone
                             document.getElementById("commune").value = data.commune
                             document.getElementById("email").value = data.email
                             document.getElementById("region").value = data.region
@@ -266,9 +279,10 @@
                         document.getElementById("nationality").value = current_customer[4]
                         document.getElementById("address").value = current_customer[5]
                         document.getElementById("phone").value = current_customer[6]
-                        document.getElementById("commune").value = current_customer[7]
-                        document.getElementById("email").value = current_customer[8]
-                        document.getElementById("region").value = current_customer[9]
+                        document.getElementById("home_phone").value = current_customer[7]
+                        document.getElementById("commune").value = current_customer[8]
+                        document.getElementById("email").value = current_customer[9]
+                        document.getElementById("region").value = current_customer[10]
                     }
             })
 
@@ -290,6 +304,7 @@
                         document.getElementById("nationality").value,
                         document.getElementById("address").value,
                         document.getElementById("phone").value,
+                        document.getElementById("home_phone").value,
                         document.getElementById("commune").value,
                         document.getElementById("email").value,
                         document.getElementById("region").value,
@@ -307,6 +322,7 @@
                         document.getElementById("nationality").value,
                         document.getElementById("address").value,
                         document.getElementById("phone").value,
+                        document.getElementById("home_phone").value,
                         document.getElementById("commune").value,
                         document.getElementById("email").value,
                         document.getElementById("region").value,
@@ -321,12 +337,14 @@
             function emptyInputs()
             {
                 document.getElementById("customer_rut").value = ""
+                document.getElementById("name_customer").value = ""
                 document.getElementById("civil_status").value = ""
                 document.getElementById("rut").value = ""
                 document.getElementById("profession").value = ""
                 document.getElementById("nationality").value = ""
                 document.getElementById("address").value = ""
                 document.getElementById("phone").value = ""
+                document.getElementById("home_phone").value = ""
                 document.getElementById("commune").value = ""
                 document.getElementById("email").value = ""
                 document.getElementById("region").value = ""

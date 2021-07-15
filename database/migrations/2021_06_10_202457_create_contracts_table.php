@@ -23,6 +23,11 @@ class CreateContractsTable extends Migration
             $table->unsignedBigInteger('customer_id');
             $table->date('contract_date');
             $table->string('total_contract');
+            $table->string('status')->nullable();
+            $table->date('first_installment_payment_date')->nullable();
+            $table->string('first_payment_amount')->nullable();
+            $table->string('number_installments')->nullable();
+            $table->string('amount_fees')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
