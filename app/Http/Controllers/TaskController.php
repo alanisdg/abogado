@@ -39,6 +39,19 @@ class TaskController extends Controller
                     ->with("breadcrumAction", "")
                     ->with("config", $this->config);
     }
+
+    /**
+     * List tasks
+     */
+    public function listTasks($id)
+    {
+        // Search data
+            $data = Task::whereCauseId($id)->get();
+
+        // Return response
+            return response()->json($data);
+    }
+
     /**
      * Create
      */

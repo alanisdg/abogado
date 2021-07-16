@@ -45,6 +45,18 @@ class CauseController extends Controller
     }
 
     /**
+     * List Causes
+     */
+    public function listCauses($id)
+    {
+        // Search data
+            $dataList = Cause::whereContractId($id)->get();
+
+        // Return response
+            return response()->json($dataList);
+    }
+
+    /**
      * Record Causes
      */
     public function recordCauses($id)

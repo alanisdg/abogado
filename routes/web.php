@@ -102,6 +102,9 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('contracts/record-causes/add-cause/edit/{id}', [CauseController::class, 'edit'])->name('causes/contracts/record-causes/add-cause/edit');
                         Route::post('contracts/record-causes/add-cause/update', [CauseController::class, 'update'])->name('causes/contracts/record-causes/add-cause/update');
 
+                    /* List of causes by contract */
+                        Route::get('list/{id}', [CauseController::class, 'listCauses'])->name('causes/list');
+
                     /* Task */
                         Route::get('{id}/tasks/', [TaskController::class, 'index']);
                         Route::get('{id}/tasks/add', [TaskController::class, 'create']);
@@ -109,6 +112,9 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('tasks/edit/{id}', [TaskController::class, 'edit']);
                         Route::post('tasks/edit/update', [TaskController::class, 'update']);
                         Route::post('tasks/complete', [TaskController::class, 'complete']);
+
+                    /* List of tasks by causes */
+                        Route::get('list/tasks/{id}', [TaskController::class, 'listTasks'])->name('causes/list/tasks');
                 });
         });
 
