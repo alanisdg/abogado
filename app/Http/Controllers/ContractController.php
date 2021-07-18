@@ -325,10 +325,10 @@ class ContractController extends Controller
     /**
      * Terminate contract
      */
-    public function terminateContract($id)
+    public function terminateContract(Request $request)
     {
         // Data contract
-            $dataContract = Contract::with(['causes', 'collections'])->find($id);
+            $dataContract = Contract::with(['causes', 'collections'])->find($request->input("id"));
 
             foreach ($dataContract->causes as $cause) {
                 // Tasks
@@ -348,8 +348,7 @@ class ContractController extends Controller
             $dataContract->update(["status" => 2]);
 
         // Return
-            Toastr::success("", "¡Contrato Finiquitado!");
-            return redirect('list-contracts/list');
+            return response()->json(200);
     }
 
     /**

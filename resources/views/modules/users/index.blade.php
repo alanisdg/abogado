@@ -49,6 +49,7 @@
                 scrollX: true,
                 lengthMenu: false,
                 dom: 'Blfrtip',
+                order: [0, "desc"],
                 buttons: [
                 ],
                 ajax: {

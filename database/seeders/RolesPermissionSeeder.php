@@ -26,6 +26,7 @@ class RolesPermissionSeeder extends Seeder
             $role2   = Role::create(['name' => 'legal_administrator', 'description' => 'Administrador Legal']);
             $role3   = Role::create(['name' => 'legal_executive', 'description' => 'Ejecutivo Legal']);
             $role4   = Role::create(['name' => 'collection_executive', 'description' => 'Ejecutivo Cobranza']);
+            $role5   = Role::create(['name' => 'customer', 'description' => 'Cliente']);
 
         // Create executive administrator
             $user = User::create([

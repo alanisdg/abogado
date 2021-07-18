@@ -22,6 +22,7 @@
 <script src="{{ asset('backend/js/scripts.js') }}"></script>
 
 {!! Toastr::message() !!}
+@include('sweetalert::alert')
 
 <script>
     $(window).on('load',  function(){

@@ -82,7 +82,7 @@
                         tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/actualize/'+data.id+'" class="" style="margin-left:8px;">'
                         tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
                         tr += 		'</a>'
-                        tr += 		'<a title="Finiquitar Contrato" href="'+ BASE_URL +'/contract/setle/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<a title="Finiquitar Contrato" onclick="terminateContract('+data.id+')" class="" style="margin-left:8px;">'
                         tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
                         tr += 		'</a>'
                     }
@@ -92,7 +92,7 @@
                         tr += 		'</a>'
                     }
                     tr += 		    '<a title="Imprimir Contrato" href="'+ BASE_URL +'/contract/print/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/printer.svg" style="width: 15%">'
+                        tr += 			'<img src="../backend/images/assets/contract.svg" style="width: 15%">'
                         tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
@@ -138,6 +138,65 @@
                     toastr["error"]("", "¡Error en la consulta de datos!")
                 });
 
+            }
+
+        // Terminate contract
+            function terminateContract(id) {
+                swal({
+                    title: "¿Desea finiquitar el contrato?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "¡Si, finiquitar contracto!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: !0
+                }).then(function (e) {
+
+                    if (e.value === true) {
+                        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                        let userId = id
+                        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                        let url = '/contract/setle';
+
+                        fetch(url, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                            },
+                            method: 'post',
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                id: id
+                            })
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+
+                            if (data == 200) {
+                                toastr["success"]("", "¡Contrato finiquitado!")
+
+                                setTimeout(function(){
+                                    window.location.reload(1);
+                                }, 4000);
+                            } else {
+                                toastr["error"]("", "¡Error en la finiquitación del contrato!")
+                            }
+
+                        })
+                        .catch(function(error) {
+                            toastr["error"]("", "¡Error en la consulta de datos!")
+                        });
+
+                    } else {
+                        e.dismiss;
+                    }
+
+                }, function (dismiss) {
+                    return false;
+                })
             }
     </script>
 @endsection

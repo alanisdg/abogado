@@ -28,6 +28,10 @@ Route::middleware(['auth'])->group(function () {
     /* Dashboard */
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    /* User profile */
+        Route::get('user-profile', [UserController::class, 'editProfile'])->name('user-profile');
+        Route::put('user-profile-update', [UserController::class, 'updateProfile'])->name('user-profile-update');
+
     /* Logout */
         Route::get('logout', [LoginController::class, 'logout']);
 
@@ -79,7 +83,7 @@ Route::middleware(['auth'])->group(function () {
                         Route::post('register', [ContractController::class, 'store'])->name('contract/register');
 
                     /* Terminate contract */
-                        Route::get('setle/{id}', [ContractController::class, 'terminateContract'])->name('contract/setle');
+                        Route::post('setle', [ContractController::class, 'terminateContract'])->name('contract/setle');
                         Route::get('setle/print/{id}', [ContractController::class, 'settlementContract'])->name('contract/setle/print');
                 });
 

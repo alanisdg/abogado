@@ -12,6 +12,8 @@ use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Mail\SendPassword;
 
 // Request
 use App\Http\Requests\UsersRequest;
@@ -83,6 +85,18 @@ class UserController extends Controller
 
                 $role = Role::find($request->input('rol'));
                 $addUser->roles()->attach($role);
+
+                // Send email
+                    $userDetails = [
+                        'title' => '¡APPABOPROC!',
+                        'url'   => \Request::root(),
+                        'user' => $addUser,
+                        'email' => $addUser->email,
+                        'password' => $request->input('password')
+                    ];
+
+                    Mail::to($addUser->email)
+                    ->send(new SendPassword($userDetails));
 
                 Toastr::success("", "¡Usuario Registrado!");
                 return redirect('users');
@@ -182,5 +196,37 @@ class UserController extends Controller
 
         Toastr::success("", "¡Usuario Eliminado!");
         return redirect('users');
+    }
+
+    /**
+     * View profile
+     */
+    public function editProfile()
+    {
+        return view($this->config["routeView"] . "profile")
+                    ->with("row", Auth::user())
+                    ->with("config", $this->config);
+    }
+
+    /**
+     * Update profile
+     */
+    public function updateProfile(Request $request)
+    {
+        // Data user
+            $updateProfile = User::find(Auth::user()->id);
+            $updateProfile->rut = $request->input('rut');
+            $updateProfile->first_name = $request->input('first_name');
+            $updateProfile->last_name = $request->input('last_name');
+            $updateProfile->email = $request->input('email');
+            if ($updateProfile->save()) {
+                if ($request->input('password') != null) {
+                    $updateProfile->update(["password" => bcrypt($request->input('password'))]);
+                }
+
+                Toastr::success("", "¡Perfil Actualizado!");
+                return redirect('user-profile');
+            }
+
     }
 }
