@@ -69,6 +69,26 @@ class ActualizationController extends Controller
     }
 
     /**
+     * Account holder change
+     */
+    public function accountHolderChange(Request $request)
+    {
+        // Register update
+            $createUpdate = Update::create([
+                'contract_id' => $request->input('contract_id'),
+                'type' => 4,
+                'new_headline' => $request->input('new_account_holder'),
+                'new_headline_rut' => $request->input('rut'),
+                'observations' => $request->input('observations'),
+            ]);
+
+            if ($createUpdate) {
+                Toastr::success("", "¡Actualización registrada!");
+                return redirect('contract/actualize/'.$request->input('contract_id'));
+            }
+    }
+
+    /**
      * Print document
      */
     public function printDocument($id, $type)
@@ -85,6 +105,9 @@ class ActualizationController extends Controller
             }
             elseif ($type == 2) { // Change strategy
                 $pdf = PDF::loadView('modules.contracts.pdfs.change-strategy');
+            }
+            elseif ($type == 4) { // Account holder change
+                $pdf = PDF::loadView('modules.contracts.pdfs.account-holder-change');
             }
 
         // Download pdf

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CONTRATO DE PRESTACIÓN DE SERVICIOS JURÍDICOS</title>
+    <title>ACTUALIZACIÓN DE CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES</title>
 
     <style>
         html {
@@ -28,21 +28,13 @@
 <body>
     <img width="120" src="{{ asset('/backend/images/assets/logo.png') }}" alt="">
 
-    <div style="width: 100%; text-align: center;">
-        <h2 style="margin-top:120px;"><strong>CONTRATO DE PRESTACIÓN DE SERVICIOS JURÍDICOS</strong></h2>
-    </div>
+    <p style="margin-top:120px;"><strong>ACTUALIZACIÓN DE CONTRATO DE PRESTACIÓN DE SERVICIOS PROFESIONALES</strong></p>
 
     <p style="margin-top:120px;">
-        En Santiago de Chile, a <strong>{{ date("d-m-Y", strtotime($data->created_at)) }}</strong> entre ABOPROC, Rut N° (---), representada legalmente por don Franco Antonio Caro Aguilera, cedula nacional de identidad N° 19.094.981-8, ambos domiciliados para éstos efectos en Salar del Carmen número 767, comuna de Quilicura, ciudad de Santiago, en adelante indistintamente, “Estudio Jurídico”, “el mandatario“ o “ABOPROC”, y <strong>{{ $data->customer->customer }}</strong>, cedula nacional de identidad <strong>{{ $data->customer->rut }}</strong> , <strong>{{ $data->customer->nationality }}</strong>, <strong>{{ $data->customer->civil_status }}</strong>, <strong>{{ $data->customer->profession }}</strong>, domiciliado para estos efectos en <strong>{{ $data->customer->address }}</strong>, <strong>{{ $data->customer->commune }}</strong>, <strong>{{ $data->customer->region }}</strong>, <strong>{{ $data->customer->phone }}</strong>, <strong>{{ $data->customer->email }}</strong>, en adelante “el cliente”, se celebra el siguiente contrato remoto de prestación de servicios:
+        Entre ABOPROC, Rut: xx.xxx.xxx-x, representante legal Franco Caro Aguilera, Abogado, RUT. 19.094.981-8 domiciliado en Salar del Carmen 767, Santiago, en adelante indistintamente, “Estudio jurídico aboproc y Asociados” o “el mandatario” y doña/don <strong>{{ $data->contract->customer->customer }}</strong>, RUT: <strong>{{ $data->contract->customer->rut }}</strong>, domiciliada/o en <strong>{{ $data->contract->customer->address }}</strong>, <strong>{{ $data->contract->customer->commune }}</strong>, <strong>{{ $data->contract->customer->region }}</strong>. Teléfono red fija <strong>{{ $data->contract->customer->home_phone }}</strong>, celular: <strong>{{ $data->contract->customer->phone }}</strong>, correo electrónico: <strong>{{ $data->contract->customer->email }}</strong> estado civil: <strong>{{ $data->contract->customer->civil_status }}</strong>, ocupación: <strong>{{ $data->contract->customer->profession }}</strong>; en adelante “el cliente” se celebra el siguiente contrato de actualización de prestación de servicios con fecha <strong>{{ date("d-m-Y", strtotime($data->created_at)) }}</strong>.
     </p>
 
-    <h2>PRIMERO: SERVICIO CONTRATADO</h2>
-
-    <p>
-        El cliente encargará en virtud del presente contrato al mandatario su representación y asesoría jurídica en los procesos judiciales y/o extrajudiciales que a continuación se señalan:
-    </p>
-
-    <p style="margin-top: 20px;">
+    <p style="margin-top: 50px;">
         <strong>PRIMERO:</strong> El motivo del presente contrato de actualización es modificar al actual titular de la cuenta, Doña/Don <strong>{{ $data->contract->customer->customer }}</strong> por Doña/Don <strong>{{ $data->new_headline }}</strong>, RUT: <strong>{{ $data->new_headline_rut }}</strong>, es decir que a partir de esta fecha <strong>{{ date("d", strtotime($data->created_at)) }}</strong> de {{ date("m", strtotime($data->created_at)) }}</strong> de {{ date("Y", strtotime($data->created_at)) }}</strong> nuestro cliente y mandante es: <strong>{{ $data->new_headline }}</strong>.
     </p>
 

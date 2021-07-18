@@ -19,6 +19,8 @@ class CreateUpdatesTable extends Migration
             $table->integer('type');
             $table->string('current_creditor')->nullable();
             $table->string('new_creditor')->nullable();
+            $table->string('new_headline')->nullable();
+            $table->string('new_headline_rut')->nullable();
             $table->string('observations')->nullable();
             $table->timestamps();
 

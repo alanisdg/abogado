@@ -76,6 +76,8 @@
                 // Empty table
                     $("#tbody_list_collections").empty();
                     document.getElementById('dataCliente').innerText = ""
+                    document.getElementById('totalAmount').innerText = ""
+
                 // Variables
                     let customer_rut = document.getElementById('customer_rut').value,
                         token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -101,26 +103,32 @@
                         })
                         .then((response) => response.json())
                         .then((data) => {
-                            let collections = data.collections.contracts[0].collections,
+
+                            if (data.collections == null) {
+                                toastr["error"]("", "¡No existe un cliente asociado al RUT consultado!")
+                            }
+                            else {
+                                let collections = data.collections.contracts[0].collections,
                                 totalAmount = '0,0'
 
-                            collections.forEach(element => {
+                                collections.forEach(element => {
 
-                                let amount = element.amount,
-                                    num2 = Number(amount.replace(/[^0-9\.]+/g,""))
+                                    let amount = element.amount,
+                                        num2 = Number(amount.replace(/[^0-9\.]+/g,""))
 
-                                totalAmount = parseFloat(totalAmount) + parseFloat(num2)
+                                    totalAmount = parseFloat(totalAmount) + parseFloat(num2)
 
-                                $("#list-collections tbody").append("<tr>" +
-                                    `<td id="valueWeigth">${ element.installment_number }</td>` +
-                                    `<td id="valueWeigth">${ element.amount }</td>` +
-                                    `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
-                                    `<td id="valueWeigth">${ element.status }</td>`
-                                )
-                            });
+                                    $("#list-collections tbody").append("<tr>" +
+                                        `<td id="valueWeigth">${ element.installment_number }</td>` +
+                                        `<td id="valueWeigth">${ element.amount }</td>` +
+                                        `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
+                                        `<td id="valueWeigth">${ element.status }</td>`
+                                    )
+                                });
 
-                            document.getElementById('totalAmount').innerText = String(totalAmount).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-                            document.getElementById('dataCliente').innerText = "Cliente: " + data.collections.customer + "|| Email: " + data.collections.email + "|| Teléfono: " + data.collections.phone
+                                document.getElementById('totalAmount').innerText = String(totalAmount).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                                document.getElementById('dataCliente').innerText = "Cliente: " + data.collections.customer + "|| Email: " + data.collections.email + "|| Teléfono: " + data.collections.phone
+                            }
                         })
                         /*.catch(function(error) {
                             //emptyInputs()

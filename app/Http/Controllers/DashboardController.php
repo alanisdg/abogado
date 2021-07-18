@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// Models
+use App\Models\Collection;
+
 class DashboardController extends Controller
 {
     protected $config = [
@@ -28,9 +31,11 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // List Institutions
+        // Pending fees
+            $pendingFees = Collection::whereStatus('PENDIENTE')->count();
 
         return view($this->config["routeView"] . 'index')
+            ->with('pendingFees', $pendingFees)
             ->with("config", $this->config);
     }
 

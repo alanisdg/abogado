@@ -367,4 +367,19 @@ class ContractController extends Controller
         // Download pdf
             return $pdf->download('Finiquito_Contrato.pdf');
     }
+
+    /**
+     * Print contract
+     */
+    public function printContract($id)
+    {
+        // Data contract
+            $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($id);
+        // Share data to view
+            view()->share('data', $dataContract);
+            $pdf = PDF::loadView('modules.contracts.pdfs.contract');
+
+        // Download pdf
+            return $pdf->download('Contrato.pdf');
+    }
 }

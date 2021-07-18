@@ -91,6 +91,9 @@
                         tr += 			'<img src="../backend/images/assets/print.svg" style="width: 15%">'
                         tr += 		'</a>'
                     }
+                    tr += 		    '<a title="Imprimir Contrato" href="'+ BASE_URL +'/contract/print/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 			'<img src="../backend/images/assets/printer.svg" style="width: 15%">'
+                        tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
                     $(row).html(tr)

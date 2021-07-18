@@ -33,6 +33,7 @@
                             <tr>
                                 <th>TIPO</th>
                                 <th>FECHA</th>
+                                <th>OBSERVACIONES</th>
                                 <th>opciones</th>
                             </tr>
                         </thead>
@@ -44,11 +45,14 @@
                                             CAMBIO DE ACREEDOR
                                         @elseif ($item->type == 2)
                                             CAMBIO DE ESTRATEGIA
+                                        @elseif ($item->type == 4)
+                                            CAMBIO TITULAR DE CUENTA
                                         @else
 
                                         @endif
                                     </td>
                                     <td>{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                                    <td>{{ $item->observations }}</td>
                                     <td>
                                         <a href="{{ url('contract/update/print/document/'.$item->id.'/'.$item->type) }}"><img width="25" src="{{ asset("backend/images/assets/print.svg") }}" alt="Imprimir Documento"></a>
                                     </td>
@@ -82,6 +86,7 @@
                                             <option value="3">CAMBIO FECHA DE PAGO</option>
                                             <option value="4">CAMBIO TITULAR CUENTA</option>
                                             <option value="5">DAR DE BAJA ACREEDOR</option>
+                                            <option value="6">FALLECIDO</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-2">
@@ -109,6 +114,9 @@
                     <div id="change_strategy" style="display: none">
                         @include('modules.actualize.change-strategy')
                     </div>
+                    <div id="account_holder_change" style="display: none">
+                        @include('modules.actualize.account-holder-change')
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,7 +124,15 @@
 @endsection
 
 @section("scripts")
+    <script src="https://unpkg.com/imask"></script>
     <script>
+        // Rut
+            var phoneMask = IMask(
+                document.getElementById('rut'), {
+                    mask: '000000000-0'
+                }
+            );
+
         // Clear localstorage
             document.addEventListener("DOMContentLoaded", function () {
                 localStorage.removeItem('customer')
@@ -139,6 +155,9 @@
                     else if(optionId == 2) { // Change strategy
                         return changeStrategy()
                     }
+                    else if(optionId == 4) { // Account holder change
+                        return accountHolderChange()
+                    }
                     else {
 
                     }
@@ -148,11 +167,20 @@
             function changeCreditor() {
                 document.getElementById("change_creditor").style.display = "block"
                 document.getElementById("change_strategy").style.display = "none"
+                document.getElementById("account_holder_change").style.display = "none"
             }
 
         // Change of strategy
             function changeStrategy() {
                 document.getElementById("change_strategy").style.display = "block"
+                document.getElementById("change_creditor").style.display = "none"
+                document.getElementById("account_holder_change").style.display = "none"
+            }
+
+        // Account holder change
+            function accountHolderChange() {
+                document.getElementById("account_holder_change").style.display = "block"
+                document.getElementById("change_strategy").style.display = "none"
                 document.getElementById("change_creditor").style.display = "none"
             }
     </script>

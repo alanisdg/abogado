@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::group(['prefix' => 'contract'], function () {
                         Route::get('edit/{id}', [ContractController::class, 'edit'])->name('contract/edit');
                         Route::post('update', [ContractController::class, 'update'])->name('contract/update');
+                        Route::get('print/{id}', [ContractController::class, 'printContract'])->name('contract/print');
                         Route::get('actualize/{id}', [ContractController::class, 'actualizeContract'])->name('contract/actualize');
 
                     /* Change creditor */
@@ -54,6 +55,9 @@ Route::middleware(['auth'])->group(function () {
 
                     /* Change strategy */
                         Route::post('update/change-strategy', [ActualizationController::class, 'changeStrategy'])->name('contract/update/change-strategy');
+
+                    /* Account holder change */
+                        Route::post('update/account-holder-change', [ActualizationController::class, 'accountHolderChange'])->name('contract/update/account-holder-change');
 
                     /* Print document update */
                         Route::get('update/print/document/{id}/{type}', [ActualizationController::class, 'printDocument'])->name('contract/update/print/document');
