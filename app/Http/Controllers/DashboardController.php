@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 // Models
 use App\Models\Collection;
+use App\Models\Pending;
+use App\Models\Task;
 
 class DashboardController extends Controller
 {
@@ -34,8 +36,16 @@ class DashboardController extends Controller
         // Pending fees
             $pendingFees = Collection::whereStatus('PENDIENTE')->count();
 
+        // Pending clients
+            $pendingClients = Pending::whereStatus(1)->count();
+
+        // Pending tasks
+            $pendingTasks = Task::whereStatus(1)->count();
+
         return view($this->config["routeView"] . 'index')
             ->with('pendingFees', $pendingFees)
+            ->with('pendingClients', $pendingClients)
+            ->with('pendingTasks', $pendingTasks)
             ->with("config", $this->config);
     }
 
