@@ -313,7 +313,7 @@ class ContractController extends Controller
     public function actualizeContract($id)
     {
         // Data contract
-            $dataContract = Contract::with(['customer', 'causes'])->find($id);
+            $dataContract = Contract::with(['customer', 'causes', 'updates'])->find($id);
 
         // Return view
             return view($this->config["routeView"] . "actualize")

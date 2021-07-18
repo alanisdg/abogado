@@ -48,7 +48,15 @@ Route::middleware(['auth'])->group(function () {
                         Route::get('edit/{id}', [ContractController::class, 'edit'])->name('contract/edit');
                         Route::post('update', [ContractController::class, 'update'])->name('contract/update');
                         Route::get('actualize/{id}', [ContractController::class, 'actualizeContract'])->name('contract/actualize');
-                        Route::post('{id}/actualize/register', [ActualizationController::class, 'registerActualize']);
+
+                    /* Change creditor */
+                        Route::post('update/change-creditor', [ActualizationController::class, 'changeCreditor']);
+
+                    /* Change strategy */
+                        Route::post('update/change-strategy', [ActualizationController::class, 'changeStrategy'])->name('contract/update/change-strategy');
+
+                    /* Print document update */
+                        Route::get('update/print/document/{id}/{type}', [ActualizationController::class, 'printDocument'])->name('contract/update/print/document');
 
                     /* Step 1 */
                         Route::get('create/customer', [ContractController::class, 'step1'])->name('contract/create/customer');

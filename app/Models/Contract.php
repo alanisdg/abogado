@@ -58,6 +58,6 @@ class Contract extends Model
      */
     public function updates()
     {
-        return $this->hasMany(Contract::class);
+        return $this->hasMany(Update::class);
     }
 }

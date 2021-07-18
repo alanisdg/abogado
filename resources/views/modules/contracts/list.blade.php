@@ -79,11 +79,11 @@
                         tr += 		'<a title="Anexos" href="'+ BASE_URL +'/list-contracts/annexes/'+data.id+'" class="" style="margin-left:3px;">'
                         tr += 			'<img src="../backend/images/assets/attach.png" style="width: 15%">'
                         tr += 		'</a>'
-                        tr += 		'<a title="Finiquitar Contrato" href="'+ BASE_URL +'/contract/setle/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
-                        tr += 		'</a>'
                         tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/actualize/'+data.id+'" class="" style="margin-left:8px;">'
                         tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
+                        tr += 		'</a>'
+                        tr += 		'<a title="Finiquitar Contrato" href="'+ BASE_URL +'/contract/setle/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 15%">'
                         tr += 		'</a>'
                     }
                     else {

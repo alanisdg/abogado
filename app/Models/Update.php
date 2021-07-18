@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Update extends Model
 {
-    protected $fillable = ['id_contract', 'type'];
+    protected $fillable = ['contract_id', 'type', 'current_creditor', 'new_creditor'];
 
     /**
-     * Relations with to creaditor updates
+     * Relations with contract
      */
-    public function creditorUpdates()
+    public function contract()
     {
-        return $this->hasMany(CreditorUpdate::class);
+        return $this->belongsTo(Contract::class);
     }
 }

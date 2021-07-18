@@ -17,6 +17,9 @@ class CreateUpdatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('contract_id');
             $table->integer('type');
+            $table->string('current_creditor')->nullable();
+            $table->string('new_creditor')->nullable();
+            $table->string('observations')->nullable();
             $table->timestamps();
 
             // References
