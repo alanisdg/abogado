@@ -17,6 +17,7 @@ use App\Http\Controllers\AnnexedController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ActualizationController;
 use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CreditorController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -44,6 +45,9 @@ Route::middleware(['auth'])->group(function () {
             // Pending
                 Route::get('pending', [PendingController::class, "index"])->name('pending');
                 Route::post('pending/upload', [PendingController::class, "store"])->name('pending/upload');
+
+            // Pending users
+                Route::get('pending/add-user/{id}', [PendingController::class, 'addUser'])->name('pending/add-user');
         });
 
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
@@ -62,6 +66,12 @@ Route::middleware(['auth'])->group(function () {
 
                     /* Account holder change */
                         Route::post('update/account-holder-change', [ActualizationController::class, 'accountHolderChange'])->name('contract/update/account-holder-change');
+
+                    /* Change payment date */
+                        Route::post('update/change-payment-date', [ActualizationController::class, 'changePaymentDate'])->name('contract/update/change-payment-date');
+
+                    /* Deceased customer */
+                        Route::post('update/deceased-customer', [ActualizationController::class, 'deceasedCustomer'])->name('contract/update/deceased-customer');
 
                     /* Print document update */
                         Route::get('update/print/document/{id}/{type}', [ActualizationController::class, 'printDocument'])->name('contract/update/print/document');
@@ -132,6 +142,25 @@ Route::middleware(['auth'])->group(function () {
                     /* List of tasks by causes */
                         Route::get('list/tasks/{id}', [TaskController::class, 'listTasks'])->name('causes/list/tasks');
                 });
+
+            /* Creditors */
+                Route::get('creditors/{id}', [CreditorController::class, "index"])->name("creditors");
+                Route::get('creditors/create/{id}', [CreditorController::class, "create"])->name("creditors/create");
+                Route::post('creditors/store', [CreditorController::class, "store"])->name("creditors/store");
+                Route::get('creditors/edit/{id}', [CreditorController::class, "edit"])->name("creditors/store/edit");
+                Route::post('creditors/update', [CreditorController::class, "update"])->name("creditors/update");
+
+            /* Creditors anenexes */
+                Route::get('annexes/creditors/{id}', [CreditorController::class, 'index'])->name('annexes/creditors');
+        });
+
+        Route::group(['middleware' => ['role:customer']], function() {
+            // List Fees
+                Route::get('list-fees/{id}', [CollectionController::class, 'listFeesContract'])->name('list-fees');
+
+            // Route payment
+                Route::get('list-fess/pay-fee/{id}', [CollectionController::class, 'payFee'])->name('list-fess/pay-fee');
+
         });
 
         // Collections

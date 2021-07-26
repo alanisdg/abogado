@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 // Models
 use App\Models\Collection;
+use App\Models\Contract;
 use App\Models\Pending;
 use App\Models\Task;
+use App\Models\Customer;
 
 class DashboardController extends Controller
 {
@@ -42,10 +45,22 @@ class DashboardController extends Controller
         // Pending tasks
             $pendingTasks = Task::whereStatus(1)->count();
 
+        // Lost contracts
+            $lostContracts = Pending::whereStatus(3)->count();
+
+        // Contracts won
+            $contractsWon = Contract::whereAnnexCode(null)->count();
+
+        // Customer contracts
+            $data = Customer::with('contracts')->whereRut(Auth::user()->rut)->first();
+
         return view($this->config["routeView"] . 'index')
             ->with('pendingFees', $pendingFees)
             ->with('pendingClients', $pendingClients)
             ->with('pendingTasks', $pendingTasks)
+            ->with('lostContracts', $lostContracts)
+            ->with('contractsWon', $contractsWon)
+            ->with('dataContract', $data)
             ->with("config", $this->config);
     }
 

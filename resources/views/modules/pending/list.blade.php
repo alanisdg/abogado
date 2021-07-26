@@ -85,6 +85,9 @@
                     tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-pending/details/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
                     tr += 		'</a>'
+                    tr += 		'<a title="Agregar Usuario" href="'+ BASE_URL +'/pending/add-user/'+data.id+'" class="" style="margin-left:8px;">'
+                    tr += 			'<img src="../backend/images/assets/user.png" style="width: 15%">'
+                    tr += 		'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
                     $(row).html(tr)

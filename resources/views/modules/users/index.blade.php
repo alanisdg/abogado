@@ -22,7 +22,7 @@
                                 <th>APELLIDO</th>
                                 <th>RUT</th>
                                 <th>EMAIL</th>
-                                <th>CARGO</th>
+                                <th>ROL</th>
                                 <th>ESTADO</th>
                                 <th>OPCIONES</th>
                             </tr>
@@ -49,7 +49,7 @@
                 scrollX: true,
                 lengthMenu: false,
                 dom: 'Blfrtip',
-                order: [0, "desc"],
+                order: [0, "asc"],
                 buttons: [
                 ],
                 ajax: {

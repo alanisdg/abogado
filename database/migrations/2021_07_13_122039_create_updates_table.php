@@ -17,10 +17,24 @@ class CreateUpdatesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('contract_id');
             $table->integer('type');
-            $table->string('current_creditor')->nullable();
-            $table->string('new_creditor')->nullable();
-            $table->string('new_headline')->nullable();
-            $table->string('new_headline_rut')->nullable();
+            // Change creditor
+            $table->unsignedBigInteger('creditor_id')->nullable();
+            // Account holder change
+            $table->unsignedBigInteger('customer_id')->nullable();
+            $table->string('holder_amount')->nullable();
+            // Change strategy
+            $table->string('contract_amount')->nullable();
+            $table->integer('number_installments')->nullable();
+            $table->string('amount_fees')->nullable();
+            $table->date('payment_date_installment')->nullable();
+            // Change payment date
+            $table->date('change_payment_date')->nullable();
+            //Deseaced
+            $table->string('deceased_new_payment_amount')->nullable();
+            $table->integer('deceased_amount_fees')->nullable();
+            $table->string('deceased_quota_amount')->nullable();
+            $table->date('deceased_new_payment_date')->nullable();
+            // General
             $table->string('observations')->nullable();
             $table->timestamps();
 

@@ -35,7 +35,7 @@
     </p>
 
     <p style="margin-top: 50px;">
-        <strong>PRIMERO:</strong> El motivo del presente contrato de actualización es modificar al actual titular de la cuenta, Doña/Don <strong>{{ $data->contract->customer->customer }}</strong> por Doña/Don <strong>{{ $data->new_headline }}</strong>, RUT: <strong>{{ $data->new_headline_rut }}</strong>, es decir que a partir de esta fecha <strong>{{ date("d", strtotime($data->created_at)) }}</strong> de {{ date("m", strtotime($data->created_at)) }}</strong> de {{ date("Y", strtotime($data->created_at)) }}</strong> nuestro cliente y mandante es: <strong>{{ $data->new_headline }}</strong>.
+        <strong>PRIMERO:</strong> El motivo del presente contrato de actualización es modificar al actual titular de la cuenta, Doña/Don <strong>{{ $data->contract->customer->customer }}</strong> por Doña/Don <strong>{{ $data->customer->customer }}</strong>, RUT: <strong>{{ $data->customer->rut }}</strong>, es decir que a partir de esta fecha <strong>{{ date("d", strtotime($data->created_at)) }}</strong> de {{ date("m", strtotime($data->created_at)) }}</strong> de {{ date("Y", strtotime($data->created_at)) }}</strong> nuestro cliente y mandante es: <strong>{{ $data->customer->customer }}</strong>.
     </p>
 
     <p style="margin-top: 50px;">
@@ -43,24 +43,28 @@
     </p>
 
     <p style="margin-top: 50px;">
-        <strong>SEGUNDO:</strong> El cliente se obliga a pagar al mandatario, como contraprestación pendiente del servicio contratado la suma de <strong>${{ $data->contract->total_contract }}, pagaderos según el siguiente plan de pago:
+        <strong>SEGUNDO:</strong> El cliente se obliga a pagar al mandatario, como contraprestación pendiente del servicio contratado la suma de <strong>${{ $data->holder_amount}}</strong>, pagaderos según el siguiente plan de pago:
     </p>
 
-    <table>
+    <table style="margin-top: 50px;">
         <thead>
             <tr>
                 <th>N° de Cuota</th>
                 <th>Fecha de Pago</th>
                 <th>Monto</th>
+                <th>Estado</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($data->contract->collections as $collection)
-                <tr style="text-align: center">
-                    <td>{{ $collection->installment_number }}</td>
-                    <td>{{ date("d-m-Y", strtotime($collection->payment_date)) }}</td>
-                    <td>{{ $collection->amount }}</td>
-                </tr>
+                @if ($collection->status == "PENDIENTE")
+                    <tr style="text-align: center">
+                        <td>{{ $collection->installment_number }}</td>
+                        <td>{{ date("d-m-Y", strtotime($collection->payment_date)) }}</td>
+                        <td>{{ $collection->amount }}</td>
+                        <td>{{ $collection->status }}</td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>
     </table>

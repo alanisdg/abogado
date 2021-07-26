@@ -60,4 +60,12 @@ class Contract extends Model
     {
         return $this->hasMany(Update::class);
     }
+
+    /**
+     * Creditors
+     */
+    public function creditors()
+    {
+        return $this->hasMany(Creditor::class);
+    }
 }

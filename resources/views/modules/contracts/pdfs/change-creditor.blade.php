@@ -17,6 +17,12 @@
             margin: 0;
             padding: 0;
         }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -37,7 +43,66 @@
     </p>
 
     <p style="margin-top: 50px;">
-        Por tanto, al día de hoy <strong>{{ date("d-m-Y", strtotime($data->created_at)) }}</strong>, el cliente encarga al mandatario la representación, tramitación y defensa de los juicios que se inicien en su contra producto de la XXXXXXXXXXXXXXXX
+        Por tanto, al día de hoy <strong>{{ date("d-m-Y", strtotime($data->created_at)) }}</strong>, el cliente encarga al mandatario la representación, tramitación y defensa de los juicios que se inicien en su contra.
+    </p>
+
+    @php
+        $totalPaid = 0;
+    @endphp
+
+    @foreach ($data->contract->collections as $item)
+        @if ($item->status == "PAGADA")
+            @php
+                $totalPaid += floatval(str_replace(',', '', $item->amount));
+            @endphp
+        @endif
+    @endforeach
+
+    <p style="margin-top: 50px;">
+        <strong>TERCERO:</strong> Don/Doña {{ $data->contract->customer->customer }} paga en este acto una cuota ascendiente a <strong>${{ $totalPaid }}</strong>, como parte de los honorarios adeudados a Estudio Jurídico Aboproc Asociados en razón del contrato de prestación de servicios profesionales.
+    </p>
+
+    <p style="margin-top: 50px;">
+        El cliente se obliga a pagar al mandatario, como contraprestación pendiente del servicio contratado la suma de <strong>${{ $totalPaid }}</strong> más el monto pactado por el nuevo acreedor <strong>${{ $data->contract_amount }}</strong> pactado, pagaderos según el siguiente plan de pago.
+    </p>
+
+    <table style="margin-top: 50px;">
+        <thead>
+            <tr>
+                <th>N° de Cuota</th>
+                <th>Fecha de Pago</th>
+                <th>Monto</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($data->contract->collections as $collection)
+                @if ($collection->status == "PENDIENTE")
+                    <tr style="text-align: center">
+                        <td>{{ $collection->installment_number }}</td>
+                        <td>{{ date("d-m-Y", strtotime($collection->payment_date)) }}</td>
+                        <td>{{ $collection->amount }}</td>
+                        <td>{{ $collection->status }}</td>
+                    </tr>
+                @endif
+            @endforeach
+        </tbody>
+    </table>
+
+    <p style="margin-top: 50px;">
+        Para efectuar el pago el cliente contará con los siguientes canales de recepción de pagos, sin perjuicio de que Aboproc pueda modificarlos con posterioridad a la celebración del presente contrato, en cuyo caso el mandatario informará de dicha modificación mediante su página web o bien por la sucursal virtual del cliente:
+    </p>
+
+    <p style="margin-top: 50px; margin-left: 2rem;">
+        <strong>*</strong> Depósito Bancario en la cuenta corriente del Banco xxx Nº xxxxxxxx a nombre de Estudio jurídico aboproc Rut ° xx.xxx.xxx-x. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
+    </p>
+
+    <p style="margin-top: 50px; margin-left: 2rem;">
+        <strong>*</strong> Transferencia Electrónica en la cuenta corriente del Banco xxx Nº xxxxxxx a nombre de Estudio jurídico Aboproc Rut ° xx.xxx.xxx-x.. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
+    </p>
+
+    <p style="margin-top: 50px;">
+        Las partes acuerdan que si alguno de los pagos aquí acordados, no fuese percibido o a su vencimiento informado, autorizará al Mandatario hacer exigible la totalidad de los pagos acordados según programa.
     </p>
 
     <p style="margin-top: 4rem;"><strong>Soc jurídica aboproc y asociados ________________________</strong></p>

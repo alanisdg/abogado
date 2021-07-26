@@ -57,4 +57,28 @@ class CollectionController extends Controller
         // Response
             return response()->json(["response" => 200, "collections" => $collections]);
     }
+
+    /**
+     * List fees
+     */
+    public function listFeesContract($id)
+    {
+        // List fees
+            $collections = Collection::whereContractId($id)->get();
+
+        // Return view
+            return view("modules.collections.list-fees")
+                ->with("breadcrumAction", "")
+                ->with('dataCollections', $collections)
+                ->with("config", $this->config);
+
+    }
+
+    /**
+     * Pay fee
+     */
+    public function payFee($id)
+    {
+        
+    }
 }

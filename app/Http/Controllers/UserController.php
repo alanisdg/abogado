@@ -95,11 +95,11 @@ class UserController extends Controller
                         'password' => $request->input('password')
                     ];
 
-                    Mail::to($addUser->email)
-                    ->send(new SendPassword($userDetails));
+                    Mail::to($addUser->email)->send(new SendPassword($userDetails));
 
-                Toastr::success("", "¡Usuario Registrado!");
-                return redirect('users');
+                // Return response
+                    Toastr::success("", "¡Usuario Registrado!");
+                    return redirect('users');
             }
     }
 

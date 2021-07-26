@@ -40,11 +40,11 @@ class AnnexedController extends Controller
                                     ->get();
 
         // Return view
-        return view($this->config["routeView"] . "annexes")
-            ->with("breadcrumAction", "")
-            ->with("data", $annexesData)
-            ->with("row", $dataContract)
-            ->with("config", $this->config);
+            return view($this->config["routeView"] . "annexes")
+                ->with("breadcrumAction", "")
+                ->with("data", $annexesData)
+                ->with("row", $dataContract)
+                ->with("config", $this->config);
     }
 
     /**
@@ -54,7 +54,7 @@ class AnnexedController extends Controller
     {
         // Create session variable contract
             session(['idContract' => $id]);
-            
+
         // Return view
             return view($this->config["routeView"] . "step-1")
                 ->with("breadcrumAction", "")

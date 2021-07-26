@@ -157,13 +157,13 @@
         // Rut
             var phoneMask = IMask(
                 document.getElementById('customer_rut'), {
-                    mask: '000000000-0'
+                    mask: '00000000-0'
                 }
             );
 
             var phoneMask = IMask(
                 document.getElementById('rut'), {
-                    mask: '000000000-0'
+                    mask: '00000000-0'
                 }
             );
         // Phone

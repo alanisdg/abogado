@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Anexos')
+@section('title', $config['moduleName'])
 
 @section('content')
     <section id="basic-datatable">
@@ -9,44 +9,35 @@
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
-                            <h3 class="mb-0">Anexos</h3><br>
-                            <span class="mt-3">
-                                <strong>Cliente: </strong>{{ $row->customer->customer }} || {{ $row->type_contract }}
-                            </span>
+                            <h4 class="mb-0">{{ $config['moduleName'] }}</h4>
                         </div>
                         <div class="dt-buttons btn-group flex-wrap">
-                            <a href="{{ url('list-contracts/list') }}" class="btn btn-danger mt-50"> Regresar</a>
-                            <a href="{{ url('list-contracts/annexes/add/customer/'.$row->id) }}" class="btn btn-primary mt-50"> Agregar</a>
+                            <a href="{{ (!is_null($contract[1])) ? url('list-contracts/annexes/'.$contract[2]) : url('list-contracts/list') }}" class="btn btn-danger mt-50"> Regresar</a>
+                            <a href="{{ url('creditors/create/'.$contract[0]) }}" class="btn btn-primary mt-50"> Registrar Acreedor</a>
                         </div>
                     </div>
                     <table class="table">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
-                                <th>Código de Anexo</th>
-                                <th>Tipo de Anexo</th>
-                                <th>Costo(USD)</th>
-                                <th>Opciones</th>
+                                <th>CLIENTE</th>
+                                <th>NOMBRE</th>
+                                <th>MONTO</th>
+                                <th>FECHA DE REGISTRO</th>
+                                <th>OPCIONES</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($data as $item)
                                 <tr>
-                                    <td>{{ $item->contract_date }}</td>
-                                    <td>{{ $item->annex_code }}</td>
-                                    <td>{{ $item->type_contract }}</td>
-                                    <td>{{ $item->total_contract }}<strong>$</strong> </td>
-                                    <td>
-                                        <a href="{{ url('annexes/creditors/'.$item->id) }}"><img src="{{ asset('backend/images/assets/group.svg') }}" alt="" title="Acreedores" width="25"></a>
-
-                                        <a style="margin-left: 3px;" href="{{ url('list-contracts/annexes/edit/'.$item->id) }}"><img src="{{ asset('backend/images/assets/edit.svg') }}" alt="" title="Editar Anexo" width="25"></a>
-
-                                        <a style="margin-left: 3px;" href="{{ url('contract/actualize/'.$item->id) }}"><img src="{{ asset('backend/images/assets/update.svg') }}" alt="" title="Actualizaciones" width="25"></a>
-                                    </td>
+                                    <td>{{ $item->contract->customer->customer }}</td>
+                                    <td>{{ $item->name }}</td>
+                                    <td><strong>$</strong>{{ $item->creditor_amount }}</td>
+                                    <td>{{ date("d-m-Y", strtotime($item->registration_date)) }}</td>
+                                    <td><a href="{{ url('creditors/edit/'.$item->id) }}"><img width="25" title="Editar Acreedor" src="{{ asset('backend/images/assets/edit.svg') }}"></a></td>
                                 </tr>
                             @empty
-                                <tr class="text-center">
-                                    <td colspan="5">El Contrado NO posee anexos registrados</td>
+                                <tr>
+                                    <td colspan="5" class="text-center">No existen registros de acreedores asociados al Contrato</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -59,13 +50,7 @@
 
 @section("scripts")
     <script>
-        // Clear localstorage
-            document.addEventListener("DOMContentLoaded", function () {
-                localStorage.removeItem('customer')
-                localStorage.removeItem('cuotes')
-                localStorage.removeItem('contract_parameters')
-                localStorage.removeItem('current_customer')
-            })
+
         // Update status
             function updateStatus(id) {
 

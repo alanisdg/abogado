@@ -35,19 +35,27 @@
     </p>
 
     <p style="margin-top: 50px;">
-        <strong>PRIMERO:</strong> El motivo del presente contrato de actualización es el cambio de estrategia de defensa. Se cambia la estrategia contratada con fecha <strong>{{ date("d-m-Y", strtotime($data->contract->created_at)) }}</strong>, esto es la representación en un Procedimiento Concursal de Liquidación Voluntaria de conformidad con lo dispuesto en la Ley 20.720 de Reorganización y Liquidación de Empresas y Personas, por la defensa en cualquier juicio de cobranza que inicien algunos de los siguientes acreedores producto de la cesación de pagos del cliente: <strong>{{ $data->contract->customer->customer }}</strong>.
+        <strong>PRIMERO:</strong> El Cliente se compromete a cumplir acuerdo establecido entre las partes para continuar con las gestiones de defensa contratadas anteriormente. El motivo del presente contrato es cambiar la fecha de pago acordada en el contrato de prestación de servicios profesionales celebrado entre las partes con fecha {{ date("d-m-Y", strtotime($data->contract->created_at)) }}, por tanto la remuneración a pagar por la prestación de los servicios se acomodará de la forma que se detalla en la cláusula segunda.
+    </p>
+
+    @php
+        $totalPaid = 0;
+    @endphp
+
+    @foreach ($data->contract->collections as $item)
+        @if ($item->status == "PAGADA")
+            @php
+                $totalPaid += floatval(str_replace(',', '', $item->amount));
+            @endphp
+        @endif
+    @endforeach
+
+    <p style="margin-top: 50px;">
+        <strong>SEGUNDO:</strong> Don/Doña <strong>{{ $data->contract->customer->customer }}</strong> paga en este acto una cuota ascendiente a $ {{ number_format($totalPaid) }}, como parte de los honorarios adeudados a Estudio Jurídico Aboproc Asociados en razón del contrato de prestación de servicios profesionales objeto de este anexo.
     </p>
 
     <p style="margin-top: 50px;">
-        Por tanto, el cliente encarga al mandatario: la preparación, representación de la (s) causa (s) que se inicie (n) en su contra en los tribunales del país, producto de la cesación de pagos de sus obligaciones civiles y comerciales ante: <strong>{{ $data->current_creditor }}</strong>.
-    </p>
-
-    <p style="margin-top: 50px;">
-        El Cliente se compromete a cumplir acuerdo establecido entre las partes.
-    </p>
-
-    <p style="margin-top: 50px;">
-        <strong>SEGUNDO:</strong> El cliente se obliga a pagar al mandatario, como contraprestación pendiente del servicio contratado la suma de <strong>${{ $data->strategy_contract_amount }}</strong>, pagaderos según el siguiente plan de pago:
+        El cliente se obliga a pagar al mandatario, como contraprestación pendiente del servicio contratado la suma de <strong>$ {{ $data->contract_amount }}</strong>, pagaderos según el siguiente plan de pago.
     </p>
 
     <table style="margin-top: 50px;">
@@ -65,7 +73,7 @@
                     <tr style="text-align: center">
                         <td>{{ $collection->installment_number }}</td>
                         <td>{{ date("d-m-Y", strtotime($collection->payment_date)) }}</td>
-                        <td>${{ $collection->amount }}</td>
+                        <td>{{ $collection->amount }}</td>
                         <td>{{ $collection->status }}</td>
                     </tr>
                 @endif
@@ -90,6 +98,7 @@
     </p>
 
     <p style="margin-top: 4rem;"><strong>Soc jurídica aboproc y asociados ________________________</strong></p>
-    <p style="margin-top: 1rem;"><strong>RUT {{ $data->contract->customer->rut }}</strong></p>
+    <p style="margin-top: 1rem;"><strong>{{ $data->contract->customer->customer }}  ________________________</strong></p>
+    <p style=""><strong>RUT {{ $data->contract->customer->rut }}</strong></p>
 </body>
 </html>

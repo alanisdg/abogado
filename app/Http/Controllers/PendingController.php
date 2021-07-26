@@ -139,7 +139,23 @@ class PendingController extends Controller
         ($dataPending->status == 1) ? $status = 3 : $status = 1;
         $dataPending->update(['status' => $status]);
 
-
         return response()->json(1);
+    }
+
+    /**
+     * Add user
+     */
+    public function addUser($id)
+    {
+        // Data pending
+            $dataPending = Pending::whereId($id)->first(['id', 'names', 'surnames', 'rut', 'email']);
+
+            //dd($dataPending);
+
+        // Return view
+            return view($this->config["routeView"] . "add-user")
+                    ->with("breadcrumAction", "")
+                    ->with('row', $dataPending)
+                    ->with("config", $this->config);
     }
 }

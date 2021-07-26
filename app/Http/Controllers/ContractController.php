@@ -161,7 +161,7 @@ class ContractController extends Controller
                 // Register causes
                     $addCause = new Cause();
                     $addCause->contract_id = $addContract->id;
-                    $addCause->number_rit = $parameters[2];
+                    $addCause->number_rit = $parameters[3];
                     $addCause->court = $parameters[5];
                     $addCause->matter = $parameters[7];
                     $addCause->status = 1;
@@ -198,25 +198,27 @@ class ContractController extends Controller
 
                             $referentialDate = $referentialD;
                         }
+
                 // Data email
-                    /*$emailDetails = [
-                        'title' => 'Contrato de Prestación de Servicios',
-                        'user' => Auth::user(),
-                        'email' => $customer[8]
+                    $emailDetails = [
+                        'title' => '¡APPABOPROC!',
+                        'url'   => \Request::root(),
+                        'user' => $addCustomer->customer,
+                        'email' => $addCustomer->email,
                     ];
 
                 // Generate pdf
-                    $pdf = PDF::loadView('modules.contracts.pdfs.contract', $emailDetails, [
+                    /*$pdf = PDF::loadView('modules.contracts.pdfs.contract', $emailDetails, [
                         'format' => 'A4'
-                    ]);
+                    ]);*/
 
                 //Send mail
-                    Mail::send('emails.send-contract', $emailDetails, function($message) use ($emailDetails, $pdf) {
-                        $message->from('admin@sasfa.cl', 'Consolidame');
+                    Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
+                        $message->from('evmoya_89@hotmail.com', 'AppBoProc');
                         $message->to($emailDetails['email']);
-                        $message->subject('Contratos - AppBoProc');
-                        $message->attachData($pdf->output(),'Contrato.pdf');
-                    });*/
+                        $message->subject('Registro de Contrato - AppBoProc');
+                        //$message->attachData($pdf->output(),'Contrato.pdf');
+                    });
 
                 // Return response
                     return response()->json(["response_code" => 1, "contract_id" => session("idContract")]);
@@ -313,11 +315,19 @@ class ContractController extends Controller
     public function actualizeContract($id)
     {
         // Data contract
-            $dataContract = Contract::with(['customer', 'causes', 'updates'])->find($id);
+            $dataContract = Contract::with(['customer', 'causes', 'updates', 'collections', 'creditors'])->find($id);
+
+        // Collections
+            foreach ($dataContract->collections as $value) {
+                if ($value->status == 'PENDIENTE') {
+                    $collections[] = $value;
+                }
+            }
 
         // Return view
             return view($this->config["routeView"] . "actualize")
                     ->with("breadcrumAction", "")
+                    ->with("nextPaymentDate", $collections[0]->payment_date)
                     ->with("row", $dataContract)
                     ->with("config", $this->config);
     }
