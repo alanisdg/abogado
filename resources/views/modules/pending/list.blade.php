@@ -97,43 +97,59 @@
 
         // Update status
             function updateStatus(id) {
+                swal({
+                    title: "¿Quieres cambiar el estado a Cliente Perdido?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "¡Si, actualizar estado!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: !0
+                }).then(function (e) {
 
-                let pending_id = id
-                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                let url = '/pending/update-status';
+                    if (e.value === true) {
+                        // Variables
+                            let pending_id = id,
+                                token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                url = '/pending/update-status'
 
-                console.log(pending_id)
+                        fetch(url, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                            },
+                            method: 'post',
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                id: pending_id
+                            })
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
 
-                fetch(url, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json, text-plain, */*",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-TOKEN": token
-                    },
-                    method: 'post',
-                    credentials: "same-origin",
-                    body: JSON.stringify({
-                        id: pending_id
-                    })
-                })
-                .then((response) => response.json())
-                .then((data) => {
+                            if (data == 1) {
 
-                    if (data == 1) {
+                                $('#tableCrud').DataTable().ajax.reload();
 
-                        $('#tableCrud').DataTable().ajax.reload();
+                                toastr["success"]("", "¡Estado actualizado!")
+                            } else {
+                                toastr["error"]("", "¡Error en la acutalización del estado!")
+                            }
 
-                        toastr["success"]("", "¡Estado actualizado!")
+                        })
+                        .catch(function(error) {
+                            toastr["error"]("", "¡Error en la consulta de datos!")
+                        });
+
                     } else {
-                        toastr["error"]("", "¡Error en la acutalización del estado!")
+                        e.dismiss;
                     }
 
+                }, function (dismiss) {
+                    return false;
                 })
-                .catch(function(error) {
-                    toastr["error"]("", "¡Error en la consulta de datos!")
-                });
-
             }
 
         // Clear localstorage

@@ -26,30 +26,36 @@
                 <i data-feather="more-horizontal"></i>
             </li>
             @role('executive_administrator')
-                <li class="{{ active('pending*') }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ url('pending') }}">
-                        <i data-feather='upload'></i>
-                        <span class="menu-title text-truncate">Cargar BD</span>
-                    </a>
-                </li>
                 <li class="{{ active('users*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('users') }}">
                         <i data-feather='users'></i>
                         <span class="menu-title text-truncate">Usuarios</span>
                     </a>
                 </li>
-            @endrole
-            @hasanyrole('executive_administrator|legal_administrator|legal_executive')
-                <li class="{{ active('contract*') }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ url('contract/create/customer') }}">
-                        <i data-feather='edit-3'></i>
-                        <span class="menu-title text-truncate">Crear Contrato</span>
+                <li class="" nav-item">
+                    <a class="d-flex align-items-center" href="">
+                        <i data-feather='user'></i>
+                        <span class="menu-title text-truncate">Crear Cliente</span>
                     </a>
                 </li>
+                <li class="{{ active('pending*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('pending') }}">
+                        <i data-feather='upload'></i>
+                        <span class="menu-title text-truncate">Cargar BD</span>
+                    </a>
+                </li>
+            @endrole
+            @hasanyrole('executive_administrator|legal_administrator|legal_executive')
                 <li class="{{ active('list-pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('list-pending') }}">
                         <i data-feather='alert-circle'></i>
                         <span class="menu-title text-truncate">Pendientes</span>
+                    </a>
+                </li>
+                <li class="{{ active('contract*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('contract/create/customer') }}">
+                        <i data-feather='edit-3'></i>
+                        <span class="menu-title text-truncate">Crear Contrato</span>
                     </a>
                 </li>
                 <li class="{{ active('list-contracts*') }} nav-item">

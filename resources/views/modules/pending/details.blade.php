@@ -3,13 +3,14 @@
 @section('title', 'Detalles de Pendiente')
 
 @section('content')
-    <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Detalles de Pendiente</h4>
-        </div>
-        <div class="card-body">
-                {!! Form::open(['url' => '', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical', 'enctype' => 'multipart/form-data']) !!}
-                    <div class="row">
+    <div class="row">
+        <div class="col-12 col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h4 class="card-title text-white">Datos generales</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2">
                         <div class="col-6">
                             <div class="form-group">
                                 <label for="first-name-icon">Fecha Entrevista </label>
@@ -103,7 +104,53 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6 col-m-6">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h4 class="card-title text-white">Acreedores</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="first-name-icon">Acreedor 1 </label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
+                                    </div>
+                                        {!! Form::text("creditor_1", old('creditor_1', @$row->creditor_1), ["class" => "form-control", "readonly"]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="first-name-icon">Acreedor 2 </label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
+                                    </div>
+                                        {!! Form::text("creditor_2", old('creditor_2', @$row->creditor_2), ["class" => "form-control", "readonly"]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-m-6">
+            <div class="card">
+                <div class="card-header bg-primary">
+                    <h4 class="card-title text-white">Montos</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row mt-2">
                         <div class="col-12">
                             <div class="form-group">
                                 <label for="first-name-icon">Saldo DD </label>
@@ -115,9 +162,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="first-name-icon">Acreedor 1 </label>
                                 <div class="input-group input-group-merge">
@@ -128,20 +173,9 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Saldo Acreedor 1 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='test'></i></span>
-                                    </div>
-                                        {!! Form::text("creditor_balance_1", old('creditor_balance_1', @$row->creditor_balance_1), ["class" => "form-control", "readonly"]) !!}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="first-name-icon">Acreedor 2 </label>
                                 <div class="input-group input-group-merge">
@@ -152,96 +186,93 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Saldo Acreedor 2 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='test'></i></span>
-                                    </div>
-                                        {!! Form::text("creditor_balance_2", old('creditor_balance_2', @$row->creditor_balance_2), ["class" => "form-control", "readonly"]) !!}
-                                </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header bg-primary">
+            <h4 class="card-title text-white">Demandas</h4>
+        </div>
+        <div class="card-body">
+            <div class="row mt-2">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Patrimonio </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
                             </div>
+                                {!! Form::text("heritage", old('heritage', @$row->heritage), ["class" => "form-control", "readonly"]) !!}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Patrimonio </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
-                                    </div>
-                                        {!! Form::text("heritage", old('heritage', @$row->heritage), ["class" => "form-control", "readonly"]) !!}
-                                </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Demandas Activas </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Demandas Activas </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='test'></i></span>
-                                    </div>
-                                        {!! Form::text("active_demand", old('active_demand', @$row->active_demand), ["class" => "form-control", "readonly"]) !!}
-                                </div>
-                            </div>
+                                {!! Form::text("active_demand", old('active_demand', @$row->active_demand), ["class" => "form-control", "readonly"]) !!}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Demanda 1 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
-                                    </div>
-                                        {!! Form::text("demand_1", old('demand_1', @$row->demand_1), ["class" => "form-control", "readonly"]) !!}
-                                </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Demanda 1 </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Estado 1 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='test'></i></span>
-                                    </div>
-                                        {!! Form::text("state_1", old('state_1', @$row->state_1), ["class" => "form-control", "readonly"]) !!}
-                                </div>
-                            </div>
+                                {!! Form::text("demand_1", old('demand_1', @$row->demand_1), ["class" => "form-control", "readonly"]) !!}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Demanda 2 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
-                                    </div>
-                                        {!! Form::text("demand_2", old('demand_2', @$row->demand_2), ["class" => "form-control", "readonly"]) !!}
-                                </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Estado 1 </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
                             </div>
-                        </div>
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="first-name-icon">Estado 2 </label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='test'></i></span>
-                                    </div>
-                                        {!! Form::text("state_2", old('state_2', @$row->state_2), ["class" => "form-control", "readonly"]) !!}
-                                </div>
-                            </div>
+                                {!! Form::text("state_1", old('state_1', @$row->state_1), ["class" => "form-control", "readonly"]) !!}
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("list-pending") }}" id="cancel"><i data-feather='x-circle'></i> Regresar</a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Demanda 2 </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
+                            </div>
+                                {!! Form::text("demand_2", old('demand_2', @$row->demand_2), ["class" => "form-control", "readonly"]) !!}
                         </div>
                     </div>
-                {!! Form::close() !!}
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="first-name-icon">Estado 2 </label>
+                        <div class="input-group input-group-merge">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i data-feather='file-text'></i></span>
+                            </div>
+                                {!! Form::text("state_2", old('state_2', @$row->state_2), ["class" => "form-control", "readonly"]) !!}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("list-pending") }}" id="cancel"><i data-feather='x-circle'></i> Regresar</a>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
