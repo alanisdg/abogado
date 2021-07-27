@@ -66,10 +66,18 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-3">
-                                <input type="text" class="form-control" placeholder="RUT del Cliente" id="customer_rut" autofocus>
+                                <input type="text" class="form-control" placeholder="12345678-1" id="customer_rut" autofocus>
                             </div>
                             <div class="col-1" style="padding-left: 0">
                                 <button type="button" class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
+                            </div>
+                        </div>
+                        <div class="row mt-1">
+                            <div class="col-12">
+                                <span class="text-danger"> <strong>Nota*: </strong> Por favor ingrese el RUT en el formato correcto.</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-danger"> <strong>Ejemplo: </strong> 16407136-7 o 9407136-1.</span>
                             </div>
                         </div>
                     </div>
@@ -155,7 +163,7 @@
     <script src="https://unpkg.com/imask"></script>
     <script>
         // Rut
-            var phoneMask = IMask(
+            /*var phoneMask = IMask(
                 document.getElementById('customer_rut'), {
                     mask: '00000000-0'
                 }
@@ -165,17 +173,17 @@
                 document.getElementById('rut'), {
                     mask: '00000000-0'
                 }
-            );
+            );*/
         // Phone
             var phoneMask = IMask(
                 document.getElementById('phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '+56 9 0000 0000'
                 }
             );
 
             var phoneMask = IMask(
                 document.getElementById('home_phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '+56 9 0000 0000'
                 }
             );
 

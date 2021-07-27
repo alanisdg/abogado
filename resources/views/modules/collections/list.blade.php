@@ -17,6 +17,14 @@
                 </div>
                 <div class="col-6"><h5 id="dataCliente"></h5></div>
             </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <span class="text-danger"> <strong>Nota*: </strong> Por favor ingrese el RUT en el formato correcto.</span>
+                </div>
+                <div class="col-12">
+                    <span class="text-danger"> <strong>Ejemplo: </strong> 16407136-7 o 9407136-1.</span>
+                </div>
+            </div>
         </div>
     </div>
     <div class="row" id="basic-table">
@@ -53,15 +61,7 @@
 @endsection
 
 @section("scripts")
-    <script src="https://unpkg.com/imask"></script>
     <script>
-         // Rut
-            var phoneMask = IMask(
-                document.getElementById('customer_rut'), {
-                    mask: '000000000-0'
-                }
-            );
-
         // Clear localstorage
             document.addEventListener("DOMContentLoaded", function () {
                 localStorage.removeItem('customer')

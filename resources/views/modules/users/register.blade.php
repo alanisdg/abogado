@@ -85,7 +85,7 @@
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="first-name-icon">Cargo <span class="text-danger"><strong>*</strong></span></label>
+                                <label for="first-name-icon">Rol <span class="text-danger"><strong>*</strong></span></label>
                                 <select name="rol" class="form-control">
                                     <option value="">Seleccione...</option>
                                     @foreach ($roles as $role)
@@ -107,7 +107,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='key'></i></span>
                                     </div>
-                                        <input type="password" class="form-control" name="password">
+                                        <input type="text" class="form-control" name="password">
                                 </div>
                                 @error('password')
                                     <div class="text-danger">{{ ($message) }}</div>

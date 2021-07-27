@@ -3,9 +3,9 @@
 @section('title', $config['add'])
 
 @section('content')
-    <div class="">
+    <div class="loader">
         <div class="card-header">
-            <h2 class="card-title">Cofirmación</h2>
+            <h2 class="card-title">Confirmación</h2>
         </div>
     </div>
     <section class="horizontal-wizard">
@@ -218,6 +218,7 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset("backend/js/loadingoverlay.min.js") }}"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Get current customer variable
@@ -287,7 +288,7 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
-                        console.log(data)
+
                         if (data.response_code == 1) {
                             localStorage.removeItem('customer')
                             localStorage.removeItem('cuotes')

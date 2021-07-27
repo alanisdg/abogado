@@ -216,7 +216,7 @@ class ContractController extends Controller
                     Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
                         $message->from('evmoya_89@hotmail.com', 'AppBoProc');
                         $message->to($emailDetails['email']);
-                        $message->subject('Registro de Contrato - AppBoProc');
+                        $message->subject('Registro de Contrato - Appboproc');
                         //$message->attachData($pdf->output(),'Contrato.pdf');
                     });
 
