@@ -74,10 +74,13 @@
                         </div>
                         <div class="row mt-1">
                             <div class="col-12">
-                                <span class="text-danger"> <strong>Nota*: </strong> Por favor ingrese el RUT en el formato correcto.</span>
+                                <span class="text-danger"> <strong>Nota: </strong> Por favor ingrese el RUT en el formato correcto.</span>
                             </div>
                             <div class="col-12">
                                 <span class="text-danger"> <strong>Ejemplo: </strong> 16407136-7 o 9407136-1.</span>
+                            </div>
+                            <div class="col-12">
+                                <span class="text-danger"> <strong>* : </strong> Campos Requeridos.</span>
                             </div>
                         </div>
                     </div>
@@ -86,41 +89,41 @@
                     <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="customer">Cliente</label>
+                            <label class="form-label" for="customer">Cliente <span class="text-danger">*</span></label>
                             {!! Form::text("name_customer", old('name_customer', @$contract->customer->customer), ["class" => "form-control", "id" => "name_customer", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="customer">Estado Civil</label>
+                            <label class="form-label" for="customer">Estado Civil <span class="text-danger">*</span></label>
                             {!! Form::text("civil_status", old('civil_status', @$contract->customer->civil_status), ["class" => "form-control", "id" => "civil_status", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="rut">RUT</label>
+                            <label class="form-label" for="rut">RUT <span class="text-danger">*</span></label>
                             {!! Form::text("rut", old('rut', @$contract->customer->rut), ["class" => "form-control", "id" => "rut"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="profession">Profesión</label>
+                            <label class="form-label" for="profession">Profesión <span class="text-danger">*</span></label>
                             {!! Form::text("profession", old('profession', @$contract->customer->profession), ["class" => "form-control", "id" => "profession", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="nationality">Nacionalidad</label>
+                            <label class="form-label" for="nationality">Nacionalidad <span class="text-danger">*</span></label>
                             {!! Form::text("nationality", old('nationality', @$contract->customer->nationality), ["class" => "form-control", "id" => "nationality", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="address">Dirección</label>
+                            <label class="form-label" for="address">Dirección  <span class="text-danger">*</span></label>
                             {!! Form::text("address", old('address', @$contract->customer->address), ["class" => "form-control", "id" => "address", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="phone">Teléfono Celular</label>
+                            <label class="form-label" for="phone">Teléfono Celular <span class="text-danger">*</span></label>
                             {!! Form::text("phone", old('phone', @$contract->customer->phone), ["class" => "form-control", "id" => "phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="commune">Comuna</label>
+                            <label class="form-label" for="commune">Comuna <span class="text-danger">*</span></label>
                             {!! Form::text("commune", old('commune', @$contract->customer->commune), ["class" => "form-control", "id" => "commune", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
@@ -130,13 +133,13 @@
                             {!! Form::text("home_phone", old('home_phone', @$contract->customer->home_phone), ["class" => "form-control", "id" => "home_phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="region">Región</label>
+                            <label class="form-label" for="region">Región <span class="text-danger">*</span></label>
                             {!! Form::text("region", old('region', @$contract->customer->region), ["class" => "form-control", "id" => "region", "onkeyup" => "upperCase(this);"]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="email">Email</label>
+                            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
                             {!! Form::text("email", old('email', @$contract->customer->email), ["class" => "form-control", "id" => "email"]) !!}
                         </div>
                     </div>
@@ -162,18 +165,6 @@
 @section('scripts')
     <script src="https://unpkg.com/imask"></script>
     <script>
-        // Rut
-            /*var phoneMask = IMask(
-                document.getElementById('customer_rut'), {
-                    mask: '00000000-0'
-                }
-            );
-
-            var phoneMask = IMask(
-                document.getElementById('rut'), {
-                    mask: '00000000-0'
-                }
-            );*/
         // Phone
             var phoneMask = IMask(
                 document.getElementById('phone'), {
@@ -225,8 +216,7 @@
                             toastr["error"]("", "¡No existe un Cliente asociado al RUT consultado!")
                         }
                         else {
-
-                            let customer = [
+                            /*let customer = [
                                 data.customer,
                                 data.civil_status,
                                 data.rut,
@@ -240,20 +230,20 @@
                                 data.region,
                             ]
 
+                            localStorage.setItem('customer', JSON.stringify(customer))*/
                             localStorage.setItem('customer_rut', data.rut)
-                            localStorage.setItem('customer', JSON.stringify(customer))
 
-                            document.getElementById("name_customer").value = data.customer
-                            document.getElementById("civil_status").value = data.civil_status
+                            document.getElementById("name_customer").value = data.names +" "+data.surnames
+                            document.getElementById("civil_status").value = ""
                             document.getElementById("rut").value = data.rut
-                            document.getElementById("profession").value = data.profession
-                            document.getElementById("nationality").value = data.nationality
-                            document.getElementById("address").value = data.address
+                            document.getElementById("profession").value = ""
+                            document.getElementById("nationality").value = ""
+                            document.getElementById("address").value = ""
                             document.getElementById("phone").value = data.phone
-                            document.getElementById("home_phone").value = data.home_phone
-                            document.getElementById("commune").value = data.commune
-                            document.getElementById("email").value = data.email
-                            document.getElementById("region").value = data.region
+                            document.getElementById("home_phone").value = ""
+                            document.getElementById("commune").value = ""
+                            document.getElementById("email").value = data.email || ""
+                            document.getElementById("region").value = ""
                         }
                     })
                     /*.catch(function(error) {
@@ -297,48 +287,68 @@
         // Capture data
             function storeCustomer() {
 
-                let current_customer = localStorage.getItem('current_customer')
+                // Variables
+                    let current_customer = localStorage.getItem('current_customer'),
+                        type_register = document.getElementById('type_register').value,
+                        url = (type_register == "annexed") ? "/list-contracts/annexes/add/type_contract" : "/contract/create/type-contract",
+                        name_customer = document.getElementById("name_customer").value,
+                        civil_status = document.getElementById("civil_status").value,
+                        rut = document.getElementById("rut").value,
+                        profession = document.getElementById("profession").value,
+                        nationality = document.getElementById("nationality").value,
+                        address = document.getElementById("address").value,
+                        phone = document.getElementById("phone").value,
+                        home_phone = document.getElementById("home_phone").value,
+                        commune = document.getElementById("commune").value,
+                        email = document.getElementById("email").value,
+                        region = document.getElementById("region").value
 
-                let type_register = document.getElementById('type_register').value
-                let url = (type_register == "annexed") ? "/list-contracts/annexes/add/type_contract" : "/contract/create/type-contract"
+                // Validamos todos los campos
+                    const data_inputs = [name_customer, civil_status, rut, profession, nationality, address, phone, commune, email, region]
+                    let input_empty = ""
 
-                // Si no existen datos en localstorage actualmente, se crea una nueva variable
-                if (current_customer == null) {
-                    let dataCustomer = [
-                        document.getElementById("name_customer").value,
-                        document.getElementById("civil_status").value,
-                        document.getElementById("rut").value,
-                        document.getElementById("profession").value,
-                        document.getElementById("nationality").value,
-                        document.getElementById("address").value,
-                        document.getElementById("phone").value,
-                        document.getElementById("home_phone").value,
-                        document.getElementById("commune").value,
-                        document.getElementById("email").value,
-                        document.getElementById("region").value,
-                    ]
+                    if (data_inputs.includes(input_empty)) {
+                        toastr["error"]("", "¡Ingrese la Información faltante del Cliente!")
+                    }
+                    else {
+                        // Si no existen datos en localstorage actualmente, se crea una nueva variable
+                            if (current_customer == null) {
+                                let dataCustomer = [
+                                    name_customer,
+                                    civil_status,
+                                    rut,
+                                    profession,
+                                    nationality,
+                                    address,
+                                    phone,
+                                    home_phone,
+                                    commune,
+                                    email,
+                                    region
+                                ]
 
-                    localStorage.setItem('customer', JSON.stringify(dataCustomer))
-                    window.location.href = url
-                }
-                else { // Se actualiza la el arreglo actual
-                    let dataCustomer = [
-                        document.getElementById("name_customer").value,
-                        document.getElementById("civil_status").value,
-                        document.getElementById("rut").value,
-                        document.getElementById("profession").value,
-                        document.getElementById("nationality").value,
-                        document.getElementById("address").value,
-                        document.getElementById("phone").value,
-                        document.getElementById("home_phone").value,
-                        document.getElementById("commune").value,
-                        document.getElementById("email").value,
-                        document.getElementById("region").value,
-                    ]
+                                localStorage.setItem('customer', JSON.stringify(dataCustomer))
+                                window.location.href = url
+                            }
+                            else { // Se actualiza el arreglo actual
+                                let dataCustomer = [
+                                    name_customer,
+                                    civil_status,
+                                    rut,
+                                    profession,
+                                    nationality,
+                                    address,
+                                    phone,
+                                    home_phone,
+                                    commune,
+                                    email,
+                                    region
+                                ]
 
-                    localStorage.setItem('customer', JSON.stringify(dataCustomer))
-                    window.location.href = url
-                }
+                                localStorage.setItem('customer', JSON.stringify(dataCustomer))
+                                window.location.href = url
+                            }
+                    }
             }
 
         // Empty inputs

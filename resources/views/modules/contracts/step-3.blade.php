@@ -61,13 +61,27 @@
             <div id="customers" class="content active dstepper-block">
                 <form class="" autocomplete="off">
                     <input type="hidden" value="{{ $config["typeRegister"] }}" id="type_register">
+                    <div class="row mt-1 mb-1">
+                        <div class="col-12">
+                            <span class="text-danger"> <strong>Nota: </strong> Por favor ingrese el RUT en el formato correcto.</span>
+                        </div>
+                        <div class="col-12">
+                            <span class="text-danger"> <strong>Ejemplo: </strong> 16407136-7 o 9407136-1.</span>
+                        </div>
+                        <div class="col-12">
+                            <span class="text-danger"> <strong>* : </strong> Campos Requeridos.</span>
+                        </div>
+                    </div>
+                    <div class="divider mb-2">
+                        <div class="divider-text"></div>
+                      </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="date">Fecha</label>
+                            <label class="form-label" for="date">Fecha <span class="text-danger">*</span></label>
                             <input type="text" name="date" id="contract_date" class="form-control" value="{{ date("Y-m-d") }}" readonly>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="first-name-icon">Total del Contrato </label>
+                            <label for="first-name-icon">Total del Contrato <span class="text-danger">*</span></label>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
@@ -78,21 +92,21 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="number_rit">Número de RIT</label>
+                            <label class="form-label" for="number_rit">Número de RIT <span class="text-danger">*</span></label>
                             <input type="text" name="number_rit" id="number_rit" class="form-control" onkeyup = "upperCase(this);">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="first_payment_date">Fecha del Primer Pago</label>
+                            <label class="form-label" for="first_payment_date">Fecha del Primer Pago <span class="text-danger">*</span></label>
                             <input type="date" name="first_payment_date" id="first_payment_date" class="form-control">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="cours">Tribunal</label>
+                            <label class="form-label" for="cours">Tribunal <span class="text-danger">*</span></label>
                             <input type="text" name="cours" id="cours" class="form-control" onkeyup = "upperCase(this);">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="first_payment_amount">Monto Primer Pago</label>
+                            <label class="form-label" for="first_payment_amount">Monto Primer Pago <span class="text-danger">*</span></label>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
@@ -103,11 +117,11 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="matter">Materia</label>
+                            <label class="form-label" for="matter">Materia <span class="text-danger">*</span></label>
                             <input type="text" name="matter" id="matter" class="form-control" onkeyup = "upperCase(this);">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="first_installment_payment_date">Fecha de Pago Primera Cuota</label>
+                            <label class="form-label" for="first_installment_payment_date">Fecha de Pago Primera Cuota <span class="text-danger">*</span></label>
                             <input type="date" name="first_installment_payment_date" id="first_installment_payment_date" class="form-control">
                         </div>
                     </div>
@@ -115,7 +129,7 @@
                         <div class="form-group col-md-6">
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="amount_installments">Cantidad de Cuotas</label>
+                            <label class="form-label" for="amount_installments">Cantidad de Cuotas <span class="text-danger">*</span></label>
                             <input type="number" name="amount_installments" id="amount_installments" class="form-control">
                         </div>
                     </div>
@@ -124,7 +138,7 @@
 
                         </div>
                         <div class="form-group col-md-6">
-                            <label class="form-label" for="amount_fees">Monto de Cuotas</label>
+                            <label class="form-label" for="amount_fees">Monto de Cuotas <span class="text-danger">*</span></label>
                             <div class="input-group input-group-merge">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i data-feather='dollar-sign'></i></span>
@@ -161,7 +175,6 @@
 @endsection
 
 @section('scripts')
-    <script src="https://unpkg.com/imask"></script>
     <script>
         $("#total_contract").on({
             "focus": function(event) {
@@ -202,72 +215,96 @@
 
                 // Assignate
                     document.getElementById('amount_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                    //document.getElementById('amount_fees').value = totalCost.toFixed(2)
 
             }
 
         // Validate localstorage, contract parameters
             document.addEventListener("DOMContentLoaded", function () {
                 // Get current customer variable
-                    let contract_parameters = JSON.parse(localStorage.getItem('contract_parameters'))
-                    let cuotes = JSON.parse(localStorage.getItem('cuotes'))
+                    let contract_parameters = JSON.parse(localStorage.getItem('contract_parameters')),
+                        cuotes = JSON.parse(localStorage.getItem('cuotes'))
 
-                    document.getElementById("contract_date").value = contract_parameters[0]
-                    document.getElementById("number_rit").value = contract_parameters[2]
-                    document.getElementById("cours").value = contract_parameters[5]
-                    document.getElementById("matter").value = contract_parameters[7]
+                    if (contract_parameters != null) {
+                        document.getElementById("contract_date").value = contract_parameters[0]
+                        document.getElementById("number_rit").value = contract_parameters[2]
+                        document.getElementById("cours").value = contract_parameters[5]
+                        document.getElementById("matter").value = contract_parameters[7]
 
-                    document.getElementById("total_contract").value = contract_parameters[1]
-                    document.getElementById("first_payment_date").value = contract_parameters[3]
-                    document.getElementById("first_payment_amount").value = contract_parameters[6]
-                    document.getElementById("first_installment_payment_date").value = contract_parameters[4]
+                        document.getElementById("total_contract").value = contract_parameters[1]
+                        document.getElementById("first_payment_date").value = contract_parameters[3]
+                        document.getElementById("first_payment_amount").value = contract_parameters[6]
+                        document.getElementById("first_installment_payment_date").value = contract_parameters[4]
 
-                    document.getElementById("amount_installments").value = cuotes[0]
-                    document.getElementById("amount_fees").value = cuotes[1]
+                        document.getElementById("amount_installments").value = cuotes[0]
+                        document.getElementById("amount_fees").value = cuotes[1]
 
-                // Create localstorage
-                    localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
-                    localStorage.setItem('cuotes', JSON.stringify(cuotes))
+                    // Create localstorage
+                        localStorage.setItem('contract_parameters', JSON.stringify(contract_parameters))
+                        localStorage.setItem('cuotes', JSON.stringify(cuotes))
+                    }
             })
-
-        // Phone
-            var phoneMask = IMask(
-                document.getElementById('customer_rut'), {
-                    mask: '000000000-0'
-                }
-            );
 
         // Customer current rut
             let customer_rut = localStorage.getItem('current_customer_rut')
 
         // Create new variable in localstorage with current customer rut
-            localStorage.setItem('current_customer_rut', currentCustomerRut)
+            localStorage.setItem('current_customer_rut', customer_rut)
 
         // Store parameters
             function storeParameters() {
 
-                let type_register = document.getElementById('type_register').value
-                let url = (type_register == "annexed") ? "/list-contracts/annexes/add/confirm" : "/contract/create/confirmation"
+                let type_register = document.getElementById('type_register').value,
+                    url = (type_register == "annexed") ? "/list-contracts/annexes/add/confirm" : "/contract/create/confirmation",
+                    contract_date = document.getElementById('contract_date').value,
+                    total_contract = document.getElementById('total_contract').value,
+                    number_rit = document.getElementById('number_rit').value,
+                    first_payment_date = document.getElementById('first_payment_date').value,
+                    first_installment_payment_date = document.getElementById('first_installment_payment_date').value,
+                    cours = document.getElementById('cours').value,
+                    first_payment_amount = document.getElementById('first_payment_amount').value,
+                    matter = document.getElementById('matter').value
 
-                let parameters = [
-                    document.getElementById('contract_date').value,
-                    document.getElementById('total_contract').value,
-                    document.getElementById('number_rit').value,
-                    document.getElementById('first_payment_date').value,
-                    document.getElementById('first_installment_payment_date').value,
-                    document.getElementById('cours').value,
-                    document.getElementById('first_payment_amount').value,
-                    document.getElementById('matter').value
-                ]
+                // Validamos todos los campos
+                    const data_inputs = [contract_date, total_contract, number_rit, first_payment_date, first_installment_payment_date, cours, first_payment_amount, matter]
+                    let input_empty = ""
 
-                let cuotes = [
-                    document.getElementById('amount_installments').value,
-                    document.getElementById('amount_fees').value,
-                ]
+                    if (data_inputs.includes(input_empty)) {
+                        toastr["error"]("", "¡Ingrese los detalles completos!")
+                    }
+                    else {
 
-                localStorage.setItem('contract_parameters', JSON.stringify(parameters))
-                localStorage.setItem('cuotes', JSON.stringify(cuotes))
+                        // Comparamos sfecha del primer pago y pago de l aprimera cuota
+                            let date1 = new Date(first_payment_date)
+                                date2 = new Date(first_installment_payment_date)
 
-                window.location.href = url;
+                            if (date1< date2) {
+
+                                    let parameters = [
+                                        contract_date,
+                                        total_contract,
+                                        number_rit,
+                                        first_payment_date,
+                                        first_installment_payment_date,
+                                        cours,
+                                        first_payment_amount,
+                                        matter
+                                    ]
+
+                                    let cuotes = [
+                                        document.getElementById('amount_installments').value,
+                                        document.getElementById('amount_fees').value,
+                                    ]
+
+                                    localStorage.setItem('contract_parameters', JSON.stringify(parameters))
+                                    localStorage.setItem('cuotes', JSON.stringify(cuotes))
+
+                                    window.location.href = url;
+                            }
+                            else {
+                                toastr["error"]("", "¡La fecha de pago de la Primera Cuota, debe ser mayor a la fecha del Primer Pago!")
+                            }
+                    }
             }
     </script>
 @endsection

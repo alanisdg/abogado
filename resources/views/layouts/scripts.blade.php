@@ -18,7 +18,7 @@
 <script src="{{ asset('backend/js/scripts/extensions/ext-component-toastr.min.js') }}"></script>
 <script src="{{ asset('backend/js/scripts/table-datatables-basic.min.js') }}"></script>
 <script src="{{ asset('backend/js/scripts/forms/form-wizard.min.js') }}"></script>
-<script src="{{ asset('backend/js/scripts/forms/pickers/form-pickers.min.js') }}"></script>
+{{--<script src="{{ asset('backend/js/scripts/forms/pickers/form-pickers.min.js') }}"></script>--}}
 <script src="{{ asset('backend/js/scripts.js') }}"></script>
 
 {!! Toastr::message() !!}

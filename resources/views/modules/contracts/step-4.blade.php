@@ -237,9 +237,9 @@
                 document.getElementById("nationality").value = current_customer[4]
                 document.getElementById("address").value = current_customer[5]
                 document.getElementById("phone").value = current_customer[6]
-                document.getElementById("commune").value = current_customer[7]
-                document.getElementById("email").value = current_customer[8]
-                document.getElementById("region").value = current_customer[9]
+                document.getElementById("commune").value = current_customer[8]
+                document.getElementById("email").value = current_customer[9]
+                document.getElementById("region").value = current_customer[10]
 
                 document.getElementById("contract_date").value = contract_parameters[0]
                 document.getElementById("number_rit").value = contract_parameters[2]

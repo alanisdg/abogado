@@ -13,6 +13,8 @@ use DataTables;
 
 // Request
 use App\Http\Requests\CustomerRequest;
+use App\Models\Pending;
+
 class CustomerController extends Controller
 {
     protected $config = [
@@ -154,7 +156,7 @@ class CustomerController extends Controller
      */
     public function searchCustomer(Request $request)
     {
-        $dataCustomer = Customer::whereRut($request->input("customer_rut"))->first();
+        $dataCustomer = Pending::whereRut($request->input("customer_rut"))->first();
         if (is_null($dataCustomer)) {
             $dataCustomer = 2;
         }
