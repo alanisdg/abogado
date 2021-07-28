@@ -268,6 +268,9 @@
                         type_register = document.getElementById('type_register').value,
                         url = '/contract/register',
                         token = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        $.LoadingOverlay("show", {
+                            imageColor: "#354555"
+                        });
 
                 // Send info
                     fetch(url, {
@@ -288,6 +291,7 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
+                        $.LoadingOverlay("hide");
 
                         if (data.response_code == 1) {
                             localStorage.removeItem('customer')
