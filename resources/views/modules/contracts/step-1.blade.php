@@ -120,7 +120,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="phone">Teléfono Celular <span class="text-danger">*</span></label>
-                            {!! Form::text("phone", old('phone', @$contract->customer->phone), ["class" => "form-control", "id" => "phone"]) !!}
+                            {!! Form::number("phone", old('phone', @$contract->customer->phone), ["class" => "form-control", "id" => "phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="commune">Comuna <span class="text-danger">*</span></label>
@@ -130,7 +130,7 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="home_phone">Teléfono Casa</label>
-                            {!! Form::text("home_phone", old('home_phone', @$contract->customer->home_phone), ["class" => "form-control", "id" => "home_phone"]) !!}
+                            {!! Form::number("home_phone", old('home_phone', @$contract->customer->home_phone), ["class" => "form-control", "id" => "home_phone"]) !!}
                         </div>
                         <div class="form-group col-md-6">
                             <label class="form-label" for="region">Región <span class="text-danger">*</span></label>
@@ -163,10 +163,10 @@
 @endsection
 
 @section('scripts')
-    <script src="https://unpkg.com/imask"></script>
+    {{--<script src="https://unpkg.com/imask"></script>--}}
     <script>
         // Phone
-            var phoneMask = IMask(
+            /*var phoneMask = IMask(
                 document.getElementById('phone'), {
                     mask: '+56 9 0000 0000'
                 }
@@ -176,7 +176,7 @@
                 document.getElementById('home_phone'), {
                     mask: '+56 9 0000 0000'
                 }
-            );
+            );*/
 
         // Search customer
             function searchCustomer() {

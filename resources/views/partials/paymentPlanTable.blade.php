@@ -21,7 +21,7 @@
                         @forelse ($row->collections as $item)
                             @if ($item->status == "PENDIENTE")
                                 @php
-                                    $totalOwed += floatval(str_replace(',', '', $item->amount))
+                                    $totalOwed += floatval(str_replace('.', '', $item->amount))
                                 @endphp
                             @endif
                             <tr>
@@ -39,7 +39,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="4">
-                                <strong>Total Adeudado: ${{ number_format($totalOwed) }}</strong>
+                                <strong>Total Adeudado: ${{ number_format($totalOwed, 0, '', '.') }}</strong>
                             </td>
                         </tr>
                     </tfoot>

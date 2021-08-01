@@ -38,7 +38,6 @@ class ActualizationController extends Controller
      */
     public function changeCreditor(Request $request)
     {
-        //dd($request->all());
         // Delete creditor
             if (!is_null($request->input('current_creditor'))) {
                 $creditor = Creditor::find($request->input('current_creditor'))->delete();
@@ -81,6 +80,7 @@ class ActualizationController extends Controller
                         // Settle quotas
                             $cuote = Collection::find($fee->id);
                             $cuote->status = 'FINIQUITADA';
+                            $cuote->save();
                     }
 
                 // Number and total amount fees

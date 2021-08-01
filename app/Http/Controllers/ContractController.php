@@ -9,6 +9,7 @@ use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Cause;
 use App\Models\Collection;
+use App\Models\Pending;
 use App\Models\User;
 
 // Helpers
@@ -130,19 +131,22 @@ class ContractController extends Controller
         }
 
         // Register customer
-            $addCustomer = new Customer();
-            $addCustomer->rut = $customer[2];
-            $addCustomer->customer = $customer[0];
-            $addCustomer->civil_status = $customer[1];
-            $addCustomer->profession = $customer[3];
-            $addCustomer->nationality = $customer[4];
-            $addCustomer->commune = $customer[8];
-            $addCustomer->region = $customer[10];
-            $addCustomer->address = $customer[5];
-            $addCustomer->phone = $customer[6];
-            $addCustomer->home_phone = $customer[7];
-            $addCustomer->email = $customer[9];
-            if ($addCustomer->save()) {
+            $addCustomer = Customer::firstOrCreate(
+                ['rut' => $customer[2]],
+                [
+                    "customer" => $customer[0],
+                    "civil_status" => $customer[1],
+                    "profession" => $customer[3],
+                    "nationality" => $customer[4],
+                    "commune" => $customer[8],
+                    "region" => $customer[10],
+                    "address" => $customer[5],
+                    "phone" => $customer[6],
+                    "home_phone" => $customer[7],
+                    "email" => $customer[9]
+                ]
+            );
+            if ($addCustomer) {
                 // Register contract
                     $addContract = new Contract();
                     $addContract->number_contract = $currentContractId;
@@ -198,7 +202,10 @@ class ContractController extends Controller
 
                             $referentialDate = $referentialD;
                         }
-
+                // Update pending
+                    $upPending = Pending::whereRut($customer[2])->first();
+                    $upPending->status = 2;
+                    $upPending->save();
                 // Data email
                     $emailDetails = [
                         'title' => '¡APPABOPROC!',

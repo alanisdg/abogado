@@ -15,9 +15,12 @@ class PendingImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        $date1 = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_entrevista'])->format('d/m/Y');
+        $date2 = ($row['fecha_segunda_cita'] == 'No Aplica') ? 'No Aplica' : \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_segunda_cita'])->format('d/m/Y');
+
         return new Pending([
-            'interview_date' => $row['fecha_entrevista'],
-            'second_date' => $row['fecha_segunda_cita'],
+            'interview_date' => $date1,
+            'second_date' => $date2,
             'rut' => $row['rut'],
             //'email' => $row['correo_electronico'],
             'names' => $row['nombres'],

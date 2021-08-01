@@ -183,7 +183,7 @@
             "keyup": function(event) {
                 $(event.target).val(function(index, value) {
                 return value.replace(/\D/g, "")
-                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
                 });
             }
         });
@@ -195,7 +195,7 @@
             "keyup": function(event) {
                 $(event.target).val(function(index, value) {
                 return value.replace(/\D/g, "")
-                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ",");
+                    .replace(/\B(?=(\d{3})+(?!\d)\.?)/g, ".");
                 });
             }
         });
@@ -208,14 +208,16 @@
                         first_payment_amount = document.getElementById('first_payment_amount').value
                         amount_installments = document.getElementById('amount_installments').value
 
+
                 // Calculate
-                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
-                    first_payment_amount = Number(first_payment_amount.replace(/[^0-9\.]+/g,""))
-                    totalCost = (parseFloat(total_contract) - parseFloat(first_payment_amount)) / amount_installments
+                    let totalContract = total_contract.replace('.', ''),
+                        firstPaymentAmount = first_payment_amount.replace('.', ''),
+                        totalCost = (parseFloat(totalContract.replace('.', '')) - parseFloat(first_payment_amount.replace('.', ''))) / amount_installments,
+                        total = Math.floor(totalCost)
 
                 // Assignate
-                    document.getElementById('amount_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-                    //document.getElementById('amount_fees').value = totalCost.toFixed(2)
+                    //document.getElementById('amount_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                    document.getElementById('amount_fees').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
 
             }
 

@@ -288,7 +288,7 @@
                     })
                     .then((response) => response.json())
                     .then((data) => {
-
+                        
                         if (data.response_code == 1) {
                             localStorage.removeItem('customer')
                             localStorage.removeItem('cuotes')

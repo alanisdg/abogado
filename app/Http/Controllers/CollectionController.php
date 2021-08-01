@@ -47,8 +47,11 @@ class CollectionController extends Controller
     {
         // Data customer
             $data = Customer::with(['contracts', 'contracts.collections'])->whereRut($request->input('customer_rut'))->first();
+            foreach ($data->contracts as $contract) {
+                $arrayCollections[] = $contract->collections;
+            }
             if (!is_null($data)) {
-                $collections = $data;
+                $collections = $arrayCollections;
             }
             else {
                 $collections = null;
@@ -79,6 +82,6 @@ class CollectionController extends Controller
      */
     public function payFee($id)
     {
-        
+
     }
 }

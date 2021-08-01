@@ -15,7 +15,7 @@
                 <div class="col-1" style="padding-left: 0">
                     <button type="button" class="btn btn-primary" onclick="searchCustomer();"><i data-feather='search'></i></button>
                 </div>
-                <div class="col-6"><h5 id="dataCliente"></h5></div>
+                {{--<div class="col-6"><h5 id="dataCliente"></h5></div>--}}
             </div>
             <div class="row mt-1">
                 <div class="col-12">
@@ -37,6 +37,7 @@
                     <table class="table" id="list-collections">
                         <thead>
                             <tr>
+                                <th>NRO DE CONTRATO</th>
                                 <th>NRO DE CUOTA</th>
                                 <th>MONTO ($)</th>
                                 <th>FECHA DE PAGO</th>
@@ -75,8 +76,8 @@
             {
                 // Empty table
                     $("#tbody_list_collections").empty();
-                    document.getElementById('dataCliente').innerText = ""
-                    document.getElementById('totalAmount').innerText = ""
+                    //document.getElementById('dataCliente').innerText = ""
+                    //document.getElementById('totalAmount').innerText = ""
 
                 // Variables
                     let customer_rut = document.getElementById('customer_rut').value,
@@ -103,27 +104,29 @@
                         })
                         .then((response) => response.json())
                         .then((data) => {
-
                             if (data.collections == null) {
                                 toastr["error"]("", "¡No existe un cliente asociado al RUT consultado!")
                             }
                             else {
-                                let collections = data.collections.contracts[0].collections,
-                                totalAmount = '0,0'
+                                let collections = data.collections,
+                                    totalAmount = '0,0'
 
-                                collections.forEach(element => {
+                                collections.forEach(collection => {
+                                    collection.forEach(element => {
+                                        console.log(element)
+                                        let amount = element.amount,
+                                            num2 = Number(amount.replace(/[^0-9\.]+/g,""))
 
-                                    let amount = element.amount,
-                                        num2 = Number(amount.replace(/[^0-9\.]+/g,""))
+                                        totalAmount = parseFloat(totalAmount) + parseFloat(num2)
 
-                                    totalAmount = parseFloat(totalAmount) + parseFloat(num2)
-
-                                    $("#list-collections tbody").append("<tr>" +
-                                        `<td id="valueWeigth">${ element.installment_number }</td>` +
-                                        `<td id="valueWeigth">${ element.amount }</td>` +
-                                        `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
-                                        `<td id="valueWeigth">${ element.status }</td>`
-                                    )
+                                        $("#list-collections tbody").append("<tr>" +
+                                            `<td id="valueWeigth">${ element.contract_id }</td>` +
+                                            `<td id="valueWeigth">${ element.installment_number }</td>` +
+                                            `<td id="valueWeigth">${ element.amount }</td>` +
+                                            `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
+                                            `<td id="valueWeigth">${ element.status }</td>`
+                                        )
+                                    })
                                 });
 
                                 document.getElementById('totalAmount').innerText = String(totalAmount).replace(/(.)(?=(\d{3})+$)/g,'$1,')

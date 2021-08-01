@@ -19,8 +19,9 @@
                                 <th>APELLIDO</th>
                                 <th>RUT</th>
                                 <th>TELEFONO</th>
+                                <th>FECHA DE ENTREVISTA</th>
                                 <th>ESTADO</th>
-                                <th>OPCIONES</th>
+                                <th>BOTONES</th>
                             </tr>
                         </thead>
                     </table>
@@ -50,6 +51,7 @@
                 ajax: {
                     url: '{{ url("list-pending") }}',
                     data: function (data) {
+                        data.interview_date = $('input[name=interview_date]').val();
                         data.names = $('input[name=names]').val();
                         data.surnames = $('input[name=surnames]').val();
                         data.rut = $('input[name=rut]').val();
@@ -58,6 +60,7 @@
                     },
                 },
                 columns: [
+                    {data: 'interview_date'},
                     {data: 'names'},
                     {data: 'surnames'},
                     {data: 'rut'},
@@ -66,13 +69,18 @@
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
-                    tr = '<td class="text-left" style="width: 20%">'+ (data.names ? data.names : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 20%">'+ (data.surnames ? data.surnames : "") + '</td>'
-                    tr += '<td class="text-left" style="width: 15%">'+ (data.rut ? data.rut : "") +'</td>'
+                    tr = '<td class="text-left" style="width: 15%">'+ (data.names ? data.names : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.surnames ? data.surnames : "") + '</td>'
+                    tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.interview_date ? data.interview_date : "") +'</td>'
                     if (data.status == 1) {
                         tr += '<td class="text-left" style="width: 15%"><span class="text-warning">PENDIENTE</span></td>'
-                    } else {
+                    }
+                    else if (data.status == 2) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">GANADO</span></td>'
+                    }
+                    else {
                         tr += '<td class="text-left" style="width: 15%"><span class="text-danger">PERDIDO</span></td>'
                     }
                     tr += '<td style="width: 15%">'

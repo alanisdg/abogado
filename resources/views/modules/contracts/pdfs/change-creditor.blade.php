@@ -59,7 +59,7 @@
     @endforeach
 
     <p style="margin-top: 50px;">
-        <strong>TERCERO:</strong> Don/Doña {{ $data->contract->customer->customer }} paga en este acto una cuota ascendiente a <strong>${{ $totalPaid }}</strong>, como parte de los honorarios adeudados a Estudio Jurídico Aboproc Asociados en razón del contrato de prestación de servicios profesionales.
+        <strong>TERCERO:</strong> Don/Doña {{ $data->contract->customer->customer }} paga en este acto una cuota ascendiente a <strong>${{ $data->contract_amount }}</strong>, como parte de los honorarios adeudados a Estudio Jurídico Aboproc Asociados en razón del contrato de prestación de servicios profesionales.
     </p>
 
     <p style="margin-top: 50px;">
