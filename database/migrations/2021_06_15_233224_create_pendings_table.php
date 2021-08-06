@@ -22,7 +22,7 @@ class CreatePendingsTable extends Migration
             $table->string('surnames')->nullable();
             $table->string('email')->nullable();
             $table->string('balance_dd')->nullable();
-            $table->integer('phone')->nullable();
+            $table->string('phone')->nullable();
             $table->string('creditor_1')->nullable();
             $table->string('creditor_balance_1')->nullable();
             $table->string('creditor_2')->nullable();
