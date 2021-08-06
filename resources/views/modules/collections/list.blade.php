@@ -109,13 +109,13 @@
                             }
                             else {
                                 let collections = data.collections,
-                                    totalAmount = '0,0'
+                                    totalAmount = '0'
 
                                 collections.forEach(collection => {
                                     collection.forEach(element => {
                                         console.log(element)
                                         let amount = element.amount,
-                                            num2 = Number(amount.replace(/[^0-9\.]+/g,""))
+                                            num2 = Number(amount.replace(/\./g, ''))
 
                                         totalAmount = parseFloat(totalAmount) + parseFloat(num2)
 
@@ -129,8 +129,7 @@
                                     })
                                 });
 
-                                document.getElementById('totalAmount').innerText = String(totalAmount).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-                                document.getElementById('dataCliente').innerText = "Cliente: " + data.collections.customer + "|| Email: " + data.collections.email + "|| Teléfono: " + data.collections.phone
+                                document.getElementById('totalAmount').innerText = parseFloat(totalAmount).toLocaleString('de-DE')
                             }
                         })
                         /*.catch(function(error) {

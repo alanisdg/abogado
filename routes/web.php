@@ -25,6 +25,10 @@ Route::get('/', [HomeController::class, 'login'])->name('/');
 /* Routes dashboard */
 Auth::routes();
 
+Route::get('email', function() {
+    return view('emails.create-annexes');
+});
+
 Route::middleware(['auth'])->group(function () {
     /* Dashboard */
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

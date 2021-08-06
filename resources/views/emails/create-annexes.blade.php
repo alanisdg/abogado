@@ -94,12 +94,12 @@
     <div class="title">
         <div style="text-align: center">
             <span class="subtitle">Tenemos nuevas noticias</span>
-            <h2 style="">¡Tu contrato ha sido creado!</h2>
+            <h2 style="">¡Anexo creado!</h2>
         </div>
     </div>
 
     <div class="img">
-        <img class="img-family" src="../backend/images/assets/unnamed.png" alt="">
+        <img class="img-family" src="../backend/images/assets/unnamed1.png" alt="">
     </div>
 
     <div style="text-align: center; margin-top: 2rem; color: #949494; margin-bottom: 4rem;">

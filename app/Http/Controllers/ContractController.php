@@ -165,7 +165,7 @@ class ContractController extends Controller
                 // Register causes
                     $addCause = new Cause();
                     $addCause->contract_id = $addContract->id;
-                    $addCause->number_rit = $parameters[3];
+                    $addCause->number_rit = $parameters[2];
                     $addCause->court = $parameters[5];
                     $addCause->matter = $parameters[7];
                     $addCause->status = 1;
@@ -213,19 +213,21 @@ class ContractController extends Controller
                         'user' => $addCustomer->customer,
                         'email' => $addCustomer->email,
                     ];
-
-                // Generate pdf
-                    /*$pdf = PDF::loadView('modules.contracts.pdfs.contract', $emailDetails, [
-                        'format' => 'A4'
-                    ]);*/
-
                 //Send mail
-                    Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
-                        $message->from('evmoya_89@hotmail.com', 'AppBoProc');
-                        $message->to($emailDetails['email']);
-                        $message->subject('Registro de Contrato - Appboproc');
-                        //$message->attachData($pdf->output(),'Contrato.pdf');
-                    });
+                    if ($request->input("data_type_register") === "annexed") {
+                        Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails) {
+                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->to($emailDetails['email']);
+                            $message->subject('Registro de Anexo - Appboproc');
+                        });
+                    }
+                    else {
+                        Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
+                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->to($emailDetails['email']);
+                            $message->subject('Registro de Contrato - Appboproc');
+                        });
+                    }
 
                 // Return response
                     return response()->json(["response_code" => 1, "contract_id" => session("idContract")]);
@@ -391,6 +393,7 @@ class ContractController extends Controller
     {
         // Data contract
             $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($id);
+
         // Share data to view
             view()->share('data', $dataContract);
             $pdf = PDF::loadView('modules.contracts.pdfs.contract');

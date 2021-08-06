@@ -16,7 +16,7 @@
                                     <div class="form-group">
                                         <label for="customFile">Seleccione el archivo a cargar</label>
                                         <div class="custom-file">
-                                            <input type="file" class="custom-file-input" id="customFile" name="file">
+                                            <input type="file" class="custom-file-input" id="customFile" name="file" required>
                                             <label class="custom-file-label" for="customFile">Seleccione</label>
                                         </div>
                                     </div>

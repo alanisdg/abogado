@@ -116,22 +116,7 @@
 @endsection
 
 @section('scripts')
-    <script src="https://unpkg.com/imask"></script>
     <script>
-        // Rut
-            var phoneMask = IMask(
-                document.getElementById('rut'), {
-                    mask: '000000000-0'
-                }
-            );
-            var phoneMask = IMask(
-                document.getElementById('phone'), {
-                    mask: '(+56) 000-000-000'
-            });
-            var phoneMask = IMask(
-                document.getElementById('home_phone'), {
-                    mask: '(+56) 000-000-000'
-            });
         // Clear localstorage
             document.addEventListener("DOMContentLoaded", function () {
                 localStorage.removeItem('customer')

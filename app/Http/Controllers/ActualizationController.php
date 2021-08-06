@@ -16,6 +16,7 @@ use App\Models\Customer;
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
 use PDF;
+use Illuminate\Support\Facades\Mail;
 
 class ActualizationController extends Controller
 {
@@ -38,6 +39,8 @@ class ActualizationController extends Controller
      */
     public function changeCreditor(Request $request)
     {
+        // Data contract - customer
+            $dataContract = Contract::with('customer')->whereId($request->input('contract_id'))->first();
         // Delete creditor
             if (!is_null($request->input('current_creditor'))) {
                 $creditor = Creditor::find($request->input('current_creditor'))->delete();
@@ -62,7 +65,6 @@ class ActualizationController extends Controller
             ]);
 
             if ($createUpdate) {
-
                 // Variables
                     $referentialDate = $request->input('payment_date_installment_strategy');
 
@@ -109,6 +111,20 @@ class ActualizationController extends Controller
                             $lastIdCuote = $number_cuote;
                     }
 
+                // Data email
+                    $emailDetails = [
+                        'title' => '¡APPABOPROC!',
+                        'url'   => \Request::root(),
+                        'title' => 'Cambio de Acreedor Registrado',
+                        'email' => $dataContract->customer->email,
+                    ];
+                //Send mail
+                    Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
+                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->to($emailDetails['email']);
+                        $message->subject('Registro de Actualización - Appboproc');
+                    });
+
                 Toastr::success("", "¡Actualización registrada!");
                 return redirect('contract/actualize/'.$request->input('contract_id'));
             }
@@ -119,8 +135,8 @@ class ActualizationController extends Controller
      */
     public function changeStrategy(Request $request)
     {
-        //dd($request->all());
-
+        // Data contract - customer
+            $dataContract = Contract::with('customer')->whereId($request->input('contract_id'))->first();
         // Register update
             $createUpdate = Update::create([
                 'contract_id' => $request->input('contract_id'),
@@ -180,6 +196,20 @@ class ActualizationController extends Controller
                         $lastIdCuote = $number_cuote;
                 }
 
+            // Data email
+                $emailDetails = [
+                    'title' => '¡APPABOPROC!',
+                    'url'   => \Request::root(),
+                    'title' => 'Cambio de Estrategia Registrada',
+                    'email' => $dataContract->customer->email,
+                ];
+            //Send mail
+                Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
+                    $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                    $message->to($emailDetails['email']);
+                    $message->subject('Registro de Actualización - Appboproc');
+                });
+
                 Toastr::success("", "¡Actualización registrada!");
                 return redirect('contract/actualize/'.$request->input('contract_id'));
             }
@@ -190,6 +220,9 @@ class ActualizationController extends Controller
      */
     public function accountHolderChange(Request $request)
     {
+        // Data contract - customer
+            $dataContract = Contract::with('customer')->whereId($request->input('contract_id'))->first();
+
         // Register Customer
             $addCustomer = Customer::create([
                 "rut" => $request->input('rut'),
@@ -260,6 +293,20 @@ class ActualizationController extends Controller
                             $lastIdCuote = $number_cuote;
                     }
 
+                // Data email
+                    $emailDetails = [
+                        'title' => '¡APPABOPROC!',
+                        'url'   => \Request::root(),
+                        'title' => 'Cambio de Titular de Cuenta Efectuado',
+                        'email' => $dataContract->customer->email,
+                    ];
+                //Send mail
+                    Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
+                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->to($emailDetails['email']);
+                        $message->subject('Registro de Actualización - Appboproc');
+                    });
+
                 // Return response
                     Toastr::success("", "¡Actualización registrada!");
                     return redirect('contract/actualize/'.$request->input('contract_id'));
@@ -271,6 +318,9 @@ class ActualizationController extends Controller
      */
     public function changePaymentDate(Request $request)
     {
+        // Data contract - customer
+            $dataContract = Contract::with('customer')->whereId($request->input('contract_id'))->first();
+
         // Dates
             $nextDate = $request->input('nextPaymentDate');
             $newDate = $request->input('deceased_new_payment_date');
@@ -336,6 +386,20 @@ class ActualizationController extends Controller
                                     $lastIdCuote = $number_cuote;
                         }
 
+                    // Data email
+                        $emailDetails = [
+                            'title' => '¡APPABOPROC!',
+                            'url'   => \Request::root(),
+                            'title' => 'Cambio de Fecha de Pago Registrado',
+                            'email' => $dataContract->customer->email,
+                        ];
+                    //Send mail
+                        Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
+                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->to($emailDetails['email']);
+                            $message->subject('Registro de Actualización - Appboproc');
+                        });
+
                     // Return response
                         Toastr::success("", "¡Fechas de Pagos Actualizadas!");
                         return redirect('contract/actualize/'.$request->input('contract_id'));
@@ -352,6 +416,9 @@ class ActualizationController extends Controller
      */
     public function deceasedCustomer(Request $request)
     {
+        // Data contract - customer
+            $dataContract = Contract::with('customer')->whereId($request->input('contract_id'))->first();
+
         // Register Customer
             $addCustomer = Customer::create([
                 "rut" => $request->input('rut'),
@@ -423,6 +490,20 @@ class ActualizationController extends Controller
                             $referentialDate = $referentialD;
                             $lastIdCuote = $number_cuote;
                     }
+
+                // Data email
+                    $emailDetails = [
+                        'title' => '¡APPABOPROC!',
+                        'url'   => \Request::root(),
+                        'title' => 'Registro de Fallecido Registrado',
+                        'email' => $dataContract->customer->email,
+                    ];
+                //Send mail
+                    Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
+                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->to($emailDetails['email']);
+                        $message->subject('Registro de Actualización - Appboproc');
+                    });
 
                 // Return response
                     Toastr::success("", "¡Actualización registrada!");
