@@ -23,3 +23,11 @@
 -> Maquetacion de Contratos
 -> Separación de Roles *
 -> Modulo de pagos del cliente final
+
+Colocar el rut en la lista de proyectos
+Crear lo accesos del cliente al crear el contrato y enviarlos al correo
+Habilitar el boton de pagar por orden pago, segun las fechas
+Para finiquitar el contrato, puedo hacerlo si las cuotas estan pagas hasta la fecha actual, en caso contrario no puedo.
+Arreglar las fecha en las cuotas del cliente
+Modulo de causas en clientes
+SI el mes tiene 30 dias, dejar igual, si tiene 31, sumar 1.

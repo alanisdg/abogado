@@ -15,6 +15,7 @@
                     <table class="table" id="tableCrud">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>NOMBRE</th>
                                 <th>APELLIDO</th>
                                 <th>RUT</th>
@@ -51,6 +52,7 @@
                 ajax: {
                     url: '{{ url("list-pending") }}',
                     data: function (data) {
+                        data.id = $('input[name=id]').val();
                         data.interview_date = $('input[name=interview_date]').val();
                         data.names = $('input[name=names]').val();
                         data.surnames = $('input[name=surnames]').val();
@@ -60,6 +62,7 @@
                     },
                 },
                 columns: [
+                    {data: 'id'},
                     {data: 'interview_date'},
                     {data: 'names'},
                     {data: 'surnames'},
@@ -69,8 +72,9 @@
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
-                    tr = '<td class="text-left" style="width: 15%">'+ (data.names ? data.names : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 15%">'+ (data.surnames ? data.surnames : "") + '</td>'
+                    tr = '<td class="text-left" style="width: 6%">'+ (data.id ? data.id : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 12%">'+ (data.names ? data.names : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 12%">'+ (data.surnames ? data.surnames : "") + '</td>'
                     tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.interview_date ? data.interview_date : "") +'</td>'

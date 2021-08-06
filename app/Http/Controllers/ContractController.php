@@ -206,6 +206,8 @@ class ContractController extends Controller
                     $upPending = Pending::whereRut($customer[2])->first();
                     $upPending->status = 2;
                     $upPending->save();
+                // Create user
+                    
                 // Data email
                     $emailDetails = [
                         'title' => '¡APPABOPROC!',
@@ -213,7 +215,8 @@ class ContractController extends Controller
                         'user' => $addCustomer->customer,
                         'email' => $addCustomer->email,
                     ];
-                //Send mail
+
+                    //Send mail
                     if ($request->input("data_type_register") === "annexed") {
                         Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails) {
                             $message->from('evmoya_89@hotmail.com', 'Appboproc');
