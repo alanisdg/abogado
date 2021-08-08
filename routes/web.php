@@ -26,7 +26,7 @@ Route::get('/', [HomeController::class, 'login'])->name('/');
 Auth::routes();
 
 Route::get('email', function() {
-    return view('emails.create-annexes');
+    return view('emails.create-contract');
 });
 
 Route::middleware(['auth'])->group(function () {

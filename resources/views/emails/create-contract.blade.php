@@ -83,6 +83,11 @@
             width: 40px;
             display:inline-block
         }
+
+        .text-notification {
+            width: 50%;
+            margin: 0 auto;
+        }
     </style>
 
 </head>
@@ -102,7 +107,11 @@
         <img class="img-family" src="../backend/images/assets/unnamed.png" alt="">
     </div>
 
-    <div style="text-align: center; margin-top: 2rem; color: #949494; margin-bottom: 4rem;">
+    <div class="text-notification" style="text-align: center; margin-top: 2rem; color: #949494; margin-bottom: 4rem;">
+        <p>De igual forma, se le han asignado las credenciales correspondientes al acceso a nuestra plataforma, desde donde podrá realizar el seguimiento al proceso administrativo correspondiente a su contrato.</p>
+        <strong>Email: </strong> {{ @$email }} <br>
+        <strong>Contraseña: </strong> {{ @$pass }} <br><br>
+
         <span>Puedes ingresar a tu portal de cliente mediante este </span> <a href="{{ @$url }}">enlace</a>
     </div>
 

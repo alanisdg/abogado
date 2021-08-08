@@ -211,13 +211,13 @@
 
                 // Calculate
                     let totalContract = total_contract.replace('.', ''),
-                        firstPaymentAmount = first_payment_amount.replace('.', ''),
-                        totalCost = (parseFloat(totalContract.replace('.', '')) - parseFloat(first_payment_amount.replace('.', ''))) / amount_installments,
-                        total = Math.floor(totalCost)
+                        totalFirstPayment = first_payment_amount.replace('.', ''),
+                        totalCost = (parseFloat(totalContract.replace('.', '')) - parseFloat(totalFirstPayment.replace('.', ''))) / parseFloat(amount_installments)
+                        //total = Math.floor(totalCost)
 
                 // Assignate
                     //document.getElementById('amount_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-                    document.getElementById('amount_fees').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
+                    document.getElementById('amount_fees').value = totalCost.toLocaleString("de-DE", {minimumFractionDigits: 0})
 
             }
 

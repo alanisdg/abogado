@@ -110,8 +110,6 @@ class ContractController extends Controller
         $parameters = json_decode($request->input('data_parameters'));
         $cuotes = json_decode($request->input('data_cuotes'));
 
-        //dd($customer, $parameters, $cuotes);
-
         if ($request->input("data_type_register") === "annexed") {
             // We look for contracts that have an annex code
                 $dataContract = Contract::whereNotNull("annex_code")->orderBy('id', 'desc')->first();
@@ -207,13 +205,24 @@ class ContractController extends Controller
                     $upPending->status = 2;
                     $upPending->save();
                 // Create user
-                    
+                    $pass = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 6);
+                    $name = explode(" ", $customer[0]);
+
+                    $addUser = New User();
+                    $addUser->rut = $customer[2];
+                    $addUser->first_name = $name[0];
+                    $addUser->last_name = $name[1];
+                    $addUser->email = $customer[9];
+                    $addUser->password = bcrypt($pass);
+                    $addUser->status = 1;
+                    $addUser->save();
                 // Data email
                     $emailDetails = [
-                        'title' => '¡APPABOPROC!',
+                        'title' => 'Appboproc!',
                         'url'   => \Request::root(),
-                        'user' => $addCustomer->customer,
-                        'email' => $addCustomer->email,
+                        'user' => $addUser->name.' '.$addUser->last_name,
+                        'email' => $customer[9],
+                        'pass' => $pass
                     ];
 
                     //Send mail
