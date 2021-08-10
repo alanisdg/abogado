@@ -57,6 +57,19 @@ class CauseController extends Controller
     }
 
     /**
+     * List causes customer
+     */
+    public function list($id)
+    {
+        $list = Cause::whereContractId($id)->get();
+
+        return view($this->config["routeView"] . "list-causes")
+                ->with("list", $list)
+                ->with("breadcrumAction", "")
+                ->with("config", $this->config);
+    }
+
+    /**
      * Record Causes
      */
     public function recordCauses($id)
