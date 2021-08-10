@@ -10,7 +10,7 @@
                     <div class="head-label">
                         <h3 class="mb-0">Registro de Actualizaciones</h3><br>
                         <span class="mt-3">
-                            <strong>Cliente: </strong>{{ $row->customer->customer }} || {{ $row->type_contract }} || <strong>Total del Contrato: </strong> ${{ $row->total_contract }}
+                            <strong>Cliente: </strong>{{ $row->customer->customer }} || {{ $row->type_contract }} || <strong>Total del Contrato: </strong> ${{ number_format($contractAmount, 0, '', '.') }}
                         </span>
                     </div>
                     <div class="dt-buttons btn-group flex-wrap">

@@ -30,4 +30,32 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'transbank' => [
+        'webpay_plus_cc' => env('WEBPAY_PLUS_CC'),
+        'webpay_plus_api_key' => env('WEBPAY_PLUS_API_KEY'),
+        'webpay_plus_mall_cc' => env('WEBPAY_PLUS_MALL_CC'),
+        'webpay_plus_mall_child_cc' => env ('WEBPAY_PLUS_MALL_CHILD_CC'),
+        'webpay_plus_mall_api_key' => env('WEBPAY_PLUS_MALL_API_KEY'),
+        'webpay_plus_deferred_cc' => env('WEBPAY_PLUS_DEFERRED_CC'),
+        'webpay_plus_deferred_api_key' => env('WEBPAY_PLUS_DEFERRED_API_KEY'),
+        'webpay_plus_mall_deferred_cc' => env('WEBPAY_PLUS_MALL_DEFERRED_CC'),
+        'webpay_plus_mall_deferred_child_cc' => env('WEBPAY_PLUS_MALL_DEFERRED_CHILD_CC'),
+        'webpay_plus_mall_deferred_api_key' => env('WEBPAY_PLUS_MALL_DEFERRED_API_KEY'),
+        'oneclick_mall_cc' => env('ONECLICK_MALL_CC'),
+        'oneclick_mall_api_key' => env('ONECLICK_MALL_API_KEY'),
+        'oneclick_mall_child_cc' => env('ONECLICK_MALL_CHILD_CC'),
+        'oneclick_mall_deferred_cc' => env('ONECLICK_MALL_DEFERRED_CC'),
+        'oneclick_mall_deferred_child_cc' => env('ONECLICK_MALL_DEFERRED_CHILD_CC'),
+        'oneclick_mall_deferred_api_key' => env('ONECLICK_MALL_DEFERRED_API_KEY'),
+        'transaccion_completa_cc' => env('TRANSACCION_COMPLETA_CC'),
+        'transaccion_completa_api_key' => env('TRANSACCION_COMPLETA_API_KEY'),
+        'transaccion_completa_mall_cc' => env('TRANSACCION_COMPLETA_MALL_CC'),
+        'transaccion_completa_mall_child_cc' => env('TRANSACCION_COMPLETA_MALL_CHILD_CC'),
+        'transaccion_completa_mall_api_key' => env('TRANSACCION_COMPLETA_MALL_API_KEY'),
+        'patpass_comercio_cc' => env('PATPASS_COMERCIO_CC'),
+        'patpass_comercio_api_key' => env('PATPASS_COMERCIO_API_KEY'),
+        'webpay_modal_cc' => env('WEBPAY_MODAL_CC'),
+        'webpay_modal_api_key' => env('WEBPAY_MODAL_API_KEY'),
+    ]
+
 ];

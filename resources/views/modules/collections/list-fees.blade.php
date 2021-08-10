@@ -6,14 +6,14 @@
     <div class="row" id="basic-table">
         <div class="col-12">
             <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Listado de Cuotas</h4>
+                <div class="card-header bg-primary">
+                    <h4 class="card-title text-white">Listado de Cuotas</h4>
                 </div>
                 <div class="table-responsive">
                     <table class="table" id="list-collections">
                         <thead>
                             <tr>
-                                <th>NRO DE CUOTA</th>
+                                <th>NRO</th>
                                 <th>MONTO ($)</th>
                                 <th>FECHA DE PAGO</th>
                                 <th>ESTADO</th>
@@ -25,7 +25,7 @@
                                 <tr>
                                     <td>{{ $item->installment_number }}</td>
                                     <td>{{ $item->amount }}</td>
-                                    <td>{{ date("d-m-Y", strtotime($item->amount)) }}</td>
+                                    <td>{{ date("d-m-Y", strtotime($item->payment_date)) }}</td>
                                     @if ($item->status == "PENDIENTE")
                                         <td><span class="text-warning">{{ $item->status }}</span></td>
                                         <td>

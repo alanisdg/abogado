@@ -11,6 +11,7 @@ use App\Models\Cause;
 use App\Models\Collection;
 use App\Models\Pending;
 use App\Models\User;
+use App\Models\Role;
 
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
@@ -187,25 +188,39 @@ class ContractController extends Controller
                         for ($i=0; $i < $cuotes[0]; $i++) {
                             $number_cuote = $number_cuote + 1;
 
+                            // We calculate the number of days per month
+                                if (date('t') == 31) {
+                                    $referentialD = date('Y-m-d', strtotime($referentialDate. '+ 31 days'));
+                                }
+                                elseif (date('t') == 30) {
+                                    $referentialD = strtotime($referentialDate. '+ 30 days');
+                                }
+                                elseif (date('t') == 29) {
+                                    $referentialD = strtotime($referentialDate. '+ 29 days');
+                                }
+                                else {
+                                    $referentialD = strtotime($referentialDate. '+ 28 days');
+                                }
+
                             // Tomamos la fecha referencial y le añadimos 30 dias
-                            $referentialD = date('Y-m-d', strtotime($referentialDate. ' + 30 days'));
 
-                            Collection::create([
-                                "contract_id" => $addContract->id,
-                                "installment_number" => $number_cuote,
-                                "payment_date" => $referentialD,
-                                "amount" => $cuotes[1],
-                                "status" => "PENDIENTE"
-                            ]);
 
-                            $referentialDate = $referentialD;
+                                Collection::create([
+                                    "contract_id" => $addContract->id,
+                                    "installment_number" => $number_cuote,
+                                    "payment_date" => $referentialD,
+                                    "amount" => $cuotes[1],
+                                    "status" => "PENDIENTE"
+                                ]);
+
+                                $referentialDate = $referentialD;
                         }
                 // Update pending
                     $upPending = Pending::whereRut($customer[2])->first();
                     $upPending->status = 2;
                     $upPending->save();
                 // Create user
-                    $pass = substr(str_shuffle("0123456789abcdefghijklmnopqrstvwxyz"), 0, 6);
+                    $pass = substr($customer[2], 0, 6);
                     $name = explode(" ", $customer[0]);
 
                     $addUser = New User();
@@ -216,6 +231,10 @@ class ContractController extends Controller
                     $addUser->password = bcrypt($pass);
                     $addUser->status = 1;
                     $addUser->save();
+
+                    // Awsign role
+                        $role = Role::find(5);
+                        $addUser->roles()->attach($role);
                 // Data email
                     $emailDetails = [
                         'title' => 'Appboproc!',
@@ -337,19 +356,25 @@ class ContractController extends Controller
     {
         // Data contract
             $dataContract = Contract::with(['customer', 'causes', 'updates', 'collections', 'creditors'])->find($id);
+            $collectMount = 0;
 
         // Collections
             foreach ($dataContract->collections as $value) {
                 if ($value->status == 'PENDIENTE') {
                     $collections[] = $value;
+
+                    $amount =  str_replace('.', '', $value->amount);
+                    $collectMount += $amount;
                 }
             }
+
 
         // Return view
             return view($this->config["routeView"] . "actualize")
                     ->with("breadcrumAction", "")
                     ->with("nextPaymentDate", $collections[0]->payment_date)
                     ->with("row", $dataContract)
+                    ->with('contractAmount', $collectMount)
                     ->with("config", $this->config);
     }
 
