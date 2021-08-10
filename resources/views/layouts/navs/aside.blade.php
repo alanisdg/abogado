@@ -32,8 +32,8 @@
                         <span class="menu-title text-truncate">Usuarios</span>
                     </a>
                 </li>
-                <li class="" nav-item">
-                    <a class="d-flex align-items-center" href="">
+                <li class="{{ active('pending*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('customers/create') }}">
                         <i data-feather='user'></i>
                         <span class="menu-title text-truncate">Crear Cliente</span>
                     </a>

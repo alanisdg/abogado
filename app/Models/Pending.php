@@ -26,6 +26,13 @@ class Pending extends Model
         'state_1',
         'demand_2',
         'state_2',
-        'status'
+        'status',
+        'civil_status',
+        'profession',
+        'nationality',
+        'commune',
+        'region',
+        'address',
+        'home_phone'
     ];
 }

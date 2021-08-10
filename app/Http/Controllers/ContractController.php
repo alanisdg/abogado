@@ -189,7 +189,7 @@ class ContractController extends Controller
                             $number_cuote = $number_cuote + 1;
 
                             // We calculate the number of days per month
-                                if (date('t') == 31) {
+                                /*if (date('t') == 31) {
                                     $referentialD = date('Y-m-d', strtotime($referentialDate. '+ 31 days'));
                                 }
                                 elseif (date('t') == 30) {
@@ -200,10 +200,9 @@ class ContractController extends Controller
                                 }
                                 else {
                                     $referentialD = strtotime($referentialDate. '+ 28 days');
-                                }
+                                }*/
 
-                            // Tomamos la fecha referencial y le añadimos 30 dias
-
+                                $referentialD = date('Y-m-d', strtotime($referentialDate. '+1 month'));
 
                                 Collection::create([
                                     "contract_id" => $addContract->id,

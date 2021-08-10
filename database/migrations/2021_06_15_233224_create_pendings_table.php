@@ -35,6 +35,13 @@ class CreatePendingsTable extends Migration
             $table->string('demand_2')->nullable();
             $table->string('state_2')->nullable();
             $table->integer('status')->nullable();
+            $table->string('civil_status')->nullable();
+            $table->string('profession')->nullable();
+            $table->string('nationality')->nullable();
+            $table->string('commune')->nullable();
+            $table->string('region')->nullable();
+            $table->text('address')->nullable();
+            $table->string('home_phone')->nullable();
             $table->timestamps();
         });
     }

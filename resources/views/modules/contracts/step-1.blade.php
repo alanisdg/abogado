@@ -234,16 +234,16 @@
                             localStorage.setItem('customer_rut', data.rut)
 
                             document.getElementById("name_customer").value = data.names +" "+data.surnames
-                            document.getElementById("civil_status").value = ""
+                            document.getElementById("civil_status").value = data.civil_status || ""
                             document.getElementById("rut").value = data.rut
-                            document.getElementById("profession").value = ""
-                            document.getElementById("nationality").value = ""
-                            document.getElementById("address").value = ""
+                            document.getElementById("profession").value = data.profession || ""
+                            document.getElementById("nationality").value = data.nationality || ""
+                            document.getElementById("address").value = data.address || ""
                             document.getElementById("phone").value = data.phone
-                            document.getElementById("home_phone").value = ""
-                            document.getElementById("commune").value = ""
+                            document.getElementById("home_phone").value = data.home_phone || ""
+                            document.getElementById("commune").value = data.commune || ""
                             document.getElementById("email").value = data.email || ""
-                            document.getElementById("region").value = ""
+                            document.getElementById("region").value = data.region || ""
                         }
                     })
                     /*.catch(function(error) {

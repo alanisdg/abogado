@@ -19,6 +19,7 @@ use App\Http\Controllers\ActualizationController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CreditorController;
 use App\Http\Controllers\PaymentController;
+use App\Models\Pending;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
@@ -46,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(['middleware' => ['role:executive_administrator']], function() {
             // Customers
+                Route::get('customers/create', [PendingController::class, 'create'])->name('customers/create');
+                Route::post('customers/create/store', [PendingController::class, 'storeCustomer'])->name('customers/create/store');
                 Route::post('users/update-status', [UserController::class, "updateStatus"])->name('users/update-status');
                 Route::get('users/delete-user/{id}', [UserController::class, "deleteUser"])->name('users/delete-user');
                 Route::resource('users', UserController::class);
@@ -54,8 +57,6 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('pending', [PendingController::class, "index"])->name('pending');
                 Route::post('pending/upload', [PendingController::class, "store"])->name('pending/upload');
 
-            // Pending users
-                Route::get('pending/add-user/{id}', [PendingController::class, 'addUser'])->name('pending/add-user');
         });
 
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {

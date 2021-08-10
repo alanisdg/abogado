@@ -47,7 +47,9 @@ class PendingController extends Controller
      */
     public function create()
     {
-        //
+        return view($this->config["routeView"] . "create-customer")
+                ->with("breadcrumAction", "")
+                ->with("config", $this->config);
     }
 
     /**
@@ -62,6 +64,34 @@ class PendingController extends Controller
 
         Toastr::success("", "¡Carga de Datos Completada!");
         return redirect('list-pending');
+    }
+
+    /**
+     * Customer store
+     */
+    public function storeCustomer(Request $request)
+    {
+        $add = Pending::create([
+                        'rut' => $request->input('rut'),
+                        'names' => $request->input('name'),
+                        'surnames' => $request->input('last_name'),
+                        'nationality' => $request->input('nationality'),
+                        'phone' => $request->input('phone'),
+                        'home_phone' => $request->input('home_phone'),
+                        'email' => $request->input('email'),
+                        'civil_status' => $request->input('civil_status'),
+                        'profession' => $request->input('profession'),
+                        'region' => $request->input('region'),
+                        'commune' => $request->input('commune'),
+                        'address' => $request->input('address'),
+                        'status' => 1
+                    ]);
+
+        // Response
+            if ($add) {
+                Toastr::success("", "¡Cliente registrado!");
+                return redirect('list-pending');
+            }
     }
 
     /**
