@@ -34,11 +34,7 @@ class PendingImport implements ToModel, WithHeadingRow
             'names' => $row['nombres'],
             'surnames' => $row['apellidos'],
             'balance_dd' => $row['saldo_dd'],
-<<<<<<< HEAD
-            'phone' => $row['telefono'],
-=======
             'phone' => $movil_phone,
->>>>>>> b997f0a04dba6bc522bac161c239825ceb43d87c
             'creditor_1' => $row['acreedor_1'],
             'creditor_balance_1' => $row['saldo_acreedor_1'],
             'creditor_2' => $row['acreedor_2'],
