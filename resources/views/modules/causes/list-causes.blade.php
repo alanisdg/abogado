@@ -28,7 +28,7 @@
                                         <td>{{ $item->matter }}</td>
                                         <td>
                                             @if ($item->status == 1)
-                                                <span class="text-warning">PENDIENTE</span>
+                                                <span class="text-warning">ABIERTA</span>
                                             @elseif ($item->status == 2)
                                                 <span class="text-success">CERRADA</span>
                                             @endif

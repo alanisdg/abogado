@@ -115,7 +115,7 @@
                                                     <a href="{{ url('list-causes/'.$item->id) }}" title="Causas" class="btn btn-warning btn-sm">
                                                         Causas
                                                     </a>
-                                                    <a href="{{ url('list-fess/'.$item->id) }}" title="Cuotas" class="btn btn-primary btn-sm">
+                                                    <a href="{{ url('list-fees/'.$item->id) }}" title="Cuotas" class="btn btn-primary btn-sm">
                                                         Cuotas
                                                     </a>
                                                 </td>
