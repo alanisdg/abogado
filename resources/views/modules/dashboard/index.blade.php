@@ -100,7 +100,7 @@
                                             <th scope="col">Monto Total</th>
                                             <th scope="col">Cuotas</th>
                                             <th scope="col">Primera Fecha de Pago</th>
-                                            <th scope="col">Opciones</th>
+                                            <th scope="col" class="text-center">Botones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -109,10 +109,15 @@
                                                 <td style="width: 20%">{{ $item->type_contract}}</td>
                                                 <td style="width: 20%">{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
                                                 <td style="width: 15%"><strong>$</strong>{{ $item->total_contract}}</td>
-                                                <td style="width: 15%">{{ $item->number_installments}}</td>
+                                                <td style="width: 10%">{{ $item->number_installments}}</td>
                                                 <td style="width: 15%">{{ date("d-m-Y", strtotime($item->first_installment_payment_date))}}</td>
-                                                <td style="width: 15%">
-                                                    <a href="{{ url('list-fees/'.$item->id) }}" title="Lista de Cuotas"><img style="width: 20%" src="{{ asset('backend/images/assets/attach.png') }}" alt=""></a>
+                                                <td style="width: 20%" class="text-center">
+                                                    <a href="{{ url('list-causes/'.$item->id) }}" title="Causas" class="btn btn-warning btn-sm">
+                                                        Causas
+                                                    </a>
+                                                    <a href="{{ url('list-fess/'.$item->id) }}" title="Cuotas" class="btn btn-primary btn-sm">
+                                                        Cuotas
+                                                    </a>
                                                 </td>
                                             </tr>
                                         @empty

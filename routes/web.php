@@ -163,10 +163,11 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::group(['middleware' => ['role:customer']], function() {
+            // List Causes
+                Route::get('list-causes/{id}', [CauseController::class, 'list'])->name('list-causes');
+
             // List Fees
                 Route::get('list-fees/{id}', [CollectionController::class, 'listFeesContract'])->name('list-fees');
-
-            // Route payment
                 Route::get('list-fess/pay-fee/{id}', [CollectionController::class, 'payFee'])->name('list-fess/pay-fee');
 
         });
