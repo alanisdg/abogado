@@ -15,6 +15,14 @@ class PendingImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+
+        $p1 = substr($row['telefono'], 0, 2);
+        $p2 = 9;
+        $p3 = substr($row['telefono'], 3, 4);
+        $p4 = substr($row['telefono'], 7, 9);
+        $movil_phone = '+'.$p1.' '.$p2.' '.$p3.' '.$p4;
+
+
         $date1 = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_entrevista'])->format('d/m/Y');
         $date2 = ($row['fecha_segunda_cita'] == 'No Aplica') ? 'No Aplica' : \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha_segunda_cita'])->format('d/m/Y');
 
@@ -26,7 +34,11 @@ class PendingImport implements ToModel, WithHeadingRow
             'names' => $row['nombres'],
             'surnames' => $row['apellidos'],
             'balance_dd' => $row['saldo_dd'],
+<<<<<<< HEAD
             'phone' => $row['telefono'],
+=======
+            'phone' => $movil_phone,
+>>>>>>> b997f0a04dba6bc522bac161c239825ceb43d87c
             'creditor_1' => $row['acreedor_1'],
             'creditor_balance_1' => $row['saldo_acreedor_1'],
             'creditor_2' => $row['acreedor_2'],

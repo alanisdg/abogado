@@ -21,6 +21,7 @@
                                 <th>Fecha</th>
                                 <th>Usuario</th>
                                 <th>Cliente</th>
+                                <th>RUT</th>
                                 <th>Contrato</th>
                                 <th>Opciones</th>
                             </tr>
@@ -55,6 +56,7 @@
                         data.contract_date = $('input[name=contract_date]').val();
                         data.user = $('input[name=user]').val();
                         data.customer = $('input[name=customer]').val();
+                        data.customer = $('input[name=customer]').val();
                         data.type_contract = $('input[name=type_contract]').val();
                     },
                 },
@@ -62,14 +64,16 @@
                     {data: 'contract_date'},
                     {data: 'user'},
                     {data: 'customer'},
+                    {data: 'customer'},
                     {data: 'type_contract'},
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
                     tr = '<td class="text-left" style="width: 10%">'+ (data.contract_date ? data.contract_date : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 15%">'+ (data.user.first_name ? data.user.first_name : "") + ' ' + (data.user.last_name ? data.user.last_name : "") + '</td>'
+                    tr += '<td class="text-left" style="width: 10%">'+ (data.user.first_name ? data.user.first_name : "") + ' ' + (data.user.last_name ? data.user.last_name : "") + '</td>'
                     tr += '<td class="text-left" style="width: 20%">'+ (data.customer.customer ? data.customer.customer : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 35%">'+ (data.type_contract ? data.type_contract : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.customer.rut ? data.customer.rut : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 25%">'+ (data.type_contract ? data.type_contract : "") +'</td>'
                     tr += '<td style="width: 20%">'
                     tr +=   '<div class="pull-right">'
                     if (data.status != 2) {

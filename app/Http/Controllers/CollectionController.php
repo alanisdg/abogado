@@ -8,8 +8,11 @@ use Illuminate\Http\Request;
 use App\Models\Collection;
 use App\Models\Contract;
 use App\Models\Customer;
+use App\Models\Payment;
 
 // Helpers
+use Transbank\Webpay\WebpayPlus\Transaction;
+use Transbank\Webpay\WebpayPlus;
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
 
@@ -24,9 +27,12 @@ class CollectionController extends Controller
         "typeRegister" => ""
     ];
 
-    public function __construct()
-    {
-        $this->middleware('auth');
+    public function __construct(){
+        //if (app()->environment('production')) {
+            WebpayPlus::configureForProduction(config('services.transbank.webpay_plus_cc'), config('services.transbank.webpay_plus_api_key'));
+        //} else {
+            //WebpayPlus::configureForTesting();
+        //}
     }
 
     /**
@@ -34,7 +40,6 @@ class CollectionController extends Controller
      */
     public function listFees()
     {
-
         return view($this->config["routeView"] . "list")
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
@@ -82,6 +87,17 @@ class CollectionController extends Controller
      */
     public function payFee($id)
     {
+        $dataCollection = Collection::find($id);
 
+        $data = [
+            "amount"    => str_replace('.','',$dataCollection->amount),
+            "reference" => "Ref-".$dataCollection->id,
+            "sessionId" => bin2hex(random_bytes(20))
+        ];
+        
+
+        return view($this->config["routeView"] . "pay")
+                ->with("breadcrumAction", "")
+                ->with("config", $this->config);
     }
 }

@@ -18,9 +18,13 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ActualizationController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CreditorController;
+use App\Http\Controllers\PaymentController;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
+
+/** Routes webpay */
+Route::get('payment-return', [PaymentController::class, 'returnUrl'])->name('payment-return');
 
 /* Routes dashboard */
 Auth::routes();

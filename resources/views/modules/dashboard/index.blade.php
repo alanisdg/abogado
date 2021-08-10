@@ -95,9 +95,10 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
+                                            <th scope="col">Contrato</th>
                                             <th scope="col">Fecha de Registro</th>
                                             <th scope="col">Monto Total</th>
-                                            <th scope="col">Número de Cuotas</th>
+                                            <th scope="col">Cuotas</th>
                                             <th scope="col">Primera Fecha de Pago</th>
                                             <th scope="col">Opciones</th>
                                         </tr>
@@ -105,10 +106,11 @@
                                     <tbody>
                                         @forelse ($dataContract->contracts as $item)
                                             <tr>
-                                                <td style="width: 25%">{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
-                                                <td style="width: 20%">${{ $item->total_contract}}</td>
-                                                <td style="width: 20%">{{ $item->number_installments}}</td>
-                                                <td style="width: 20%">{{ date("d-m-Y", strtotime($item->first_installment_payment_date))}}</td>
+                                                <td style="width: 20%">{{ $item->type_contract}}</td>
+                                                <td style="width: 20%">{{ date("d-m-Y", strtotime($item->created_at)) }}</td>
+                                                <td style="width: 15%"><strong>$</strong>{{ $item->total_contract}}</td>
+                                                <td style="width: 15%">{{ $item->number_installments}}</td>
+                                                <td style="width: 15%">{{ date("d-m-Y", strtotime($item->first_installment_payment_date))}}</td>
                                                 <td style="width: 15%">
                                                     <a href="{{ url('list-fees/'.$item->id) }}" title="Lista de Cuotas"><img style="width: 20%" src="{{ asset('backend/images/assets/attach.png') }}" alt=""></a>
                                                 </td>
