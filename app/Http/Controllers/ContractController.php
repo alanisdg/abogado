@@ -234,6 +234,7 @@ class ContractController extends Controller
                     // Awsign role
                         $role = Role::find(5);
                         $addUser->roles()->attach($role);
+
                 // Data email
                     $emailDetails = [
                         'title' => 'Appboproc!',
@@ -253,7 +254,7 @@ class ContractController extends Controller
                     }
                     else {
                         Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
-                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
                             $message->subject('Registro de Contrato - Appboproc');
                         });
