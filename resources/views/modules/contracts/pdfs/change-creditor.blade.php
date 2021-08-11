@@ -94,11 +94,11 @@
     </p>
 
     <p style="margin-top: 50px; margin-left: 2rem;">
-        <strong>*</strong> Depósito Bancario en la cuenta corriente del Banco xxx Nº xxxxxxxx a nombre de Estudio jurídico aboproc Rut ° xx.xxx.xxx-x. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
+        <strong>*</strong> Depósito Bancario en la cuenta corriente del Banco xxx Nº xxxxxxxx a nombre de Estudio Jurídico Aboproc Rut ° 77.409.772-4. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
     </p>
 
     <p style="margin-top: 50px; margin-left: 2rem;">
-        <strong>*</strong> Transferencia Electrónica en la cuenta corriente del Banco xxx Nº xxxxxxx a nombre de Estudio jurídico Aboproc Rut ° xx.xxx.xxx-x.. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
+        <strong>*</strong> Transferencia Electrónica en la cuenta corriente del Banco xxx Nº xxxxxxx a nombre de Estudio Jurídico Aboproc Rut ° 77.409.772-4. En este caso el cliente deberá enviar el comprobante de pago a pagos@aboproc.cl. Si quien deposita es un tercero distinto del cliente, en dicho correo se deberá indicar RUN y nombre completo del cliente respecto del cual se hizo el pago. El cliente entiende que, de no proporcionarse dicha información el pago no podrá ser imputado y descontado como mensualidad de su contrato hasta que se proporcione los antecedentes antes mencionados.
     </p>
 
     <p style="margin-top: 50px;">

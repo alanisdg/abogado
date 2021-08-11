@@ -149,25 +149,25 @@
         // Phone
             var phoneMask = IMask(
                 document.getElementById('phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '(+56) 9 0000 0000'
                 }
             );
 
             var phoneMask = IMask(
                 document.getElementById('home_phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '(+56) 9 0000 0000'
                 }
             );
 
             var phoneMask = IMask(
                 document.getElementById('deceased_phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '(+56) 9 0000 0000'
                 }
             );
 
             var phoneMask = IMask(
                 document.getElementById('deceased_home_phone'), {
-                    mask: '(+56)000-000-000'
+                    mask: '(+56) 9 0000 0000'
                 }
             );
 
@@ -286,11 +286,12 @@
                         amount_installments = document.getElementById('number_strategy_installments').value
 
                 // Calculate
-                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
-                    totalCost = parseFloat(total_contract) / amount_installments
+                    let totalContract = total_contract.replace('.', ''),
+                        totalCost = parseFloat(totalContract.replace('.', '')) / amount_installments,
+                        total = Math.floor(totalCost)
 
                 // Assignate
-                    document.getElementById('amount_strategy_fees').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
+                    document.getElementById('amount_strategy_fees').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
 
             }
 
@@ -302,12 +303,12 @@
                         amount_installments = document.getElementById('deceased_amount_fees').value
 
                 // Calculate
-                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
-                    totalCost = parseFloat(total_contract) / amount_installments
+                    let totalContract = total_contract.replace('.', ''),
+                        totalCost = parseFloat(totalContract.replace('.', '')) / amount_installments,
+                        total = Math.floor(totalCost)
 
                 // Assignate
-                    document.getElementById('deceased_quota_amount').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-
+                    document.getElementById('deceased_quota_amount').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
             }
 
         // Deceased calculate cuotes
@@ -318,12 +319,12 @@
                         amount_installments = document.getElementById('number_fees_holder').value
 
                 // Calculate
-                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
-                    totalCost = parseFloat(total_contract) / amount_installments
+                    let totalContract = total_contract.replace('.', ''),
+                        totalCost = parseFloat(totalContract.replace('.', '')) / amount_installments,
+                        total = Math.floor(totalCost)
 
                 // Assignate
-                    document.getElementById('amount_fees_holder').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-
+                    document.getElementById('amount_fees_holder').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
             }
 
         // Change payment calculate cuotes
@@ -334,12 +335,12 @@
                         amount_installments = document.getElementById('payment_date_amount_fees').value
 
                 // Calculate
-                    total_contract = Number(total_contract.replace(/[^0-9\.]+/g,""))
-                    totalCost = parseFloat(total_contract) / amount_installments
+                    let totalContract = total_contract.replace('.', ''),
+                        totalCost = parseFloat(totalContract.replace('.', '')) / amount_installments,
+                        total = Math.floor(totalCost)
 
                 // Assignate
-                    document.getElementById('payment_date_quota_amount').value = String(totalCost).replace(/(.)(?=(\d{3})+$)/g,'$1,')
-
+                    document.getElementById('payment_date_quota_amount').value = total.toLocaleString("de-DE", {minimumFractionDigits: 0})
             }
 
         // Clear localstorage
