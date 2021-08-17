@@ -42,6 +42,7 @@ class CreatePendingsTable extends Migration
             $table->string('region')->nullable();
             $table->text('address')->nullable();
             $table->string('home_phone')->nullable();
+            $table->string('observations')->nullable();
             $table->timestamps();
         });
     }

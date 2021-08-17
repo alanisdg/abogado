@@ -140,7 +140,11 @@
                     <div class="row">
                         <div class="form-group col-md-6">
                             <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                            {!! Form::text("email", old('email', @$contract->customer->email), ["class" => "form-control", "id" => "email"]) !!}
+                            {!! Form::text("email", old('email', null), ["class" => "form-control", "id" => "email"]) !!}
+                        </div>
+                        <div class="form-group col-md-6" style="display: none;" id="col_observations">
+                            <label class="form-label" for="email">Observaciones</label>
+                            {!! Form::textarea("observations", old('observations', null), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x3"]) !!}
                         </div>
                     </div>
                 </form>
@@ -216,21 +220,6 @@
                             toastr["error"]("", "¡No existe un Cliente asociado al RUT consultado!")
                         }
                         else {
-                            /*let customer = [
-                                data.customer,
-                                data.civil_status,
-                                data.rut,
-                                data.profession,
-                                data.nationality,
-                                data.address,
-                                data.phone,
-                                data.home_phone,
-                                data.commune,
-                                data.email,
-                                data.region,
-                            ]
-
-                            localStorage.setItem('customer', JSON.stringify(customer))*/
                             localStorage.setItem('customer_rut', data.rut)
 
                             document.getElementById("name_customer").value = data.names +" "+data.surnames
@@ -244,15 +233,13 @@
                             document.getElementById("commune").value = data.commune || ""
                             document.getElementById("email").value = data.email || ""
                             document.getElementById("region").value = data.region || ""
+
+                            if (data.observations != null) {
+                                document.getElementById("col_observations").style.display = "block";
+                                document.getElementById("observations").value = data.observations
+                            }
                         }
                     })
-                    /*.catch(function(error) {
-                        //emptyInputs()
-                        //clearVariables()
-                        location.reload()
-
-                        toastr["error"]("", "¡Error en la consulta de clientes!")
-                    });*/
                 }
             }
 
@@ -281,12 +268,16 @@
                         document.getElementById("commune").value = current_customer[8]
                         document.getElementById("email").value = current_customer[9]
                         document.getElementById("region").value = current_customer[10]
+                        document.getElementById("observations").value = current_customer[11]
+
+                        if (current_customer[11] != null) {
+                            document.getElementById("col_observations").style.display = "block";
+                        }
                     }
             })
 
         // Capture data
             function storeCustomer() {
-
                 // Variables
                     let current_customer = localStorage.getItem('current_customer'),
                         type_register = document.getElementById('type_register').value,
@@ -302,6 +293,7 @@
                         commune = document.getElementById("commune").value,
                         email = document.getElementById("email").value,
                         region = document.getElementById("region").value
+                        observations = document.getElementById("observations").value
 
                 // Validamos todos los campos
                     const data_inputs = [name_customer, civil_status, rut, profession, nationality, address, phone, commune, email, region]
@@ -324,7 +316,8 @@
                                     home_phone,
                                     commune,
                                     email,
-                                    region
+                                    region,
+                                    observations
                                 ]
 
                                 localStorage.setItem('customer', JSON.stringify(dataCustomer))
@@ -342,7 +335,8 @@
                                     home_phone,
                                     commune,
                                     email,
-                                    region
+                                    region,
+                                    observations
                                 ]
 
                                 localStorage.setItem('customer', JSON.stringify(dataCustomer))
@@ -366,6 +360,9 @@
                 document.getElementById("commune").value = ""
                 document.getElementById("email").value = ""
                 document.getElementById("region").value = ""
+                document.getElementById("observations").value = ""
+
+                document.getElementById("col_observations").style.display = "none";
             }
 
         // Clear variables

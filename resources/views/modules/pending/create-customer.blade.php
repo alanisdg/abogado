@@ -55,7 +55,7 @@
                 <div class="row">
                     <div class="form-group col-md-4">
                         <label class="form-label" for="region">Región <span class="text-danger">*</span></label>
-                        {!! Form::text("region", old('region', @$contract->customer->region), ["class" => "form-control", "id" => "region", "onkeyup" => "upperCase(this);", "required", "required"]) !!}
+                        {!! Form::text("region", old('region', @$contract->customer->region), ["class" => "form-control", "id" => "region", "onkeyup" => "upperCase(this);", "required"]) !!}
                     </div>
                     <div class="form-group col-md-4">
                         <label class="form-label" for="commune">Comuna <span class="text-danger">*</span></label>
@@ -64,6 +64,12 @@
                     <div class="form-group col-md-4">
                         <label class="form-label" for="address">Dirección  <span class="text-danger">*</span></label>
                         {!! Form::text("address", old('address', @$contract->customer->address), ["class" => "form-control", "id" => "address", "onkeyup" => "upperCase(this);", "required"]) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group col-md-4">
+                        <label class="form-label" for="observations">Observaciones</label>
+                        {!! Form::textarea("observations", old('observations', @$contract->customer->observations), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x3"]) !!}
                     </div>
                 </div>
             </div>

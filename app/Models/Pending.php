@@ -33,6 +33,7 @@ class Pending extends Model
         'commune',
         'region',
         'address',
-        'home_phone'
+        'home_phone',
+        'observations'
     ];
 }
