@@ -28,11 +28,11 @@ class CollectionController extends Controller
     ];
 
     public function __construct(){
-        //if (app()->environment('production')) {
+        if (app()->environment('production')) {
             WebpayPlus::configureForProduction(config('services.transbank.webpay_plus_cc'), config('services.transbank.webpay_plus_api_key'));
-        //} else {
-            //WebpayPlus::configureForTesting();
-        //}
+        } else {
+            WebpayPlus::configureForTesting();
+        }
     }
 
     /**
@@ -90,14 +90,34 @@ class CollectionController extends Controller
         $dataCollection = Collection::find($id);
 
         $data = [
-            "amount"    => str_replace('.','',$dataCollection->amount),
             "reference" => "Ref-".$dataCollection->id,
             "sessionId" => bin2hex(random_bytes(20))
         ];
-        
 
         return view($this->config["routeView"] . "pay")
                 ->with("breadcrumAction", "")
+                ->with("row", $dataCollection)
+                ->with("data", $data)
+                ->with("config", $this->config);
+    }
+
+    /**
+     * Create transaction
+     */
+    public function createTransaction(Request $request)
+    {
+        // Return url
+            $return_url = \Request::root().'/payment-return';
+
+        // Data transactions
+            $req = $request->except('_token');
+            $resp = (new Transaction)->create($req["buy_order"], $req["session_id"], $req["amount"], $return_url);
+
+        // Return view
+            return view($this->config["routeView"] . "send-pay")
+                ->with("breadcrumAction", "")
+                ->with("resp", $resp)
+                ->with("contract", $req['contract'])
                 ->with("config", $this->config);
     }
 }

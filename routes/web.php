@@ -170,6 +170,7 @@ Route::middleware(['auth'])->group(function () {
             // List Fees
                 Route::get('list-fees/{id}', [CollectionController::class, 'listFeesContract'])->name('list-fees');
                 Route::get('list-fess/pay-fee/{id}', [CollectionController::class, 'payFee'])->name('list-fess/pay-fee');
+                Route::post('list-fess/create/transaction', [CollectionController::class, 'createTransaction'])->name('list-fess/create/transaction');
 
         });
 

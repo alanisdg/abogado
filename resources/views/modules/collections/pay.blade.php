@@ -4,57 +4,95 @@
 
 @section('content')
     <div class="card">
-        <div class="card-header">
-            <h4 class="card-title">Pago de Cuota</h4>
+        <div class="card-header bg-primary">
+            <h4 class="card-title text-white">Pago de Cuota</h4>
         </div>
-        <div class="card-body">
-                {!! Form::open(['url' => 'creditors/store', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
+        <div class="card-body mt-2">
+                {!! Form::open(['url' => 'list-fess/create/transaction', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
+
+                    <input type="hidden" name="contract" value="{{ @$row->contract_id }}">
 
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label for="first-name-icon">Nombre <span class="text-danger"><strong>*</strong></span></label>
+                                <label for="first-name-icon">N° de Cuota <span class="text-danger"><strong>*</strong></span></label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
+                                        <span class="input-group-text">#</span>
                                     </div>
-                                        {!! Form::text("name", old('name', @$row->name), ["class" => "form-control", "autofocus", "onkeyup" => "upperCase(this);", "required"]) !!}
+                                        {!! Form::text("installment_number", old('installment_number', @$row->installment_number), ["class" => "form-control", "onkeyup" => "upperCase(this);", "readonly"]) !!}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="first-name-icon">Fecha de Pago <span class="text-danger"><strong>*</strong></span></label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='calendar'></i></span>
+                                    </div>
+                                        {!! Form::text("payment_date", old('payment_date', date("d-m-y", strtotime(@$row->payment_date))), ["class" => "form-control", "id" => "payment_date", "readonly"]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label for="first-name-icon">Monto <span class="text-danger"><strong>*</strong></span></label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">$</span>
                                     </div>
-                                        {!! Form::text("creditor_amount", old('creditor_amount', @$row->creditor_amount), ["class" => "form-control", "id" => "creditor_amount", "required"]) !!}
+                                        {!! Form::text("amount", old('amount', str_replace('.','', @$row->amount)), ["class" => "form-control", "id" => "amount", "readonly"]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="first-name-icon">Estado <span class="text-danger"><strong>*</strong></span></label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='alert-circle'></i></span>
+                                    </div>
+                                        {!! Form::text("status", old('status', @$row->status), ["class" => "form-control", "id" => "status", "readonly"]) !!}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="first-name-icon">Referencia <span class="text-danger"><strong>*</strong></span></label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">#</span>
+                                    </div>
+                                        {!! Form::text("buy_order", old('buy_order', @$data["reference"]), ["class" => "form-control", "id" => "buy_order", "readonly"]) !!}
                                 </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="first-name-icon">Fecha de Registro <span class="text-danger"><strong>*</strong></span></label>
+                                <label for="first-name-icon">Sesión <span class="text-danger"><strong>*</strong></span></label>
                                 <div class="input-group input-group-merge">
                                     <div class="input-group-prepend">
-                                        <span class="input-group-text"><i data-feather='calendar'></i></span>
+                                        <span class="input-group-text">#</span>
                                     </div>
-                                        {!! Form::date("registration_date", old('registration_date', @$row->registration_date), ["class" => "form-control", "required"]) !!}
+                                        {!! Form::text("session_id", old('session_id', @$data["sessionId"]), ["class" => "form-control", "id" => "session_id", "readonly"]) !!}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
-
-                    </div>
-                    <div class="row">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary mr-1 waves-effect waves-float waves-light" id="send"><i data-feather='save'></i> Registrar</button>
+                            <button type="submit" class="btn btn-primary mr-1 waves-effect waves-float waves-light" id="send"><i data-feather='save'></i> Confirmar Pago</button>
 
-                            <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url($config["routeLink"].'/'.$row->contract_id) }}" id="cancel"><i data-feather='corner-up-left'></i> Regresar</a>
+                            <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("list-fees/".$row->contract_id) }}" id="cancel"><i data-feather='corner-up-left'></i> Regresar</a>
                         </div>
                     </div>
                 {!! Form::close() !!}
