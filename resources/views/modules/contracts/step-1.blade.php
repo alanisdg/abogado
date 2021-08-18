@@ -138,13 +138,15 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-12">
                             <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
                             {!! Form::text("email", old('email', null), ["class" => "form-control", "id" => "email"]) !!}
                         </div>
-                        <div class="form-group col-md-6" style="display: none;" id="col_observations">
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-12" style="display: none;" id="col_observations">
                             <label class="form-label" for="email">Observaciones</label>
-                            {!! Form::textarea("observations", old('observations', null), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x3"]) !!}
+                            {!! Form::textarea("observations", old('observations', null), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x15"]) !!}
                         </div>
                     </div>
                 </form>

@@ -131,13 +131,5 @@
 @endsection
 
 @section('scripts')
-    <script src="https://unpkg.com/imask"></script>
-    <script>
-        // Rut
-            var phoneMask = IMask(
-                document.getElementById('rut'), {
-                    mask: '000000000-0'
-                }
-            );
-    </script>
+    
 @endsection

@@ -67,9 +67,9 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-12">
                         <label class="form-label" for="observations">Observaciones</label>
-                        {!! Form::textarea("observations", old('observations', @$contract->customer->observations), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x3"]) !!}
+                        {!! Form::textarea("observations", old('observations', @$contract->customer->observations), ["class" => "form-control", "id" => "observations", "onkeyup" => "upperCase(this);", "size" => "10x15"]) !!}
                     </div>
                 </div>
             </div>

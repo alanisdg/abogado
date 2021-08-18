@@ -1,28 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
-    <div class="img">
-        <img width="150" src="{{ asset('assets/img/logo2.png') }}" alt="">
-    </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <div>
-        <strong>{{ $userDetails['title'] }}</strong>
-    </div>
+        <style>
+            .init {
+                width: 100%;
+                margin: 0 auto;
+                text-align: center;
+                color: #ffffff;
+                background-color: #7c9ccb;
+                padding-top: 19px;
+                padding-bottom: 19px;
+                margin-bottom: 2rem;
+            }
 
-    <p>Estimado(a) <strong>{{ $userDetails['user']['first_name'].' '.$userDetails['user']['last_name'] }},</strong></p>
+            .title, .separator {
+                width: 50%;
+                margin: 0 auto;
+            }
 
-    <p>La presente notificación tiene como finalidad informarle que ha sido registrado(a) en nuestra plataforma. Para acceder a esta, deberá utilizar la siguiente información:</p>
+            .separator {
+                width: 100%;
+            }
 
-    <p><strong>Correo Electrónico: </strong> {{ $userDetails['email'] }} </p>
-    <p><strong>Contraseña: </strong> {{ $userDetails['password'] }} </p>
+            .line {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 20%;
+            }
 
-    <span>Puede acceder a nuestra plataforma el siguiente enlace: </span> <a href="{{ $userDetails['url'] }}">Appaboproc</a>. Una vez dentro, podrá actualizar sus datos de ingreso, desde la sección perfil de usuario.
+            .subtitle {
+                color: #949494;
+                font-style: italic;
+            }
 
-    <p>Gracias por confiar en nosotros!!</p>
+            .img {
+                width: 100%;
+            }
 
-</body>
+            .img-family {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 20%;
+            }
+
+            .img-logo {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 10%;
+                margin-top: 2rem;
+            }
+
+            .text {
+                width: 100%
+            }
+
+            .text p {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+                margin-top: 2rem;
+            }
+
+            .logos {
+                width: 100%;
+                text-align: center;
+                margin-top: 2rem;
+            }
+
+            .logos img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+                width: 40px;
+                display:inline-block
+            }
+
+            .text-notification {
+                width: 50%;
+                margin: 0 auto;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="init">
+            <h2><strong>ABOPROC</strong></h2>
+            <span>Tranquilo, tu problema tiene solución </span>
+        </div>
+
+        <div class="title">
+            <div style="text-align: center">
+                <span class="subtitle">Tenemos nuevas noticias</span>
+                <h2 style="">¡SU Usuario ha sido creado!</h2>
+            </div>
+        </div>
+
+        <div class="img">
+            <img class="img-family" src="../backend/images/assets/unnamed.png" alt="">
+        </div>
+
+        <div class="text-notification" style="text-align: center; margin-top: 2rem; color: #949494; margin-bottom: 4rem;">
+            <p>Se le informa, que le han sido asignadas las credenciales correspondientes al acceso a nuestra plataforma, desde donde podrá realizar los procesos administrativos correspondiente a su al nivel de su usuario.</p>
+            <strong>Usuario: </strong> {{ @$email }} <br>
+            <strong>Contraseña: </strong> {{ @$password }} <br><br>
+
+            <span>Puedes ingresar a tu portal de cliente mediante este </span> <a href="{{ @$url }}">enlace</a>
+        </div>
+
+        <div class="separator">
+            <div class="line" style="width: 50%; border-top: 2px solid #949494"></div>
+        </div>
+
+        <div class="img">
+            <img class="img-logo" src="{{ asset("backend/images/assets/logo.png") }}" alt="">
+        </div>
+
+        <div class="logos">
+            <img src="{{ asset("backend/images/assets/facebook.svg") }}" alt="">
+            <img src="{{ asset("backend/images/assets/twitter.svg") }}" alt="">
+            <img src="{{ asset("backend/images/assets/linkedin.svg") }}" alt="">
+        </div>
+
+        <div class="text">
+            <p>Somos un estudio jurídico de la nueva generación, dejamos atrás la burocracia y optimizamos una serie de proceso con el objetivo de brindar un servicio de calidad y acorde a la necesidad de los tiempos actuales.</p>
+        </div>
+
+        <div class="separator" style="margin-top: 2rem;">
+            <div class="line" style="width: 50%; border-top: 2px solid #949494"></div>
+        </div>
+
+    </body>
 </html>

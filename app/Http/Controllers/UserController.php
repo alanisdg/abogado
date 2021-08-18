@@ -13,7 +13,6 @@ use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
 use Illuminate\Support\Facades\Auth;
 use Mail;
-use App\Mail\SendPassword;
 
 // Request
 use App\Http\Requests\UsersRequest;
@@ -95,7 +94,11 @@ class UserController extends Controller
                         'password' => $request->input('password')
                     ];
 
-                    Mail::to($addUser->email)->send(new SendPassword($userDetails));
+                    Mail::send('emails.send-password', $userDetails, function($message) use ($userDetails) {
+                        $message->from('contacto@appaboproc.com', 'Appboproc');
+                        $message->to($userDetails['email']);
+                        $message->subject('Registro de Usuario - Appboproc');
+                    });
 
                 // Return response
                     Toastr::success("", "¡Usuario Registrado!");

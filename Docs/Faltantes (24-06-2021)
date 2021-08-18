@@ -37,3 +37,7 @@ Para finiquitar el contrato, puedo hacerlo si las cuotas estan pagas hasta la fe
 Arreglar las fecha en las cuotas del cliente
 Modulo de causas en clientes
 SI el mes tiene 30 dias, dejar igual, si tiene 31, sumar 1.
+
+Error al crear usuario administrador legal
+Al crear actualizacion de cambio de acreedor, generó el error
+Agrandar recuadro observaciones al crear clientes
