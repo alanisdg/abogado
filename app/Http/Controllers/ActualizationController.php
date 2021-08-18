@@ -120,7 +120,7 @@ class ActualizationController extends Controller
                     ];
                 //Send mail
                     Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
-                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->from('contacto@appaboproc.com', 'Appboproc');
                         $message->to($emailDetails['email']);
                         $message->subject('Registro de Actualización - Appboproc');
                     });
@@ -205,7 +205,7 @@ class ActualizationController extends Controller
                 ];
             //Send mail
                 Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
-                    $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                    $message->from('contacto@appaboproc.com', 'Appboproc');
                     $message->to($emailDetails['email']);
                     $message->subject('Registro de Actualización - Appboproc');
                 });
@@ -302,7 +302,7 @@ class ActualizationController extends Controller
                     ];
                 //Send mail
                     Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
-                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->from('contacto@appaboproc.com', 'Appboproc');
                         $message->to($emailDetails['email']);
                         $message->subject('Registro de Actualización - Appboproc');
                     });
@@ -395,7 +395,7 @@ class ActualizationController extends Controller
                         ];
                     //Send mail
                         Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
-                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
                             $message->subject('Registro de Actualización - Appboproc');
                         });
@@ -500,7 +500,7 @@ class ActualizationController extends Controller
                     ];
                 //Send mail
                     Mail::send('emails.create-update', $emailDetails, function($message) use ($emailDetails) {
-                        $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                        $message->from('contacto@appaboproc.com', 'Appboproc');
                         $message->to($emailDetails['email']);
                         $message->subject('Registro de Actualización - Appboproc');
                     });
