@@ -77,30 +77,30 @@
                     tr += '<td style="width: 20%">'
                     tr +=   '<div class="pull-right">'
                     if (data.status != 2) {
-                        tr += 		'<a title="Acreedores" href="'+ BASE_URL +'/creditors/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/group.svg" style="width: 13%">'
-                        tr += 		'</a>'
-                        tr += 		'<a title="Editar Detalles" href="'+ BASE_URL +'/contract/edit/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/edit.svg" style="width: 13%">'
-                        tr += 		'</a>'
-                        tr += 		'<a title="Anexos" href="'+ BASE_URL +'/list-contracts/annexes/'+data.id+'" class="" style="margin-left:3px;">'
-                        tr += 			'<img src="../backend/images/assets/attach.png" style="width: 13%">'
-                        tr += 		'</a>'
-                        tr += 		'<a title="Actualizar" href="'+ BASE_URL +'/contract/actualize/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/update.svg" style="width: 13%">'
-                        tr += 		'</a>'
-                        tr += 		'<a title="Finiquitar Contrato" onclick="terminateContract('+data.id+')" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/handshake.svg" style="width: 13%">'
-                        tr += 		'</a>'
+                        tr += 	'<a title="Acreedores" href="'+ BASE_URL +'/creditors/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/group.svg" style="width: 13%">'
+                        tr += 	'</a>'
+                        tr += 	'<a title="Editar Detalles" href="'+ BASE_URL +'/contract/edit/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/edit.svg" style="width: 13%">'
+                        tr += 	'</a>'
+                        tr += 	'<a title="Actualizar" href="'+ BASE_URL +'/contract/actualize/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/update.svg" style="width: 13%">'
+                        tr += 	'</a>'
+                        tr += 	'<a title="Finiquitar Contrato" onclick="terminateContract('+data.id+')" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/handshake.svg" style="width: 13%">'
+                        tr += 	'</a>'
                     }
                     else {
-                        tr += 		'<a title="Contrato de Finiquito" href="'+ BASE_URL +'/contract/setle/print/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/print.svg" style="width: 13%">'
-                        tr += 		'</a>'
+                        tr += 	'<a title="Contrato de Finiquito" href="'+ BASE_URL +'/contract/setle/print/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/print.svg" style="width: 13%">'
+                        tr += 	'</a>'
                     }
-                    tr += 		    '<a title="Imprimir Contrato" href="'+ BASE_URL +'/contract/print/'+data.id+'" class="" style="margin-left:8px;">'
-                        tr += 			'<img src="../backend/images/assets/contract.svg" style="width: 13%">'
-                        tr += 		'</a>'
+                        tr += 	'<a title="Anexos" href="'+ BASE_URL +'/list-contracts/annexes/'+data.id+'" class="" style="margin-left:3px;">'
+                        tr += 		'<img src="../backend/images/assets/attach.png" style="width: 13%">'
+                        tr += 	'</a>'
+                        tr += 	'<a title="Imprimir Contrato" href="'+ BASE_URL +'/contract/print/'+data.id+'" class="" style="margin-left:8px;">'
+                        tr += 		'<img src="../backend/images/assets/contract.svg" style="width: 13%">'
+                        tr += 	'</a>'
                     tr += 	'</div>'
                     tr += '</td>'
                     $(row).html(tr)
@@ -188,7 +188,11 @@
                                 setTimeout(function(){
                                     window.location.reload(1);
                                 }, 4000);
-                            } else {
+                            }
+                            else if(data == 404) {
+                                toastr["error"]("", "¡Aún hay Cuotas pendientes por pagar para la fecha actual!")
+                            }
+                            else {
                                 toastr["error"]("", "¡Error en la finiquitación del contrato!")
                             }
 

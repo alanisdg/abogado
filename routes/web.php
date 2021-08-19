@@ -25,7 +25,7 @@ use App\Models\Pending;
 Route::get('/', [HomeController::class, 'login'])->name('/');
 
 /** Routes webpay */
-Route::get('payment-return', [PaymentController::class, 'returnUrl'])->name('payment-return');
+
 
 /* Routes dashboard */
 Auth::routes();
@@ -171,6 +171,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('list-fees/{id}', [CollectionController::class, 'listFeesContract'])->name('list-fees');
                 Route::get('list-fess/pay-fee/{id}', [CollectionController::class, 'payFee'])->name('list-fess/pay-fee');
                 Route::post('list-fess/create/transaction', [CollectionController::class, 'createTransaction'])->name('list-fess/create/transaction');
+                Route::get('payment-return', [PaymentController::class, 'returnUrl'])->name('payment-return');
 
         });
 

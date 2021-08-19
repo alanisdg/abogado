@@ -14,4 +14,14 @@ class Collection extends Model
     {
         return $this->belongsTo(Contract::class, 'contract_id');
     }
+
+    /**
+     * Get all of the comments for the Collection
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

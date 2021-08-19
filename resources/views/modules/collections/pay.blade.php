@@ -33,7 +33,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='calendar'></i></span>
                                     </div>
-                                        {!! Form::text("payment_date", old('payment_date', date("d-m-y", strtotime(@$row->payment_date))), ["class" => "form-control", "id" => "payment_date", "readonly"]) !!}
+                                        {!! Form::text("payment_date", old('payment_date', date("d-m-Y", strtotime(@$row->payment_date))), ["class" => "form-control", "id" => "payment_date", "readonly"]) !!}
                                 </div>
                             </div>
                         </div>

@@ -28,6 +28,8 @@ class CollectionController extends Controller
     ];
 
     public function __construct(){
+        $this->middleware('auth');
+        
         if (app()->environment('production')) {
             WebpayPlus::configureForProduction(config('services.transbank.webpay_plus_cc'), config('services.transbank.webpay_plus_api_key'));
         } else {
@@ -91,7 +93,7 @@ class CollectionController extends Controller
 
         $data = [
             "reference" => "Ref-".$dataCollection->id,
-            "sessionId" => bin2hex(random_bytes(20))
+            "sessionId" => $dataCollection->id.'-'.bin2hex(random_bytes(20))
         ];
 
         return view($this->config["routeView"] . "pay")

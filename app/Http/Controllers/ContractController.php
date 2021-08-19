@@ -17,6 +17,7 @@ use App\Models\Role;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 use DataTables;
+use DateTime;
 use PDF;
 use Illuminate\Support\Facades\Mail;
 
@@ -159,6 +160,7 @@ class ContractController extends Controller
                     $addContract->first_installment_payment_date = $parameters[4];
                     $addContract->number_installments = $cuotes[0] + 1;
                     $addContract->amount_fees = $cuotes[1];
+                    $addContract->status = 1;
                     $addContract->save();
 
                 // Register causes
@@ -219,21 +221,24 @@ class ContractController extends Controller
                     $upPending->status = 2;
                     $upPending->save();
                 // Create user
+                //dd($customer);
                     $pass = substr($customer[2], 0, 6);
                     $name = explode(" ", $customer[0]);
 
-                    $addUser = New User();
-                    $addUser->rut = $customer[2];
-                    $addUser->first_name = $name[0];
-                    $addUser->last_name = $name[1];
-                    $addUser->email = $customer[9];
-                    $addUser->password = bcrypt($pass);
-                    $addUser->status = 1;
-                    $addUser->save();
+                    $addUser = User::firstOrCreate(
+                        ['email' => $customer[9]],
+                        [
+                            'rut' => $customer[2],
+                            'first_name' => $name[0],
+                            'last_name' => $name[1],
+                            'password' => bcrypt($pass),
+                            'status' => 1
+                        ]
+                    );
 
                     // Awsign role
                         $role = Role::find(5);
-                        $addUser->roles()->attach($role);
+                        $addUser->roles()->sync($role);
 
                 // Data email
                     $emailDetails = [
@@ -247,7 +252,7 @@ class ContractController extends Controller
                     //Send mail
                     if ($request->input("data_type_register") === "annexed") {
                         Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails) {
-                            $message->from('evmoya_89@hotmail.com', 'Appboproc');
+                            $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
                             $message->subject('Registro de Anexo - Appboproc');
                         });
@@ -386,19 +391,40 @@ class ContractController extends Controller
         // Data contract
             $dataContract = Contract::with(['causes', 'collections'])->find($request->input("id"));
 
-            foreach ($dataContract->causes as $cause) {
-                // Tasks
-                    foreach ($cause->tasks as $task) {
-                        // We close the task of the cause
-                            $task->update(["date_realization" => date("Y-m-d"), "status" => 2]);
+            // Validate pending quotes
+                foreach ($dataContract->collections as $collection) {
+                    $currentDate = new DateTime(date('Y-m-d'));
+                    $paymentDate = new DateTime($collection->payment_date);
+
+                    if (($collection->status == "PENDIENTE") && ($paymentDate > $currentDate)) {
+                        // Array collections to update
+                            $collectionsToUPdate[] = $collection->id;
                     }
+                    else {
+                        // Return response
+                            return response()->json(404);
+                    }
+                }
 
-                // Update cause
-                    $cause->update(["status" => 2]);
-            }
+            // Array collections for update
+                foreach ($collectionsToUPdate as $value) {
+                    // We settle quota}
+                        $upCollection = Collection::find($value);
+                        $upCollection->status = "FINIQUITADA";
+                        $upCollection->save();
+                }
 
-        // Collections
+            // Close tash and causes
+                foreach ($dataContract->causes as $cause) {
+                    // Tasks
+                        foreach ($cause->tasks as $task) {
+                            // We close the task of the cause
+                                $task->update(["date_realization" => date("Y-m-d"), "status" => 2]);
+                        }
 
+                    // Update cause
+                        $cause->update(["status" => 2]);
+                }
 
         // Finisch contract
             $dataContract->update(["status" => 2]);

@@ -23,6 +23,8 @@ class CreatePaymentsTable extends Migration
             $table->string('card_number');
             $table->string('transaction_date');
             $table->timestamps();
+
+            $table->foreign('collection_id')->references('id')->on('collections')->onDelete('cascade')->onDelete('cascade');
         });
     }
 

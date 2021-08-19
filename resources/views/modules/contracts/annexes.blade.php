@@ -37,11 +37,17 @@
                                     <td>{{ $item->type_contract }}</td>
                                     <td>{{ $item->total_contract }}<strong>$</strong> </td>
                                     <td>
-                                        <a href="{{ url('annexes/creditors/'.$item->id) }}"><img src="{{ asset('backend/images/assets/group.svg') }}" alt="" title="Acreedores" width="25"></a>
+                                        @if ($item->status == 1)
+                                            <a href="{{ url('annexes/creditors/'.$item->id) }}"><img src="{{ asset('backend/images/assets/group.svg') }}" alt="" title="Acreedores" width="25"></a>
 
-                                        <a style="margin-left: 3px;" href="{{ url('list-contracts/annexes/edit/'.$item->id) }}"><img src="{{ asset('backend/images/assets/edit.svg') }}" alt="" title="Editar Anexo" width="25"></a>
+                                            <a style="margin-left: 3px;" href="{{ url('list-contracts/annexes/edit/'.$item->id) }}"><img src="{{ asset('backend/images/assets/edit.svg') }}" alt="" title="Editar Anexo" width="25"></a>
 
-                                        <a style="margin-left: 3px;" href="{{ url('contract/actualize/'.$item->id) }}"><img src="{{ asset('backend/images/assets/update.svg') }}" alt="" title="Actualizaciones" width="25"></a>
+                                            <a style="margin-left: 3px;" href="{{ url('contract/actualize/'.$item->id) }}"><img src="{{ asset('backend/images/assets/update.svg') }}" alt="" title="Actualizaciones" width="25"></a>
+
+                                            <a style="margin-left: 3px;" title="Finiquitar Contrato" onclick="terminateContract({{ $item->id }})"><img src="{{ asset('backend/images/assets/handshake.svg') }}" width="25"></a>
+                                        @endif
+
+                                        <a style="margin-left: 3px;" href="{{ url('contract/print/'.$item->id) }}"><img src="{{ asset('backend/images/assets/print.svg') }}" alt="" title="Imprimir Contrato" width="25"></a>
                                     </td>
                                 </tr>
                             @empty
@@ -66,43 +72,68 @@
                 localStorage.removeItem('contract_parameters')
                 localStorage.removeItem('current_customer')
             })
-        // Update status
-            function updateStatus(id) {
 
-                let userId = id
-                let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-                let url = '/users/update-status';
+        // Terminate contract
+        function terminateContract(id) {
+                swal({
+                    title: "¿Desea finiquitar el contrato?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "¡Si, finiquitar contracto!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: !0
+                }).then(function (e) {
 
-                fetch(url, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json, text-plain, */*",
-                        "X-Requested-With": "XMLHttpRequest",
-                        "X-CSRF-TOKEN": token
-                    },
-                    method: 'post',
-                    credentials: "same-origin",
-                    body: JSON.stringify({
-                        user_id: userId
-                    })
-                })
-                .then((response) => response.json())
-                .then((data) => {
+                    if (e.value === true) {
+                        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-                    if (data == 1) {
+                        let userId = id
+                        let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                        let url = '/contract/setle';
 
-                        $('#tableCrud').DataTable().ajax.reload();
+                        fetch(url, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                            },
+                            method: 'post',
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                id: id
+                            })
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
 
-                        toastr["success"]("", "¡Estado actualizado!")
+                            if (data == 200) {
+                                toastr["success"]("", "¡Contrato finiquitado!")
+
+                                setTimeout(function(){
+                                    window.location.reload(1);
+                                }, 4000);
+                            }
+                            else if(data == 404) {
+                                toastr["error"]("", "¡Aún hay Cuotas pendientes por pagar para la fecha actual!")
+                            }
+                            else {
+                                toastr["error"]("", "¡Error en la finiquitación del contrato!")
+                            }
+
+                        })
+                        .catch(function(error) {
+                            toastr["error"]("", "¡Error en la consulta de datos!")
+                        });
+
                     } else {
-                        toastr["error"]("", "¡Error en la acutalización del estado!")
+                        e.dismiss;
                     }
 
+                }, function (dismiss) {
+                    return false;
                 })
-                .catch(function(error) {
-                    toastr["error"]("", "¡Error en la consulta de datos!")
-                });
-
             }
     </script>
 @endsection
