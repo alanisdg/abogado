@@ -29,7 +29,7 @@ class CollectionController extends Controller
 
     public function __construct(){
         $this->middleware('auth');
-        
+
         if (app()->environment('production')) {
             WebpayPlus::configureForProduction(config('services.transbank.webpay_plus_cc'), config('services.transbank.webpay_plus_api_key'));
         } else {

@@ -64,27 +64,18 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="first-name-icon">Referencia <span class="text-danger"><strong>*</strong></span></label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">#</span>
-                                    </div>
-                                        {!! Form::text("buy_order", old('buy_order', @$data["reference"]), ["class" => "form-control", "id" => "buy_order", "readonly"]) !!}
-                                </div>
+                                {{--<label for="first-name-icon">Referencia <span class="text-danger"><strong>*</strong></span></label>--}}
+                                {!! Form::hidden("buy_order", old('buy_order', @$data["reference"]), ["class" => "form-control", "id" => "buy_order", "readonly"]) !!}
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="first-name-icon">Sesión <span class="text-danger"><strong>*</strong></span></label>
-                                <div class="input-group input-group-merge">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">#</span>
-                                    </div>
-                                        {!! Form::text("session_id", old('session_id', @$data["sessionId"]), ["class" => "form-control", "id" => "session_id", "readonly"]) !!}
-                                </div>
+                                {{--<label for="first-name-icon">Sesión <span class="text-danger"><strong>*</strong></span></label>--}}
+                                {!! Form::hidden("session_id", old('session_id', @$data["sessionId"]), ["class" => "form-control", "id" => "session_id", "readonly"]) !!}
                             </div>
                         </div>
                     </div>
