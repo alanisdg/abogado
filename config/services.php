@@ -31,13 +31,8 @@ return [
     ],
 
     'transbank' => [
-<<<<<<< HEAD
         'webpay_plus_cc' => '597042518866',
         'webpay_plus_api_key' => '6ac748603c86beff59944d25d3d906c5',
-=======
-        'webpay_plus_cc' => env('WEBPAY_PLUS_MALL_CC'),
-        'webpay_plus_api_key' => env('WEBPAY_PLUS_MALL_CC'),
->>>>>>> 31a4fa693e623af6034c18b6f0f908677f505ad7
         'webpay_plus_mall_cc' => env('WEBPAY_PLUS_MALL_CC'),
         'webpay_plus_mall_child_cc' => env ('WEBPAY_PLUS_MALL_CHILD_CC'),
         'webpay_plus_mall_api_key' => env('WEBPAY_PLUS_MALL_API_KEY'),
