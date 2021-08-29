@@ -8,7 +8,7 @@
             <h4 class="card-title text-white">Enviar Pago</h4>
         </div>
         <div class="card-body mt-2">
-                {!! Form::open(['url' => 'https://webpay3gint.transbank.cl/webpayserver/initTransaction', 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
+                {!! Form::open(['url' => $resp->url, 'autocomplete' => 'off', 'id' => 'form', 'class' => 'form form-vertical']) !!}
 
                     <div class="row">
                         <div class="col-12">
