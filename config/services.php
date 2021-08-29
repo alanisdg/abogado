@@ -31,7 +31,7 @@ return [
     ],
 
     'transbank' => [
-        'webpay_plus_cc' => 597042518866,
+        'webpay_plus_cc' => '597042518866',
         'webpay_plus_api_key' => '6ac748603c86beff59944d25d3d906c5',
         'webpay_plus_mall_cc' => env('WEBPAY_PLUS_MALL_CC'),
         'webpay_plus_mall_child_cc' => env ('WEBPAY_PLUS_MALL_CHILD_CC'),
