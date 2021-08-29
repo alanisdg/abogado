@@ -115,7 +115,7 @@ class CollectionController extends Controller
             $req = $request->except('_token');
 
         //$transaction = new Transaction();
-        //WebpayPlus::configureForTesting();
+            //WebpayPlus::configureForTesting();
             WebpayPlus::configureForProduction(597042518866, '6ac748603c86beff59944d25d3d906c5');
             $transaction = new Transaction();
             $resp = $transaction->create($req["buy_order"], $req["session_id"], $req["amount"], $return_url);
