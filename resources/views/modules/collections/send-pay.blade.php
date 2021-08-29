@@ -12,8 +12,9 @@
 
                     <div class="row">
                         <div class="col-12">
+                            
                             <div class="form-group">
-                                {!! Form::text("token_ws", old('token_ws', @$resp->token), ["class" => "form-control", "readonly"]) !!}
+                                {!! Form::hidden("token_ws", old('token_ws', @$resp->token), ["class" => "form-control", "readonly"]) !!}
                             </div>
                         </div>
                     </div>

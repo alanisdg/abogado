@@ -22,6 +22,9 @@ class PaymentController extends Controller
 
     public function returnUrl(Request $request)
     {
+        $token = $request->request->get('token_ws');
+        dd($request->all(), $token);
+
         $req = $request->except('_token');
         $resp = (new Transaction)->commit($req["token_ws"]);
 
