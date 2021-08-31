@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Transbank\Webpay\WebpayPlus;
 use Transbank\Webpay\WebpayPlus\Transaction;
 
 // Model
@@ -30,7 +29,7 @@ class PaymentController extends Controller
         }
         else {
             $resp = (new Transaction)->commit($token);
-            
+
             // Register payment and validate quote
                 if ($resp->status === "AUTHORIZED") {
                     // Extract quote id

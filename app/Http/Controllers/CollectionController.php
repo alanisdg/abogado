@@ -27,14 +27,14 @@ class CollectionController extends Controller
         "typeRegister" => ""
     ];
 
-    public function __construct(){
+    public function __construct() {
         $this->middleware('auth');
 
-        //if (app()->environment('production')) {
+        if (app()->environment('production')) {
             WebpayPlus::configureForProduction(config('services.transbank.webpay_plus_cc'), config('services.transbank.webpay_plus_api_key'));
-        //} else {
-            //WebpayPlus::configureForTesting();
-        //}
+        } else {
+            WebpayPlus::configureForTesting();
+        }
     }
 
     /**
@@ -116,9 +116,10 @@ class CollectionController extends Controller
 
         //$transaction = new Transaction();
             //WebpayPlus::configureForTesting();
-            WebpayPlus::configureForProduction(597042518866, '6ac748603c86beff59944d25d3d906c5');
-            $transaction = new Transaction();
-            $resp = $transaction->create($req["buy_order"], $req["session_id"], $req["amount"], $return_url);
+            //WebpayPlus::configureForProduction(597042518866, '6ac748603c86beff59944d25d3d906c5');
+            //$transaction = new Transaction();
+            //$resp = $transaction->create($req["buy_order"], $req["session_id"], $req["amount"], $return_url);
+            $resp = (new Transaction)->create($req["buy_order"], $req["session_id"], $req["amount"], $return_url);
 
         // Return view
             return view($this->config["routeView"] . "send-pay")
@@ -126,5 +127,55 @@ class CollectionController extends Controller
                 ->with("resp", $resp)
                 ->with("contract", $req['contract'])
                 ->with("config", $this->config);
+    }
+
+    public function returnUrl(Request $request)
+    {
+        $token = $_GET['token_ws'] ?? $_POST['token_ws'] ?? null;
+        
+        if (!$token) {
+            // Redirect to dashboard
+                Toastr::error("", "¡Pago rechazado por Webpay!");
+                return redirect('dashboard');
+        }
+        else {
+            $resp = (new Transaction)->commit($token);
+
+            // Register payment and validate quote
+                if ($resp->status === "AUTHORIZED") {
+                    // Extract quote id
+                        $quoteId = explode("-", $resp->sessionId);
+
+                    // Search quote
+                        $collection = Collection::find($quoteId[0]);
+                        if (!is_null($collection)) {
+                            // Register payment
+                                Payment::create([
+                                    'collection_id' => $quoteId[0],
+                                    'amount' => number_format((int)$resp->amount, 0, '', '.'),
+                                    'authorizationCode' => $resp->authorizationCode,
+                                    'session_id' => $resp->sessionId,
+                                    'buy_order' => $resp->buyOrder,
+                                    'card_number' => $resp->cardNumber,
+                                    'transaction_date' => $resp->transactionDate
+                                ]);
+
+                            // Update quote status
+                                $collection->update(['status' => "PAGADA"]);
+
+                            // Return response
+                                Toastr::success("", "¡Pago Procesado!");
+                                return redirect('dashboard');
+                        }
+                        else {
+                            Toastr::error("", "¡Error al procesar el pago por Appboproc!");
+                            return redirect('dashboard');
+                        }
+                }
+                else {
+                    Toastr::error("", "¡Error al procesar el pago por Appboproc!");
+                    return redirect('dashboard');
+                }
+        }
     }
 }
