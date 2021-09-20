@@ -40,11 +40,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $array = User::with('roles')->orderBy('id', 'DESC')->get();
-
+        
         if ($request->ajax()) {
             return Datatables::of($array)->make(true);
         }
-
+   
         return view($this->config["routeView"] . "index")
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
