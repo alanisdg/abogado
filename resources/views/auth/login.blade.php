@@ -11,7 +11,7 @@
                         <img src="{{ asset('backend/images/assets/logo.png') }}" style="width: 50%;" alt="">
                     </a>
 
-                    <h4 class="card-title mb-1">Inicio de Sesión! 👋</h4>
+                    <h4 class="card-title mb-1">Inicio de Sesión!. 👋</h4>
 
                     <form class="auth-login-form mt-2" method="POST" action="{{ route('login') }}" autocomplete="off">
                         @csrf
