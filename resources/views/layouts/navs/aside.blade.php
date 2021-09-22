@@ -46,6 +46,12 @@
                 </li>
             @endrole
             @hasanyrole('executive_administrator|legal_administrator|legal_executive')
+                <li class="{{ active('pending*') }} nav-item">
+                    <a class="d-flex align-items-center" href="{{ url('customers/create') }}">
+                        <i data-feather='user'></i>
+                        <span class="menu-title text-truncate">Crear Cliente</span>
+                    </a>
+                </li>
                 <li class="{{ active('list-pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('list-pending') }}">
                         <i data-feather='alert-circle'></i>

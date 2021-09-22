@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
     /* Logout */
         Route::get('logout', [LoginController::class, 'logout']);
 
-        Route::group(['middleware' => ['role:executive_administrator']], function() {
+        Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
             // Customers
                 Route::get('customers/create', [PendingController::class, 'create'])->name('customers/create');
                 Route::post('customers/create/store', [PendingController::class, 'storeCustomer'])->name('customers/create/store');

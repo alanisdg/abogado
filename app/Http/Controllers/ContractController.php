@@ -250,6 +250,7 @@ class ContractController extends Controller
                     ];
 
                     //Send mail
+                    //return $request->input("data_type_register");
                     if ($request->input("data_type_register") === "annexed") {
                         Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails) {
                             $message->from('contacto@appaboproc.com', 'Appboproc');
