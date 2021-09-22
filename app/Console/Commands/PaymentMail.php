@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\Models\Pending;
 class PaymentMail extends Command
 {
     /**
@@ -37,6 +37,10 @@ class PaymentMail extends Command
      */
     public function handle()
     {
+        Pending::create([
+            'names'=>time(),
+
+        ]);
         \Log::info("Cron is working fine!");
         return 0;
     }
