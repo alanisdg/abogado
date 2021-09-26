@@ -177,6 +177,7 @@ Route::middleware(['auth'])->group(function () {
 
         // Collections
             Route::get('collections', [CollectionController::class, "listFees"])->name('collections');
+            Route::get('testcollections', [CollectionController::class, "test"]);
             Route::post('search/collections', [CollectionController::class, "searchCollections"])->name('search/collections');
 
 });

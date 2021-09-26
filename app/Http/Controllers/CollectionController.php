@@ -14,7 +14,9 @@ use App\Models\Payment;
 use Transbank\Webpay\WebpayPlus\Transaction;
 use Transbank\Webpay\WebpayPlus;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
 use DataTables;
+use Illuminate\Support\Facades\Mail;
 
 class CollectionController extends Controller
 {
@@ -27,6 +29,37 @@ class CollectionController extends Controller
         "typeRegister" => ""
     ];
 
+    public function test(){
+
+
+        $collections = Collection::where( 'payment_date', Carbon::now()->subDays(3)->format('Y-m-d'))->get();
+
+        foreach($collections as $collection){
+            if($collection->status=='PENDIENTE'){
+                $email = $collection->contract->user->email;
+                $emailDetails = [
+                    'title' => 'Appboproc!',
+                    'url'   => \Request::root(),
+                    'user' => $collection->contract->user,
+                    'email' =>  'alanisdg@gmail.com',
+                    'cuota' => $collection
+                ];
+
+                //Send mail
+                //return $request->input("data_type_register");
+
+                Mail::send('emails.confirm-payment', $emailDetails, function($message) use ($emailDetails) {
+                    $message->from('contacto@appaboproc.com', 'Appboproc');
+                    $message->to($emailDetails['email']);
+                    $message->subject('Próximo pago - Appboproc');
+                });
+                dd('sended');
+            }
+
+        }
+        // 3 dias posterior al pago vencido
+        dd($collections);
+    }
     public function __construct() {
         $this->middleware('auth');
 
@@ -132,7 +165,7 @@ class CollectionController extends Controller
     public function returnUrl(Request $request)
     {
         $token = $_GET['token_ws'] ?? $_POST['token_ws'] ?? null;
-        
+
         if (!$token) {
             // Redirect to dashboard
                 Toastr::error("", "¡Pago rechazado por Webpay!");
