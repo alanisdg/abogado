@@ -5,6 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Collection;
 use Illuminate\Console\Command;
 use App\Models\Pending;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentMail extends Command
@@ -40,9 +42,11 @@ class PaymentMail extends Command
      */
     public function handle()
     {
+        Log::info('start');
            // 5 días antes del pago
-        $collections = Collection::where( 'payment_date', Carbon::now()->addDays(5)->format('Y-m-d'))->get();
 
+        $collections = Collection::where( 'payment_date', Carbon::now()->addDays(5)->format('Y-m-d'))->get();
+        Log::info($collections);
         foreach($collections as $collection){
             $email = $collection->contract->user->email;
             $emailDetails = [
@@ -83,7 +87,7 @@ class PaymentMail extends Command
                 Mail::send('emails.three-days', $emailDetails, function($message) use ($emailDetails) {
                     $message->from('contacto@appaboproc.com', 'Appboproc');
                     $message->to($emailDetails['email']);
-                    $message->subject('Próximo pago - Appboproc');
+                    $message->subject('Cuota vencida - Appboproc');
                 });
 
             }
