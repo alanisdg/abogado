@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Pending;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,11 +21,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/user', function (Request $request) {
-    Pending::create([
-        'names'=>$request->name,
-        'surnames'=>$request->email,
-        'email'=>$request->subject,
+Route::post('/contact', function (Request $request) {
+    Contact::create([
+        'name'=>$request->name,
+        'email'=>$request->email,
+        'phone'=>$request->phone,
+        'date'=>$request->date,
+        'hour'=>$request->hour,
+        'state_id'=>1,
 
     ]);
 });
