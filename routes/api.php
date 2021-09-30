@@ -22,6 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('/user', function (Request $request) {
     Pending::create([
-        'names'=>'names'
+        'names'=>$request
     ]);
 });
