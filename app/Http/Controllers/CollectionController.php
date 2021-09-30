@@ -9,7 +9,7 @@ use App\Models\Collection;
 use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Payment;
-
+use App\Models\Pending;
 // Helpers
 use Transbank\Webpay\WebpayPlus\Transaction;
 use Transbank\Webpay\WebpayPlus;
@@ -30,57 +30,10 @@ class CollectionController extends Controller
     ];
 
     public function test(){
-             // 5 días antes del pago
-             $collections = Collection::where( 'payment_date', Carbon::now()->addDays(5)->format('Y-m-d'))->get();
-
-             foreach($collections as $collection){
-                 $email = $collection->contract->user->email;
-                 $emailDetails = [
-                     'title' => 'Appboproc!',
-                     'url'   => \Request::root(),
-                     'user' => $collection->contract->user,
-                     'email' =>  $email,
-                     'cuota' => $collection
-                 ];
-
-                 //Send mail
-                 //return $request->input("data_type_register");
-                 /*
-                 Mail::send('emails.five-days', $emailDetails, function($message) use ($emailDetails) {
-                     $message->from('contacto@appaboproc.com', 'Appboproc');
-                     $message->to($emailDetails['email']);
-                     $message->subject('Próximo pago - Appboproc');
-                 });
-                 */
-
-             }
-
-             $collections = Collection::where( 'payment_date', Carbon::now()->subDays(3)->format('Y-m-d'))->get();
-
-             foreach($collections as $collection){
-                 if($collection->status=='PENDIENTE'){
-                     $email = $collection->contract->user->email;
-
-                     $emailDetails = [
-                         'title' => 'Appboproc!',
-                         'url'   => \Request::root(),
-                         'user' => $collection->contract->user,
-                         'email' =>  $email,
-                         'cuota' => $collection
-                     ];
-
-                     //Send mail
-                     //return $request->input("data_type_register");
-
-                     Mail::send('emails.three-days', $emailDetails, function($message) use ($emailDetails) {
-                         $message->from('contacto@appaboproc.com', 'Appboproc');
-                         $message->to($emailDetails['email']);
-                         $message->subject('Próximo pago - Appboproc');
-                     });
-
-                 }
-
-             }
+        dd('t');
+            Pending::create([
+                'names'=>'horacio'
+            ]);
 
 
     }
