@@ -26,8 +26,7 @@ Route::post('/contact', function (Request $request) {
         'names'=>$request->name,
         'email'=>$request->email,
         'phone'=>$request->phone,
-        'date'=>$request->date,
-        'hour'=>$request->hour,
+        'interview_date'=>$request->date . ' ' . $request->hour,
         'status'=>1,
 
     ]);
