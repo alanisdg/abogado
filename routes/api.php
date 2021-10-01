@@ -22,13 +22,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::post('/contact', function (Request $request) {
-    Contact::create([
-        'name'=>$request->name,
+    Pending::create([
+        'names'=>$request->name,
         'email'=>$request->email,
         'phone'=>$request->phone,
         'date'=>$request->date,
         'hour'=>$request->hour,
-        'state_id'=>1,
+        'status'=>1,
 
     ]);
 });
