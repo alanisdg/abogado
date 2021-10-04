@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddStateIdToContacts extends Migration
+class CreatePreviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddStateIdToContacts extends Migration
      */
     public function up()
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->foreignId('state_id')->default(1)->constrained()->nullable();
+        Schema::create('previews', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +26,6 @@ class AddStateIdToContacts extends Migration
      */
     public function down()
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('previews');
     }
 }

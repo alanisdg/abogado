@@ -21,7 +21,7 @@ class CreateContactsTable extends Migration
             $table->string('comuna')->nullable();
             $table->string('phone')->nullable();
             $table->date('date')->nullable();
-            $table->time('hour')->nullable();
+            $table->string('hour')->nullable();
             $table->timestamps();
         });
     }

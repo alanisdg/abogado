@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeController;
 // Controllers backend
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ContractController;
 use App\Http\Controllers\UserController;
@@ -60,7 +61,13 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
-           /* Routes Contracts Create*/
+           /* Routes Preview */
+           Route::get('preview', [PreviewController::class, 'preview'])->name('preview');
+
+           Route::group(['prefix' => 'preview'], function () {
+                 Route::post('upload', [PreviewController::class, 'upload'])->name('preview.upload');
+           });
+            /* Routes Contracts Create*/
                 Route::group(['prefix' => 'contract'], function () {
                         Route::get('edit/{id}', [ContractController::class, 'edit'])->name('contract/edit');
                         Route::post('update', [ContractController::class, 'update'])->name('contract/update');
@@ -110,6 +117,10 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('list-pending', [PendingController::class, "listPending"])->name('list-pending');
                 Route::get('list-pending/details/{id}', [PendingController::class, "show"])->name('list-pending/details');
                 Route::post('pending/update-status', [PendingController::class, "updateStatus"])->name('pending/update-status');
+
+            // Preview
+            Route::get('list-preview', [PreviewController::class, "listPreview"])->name('list-preview');
+            Route::post('preview/update-status', [PreviewController::class, "updateStatus"])->name('preview/update-status');
 
             /* Route Contracts List */
                 Route::group(['prefix' => 'list-contracts'], function () {
