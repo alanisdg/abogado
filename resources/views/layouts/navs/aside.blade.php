@@ -33,12 +33,6 @@
                     </a>
                 </li>
                 <li class="{{ active('pending*') }} nav-item">
-                    <a class="d-flex align-items-center" href="{{ url('customers/create') }}">
-                        <i data-feather='user'></i>
-                        <span class="menu-title text-truncate">Crear Cliente</span>
-                    </a>
-                </li>
-                <li class="{{ active('pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('pending') }}">
                         <i data-feather='upload'></i>
                         <span class="menu-title text-truncate">Cargar BD</span>

@@ -62,10 +62,12 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
            /* Routes Preview */
-           Route::get('preview', [PreviewController::class, 'preview'])->name('preview');
 
-           Route::group(['prefix' => 'preview'], function () {
+            Route::get('list-preview/details/{id}', [PreviewController::class, "show"])->name('list-preview/details');
+
+            Route::group(['prefix' => 'preview'], function () {
                  Route::post('upload', [PreviewController::class, 'upload'])->name('preview.upload');
+                 Route::post('update/{contact}', [PreviewController::class, 'update'])->name('preview.update');
            });
             /* Routes Contracts Create*/
                 Route::group(['prefix' => 'contract'], function () {

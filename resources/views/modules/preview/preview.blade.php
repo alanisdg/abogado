@@ -20,7 +20,7 @@
 
                                 <th>RUT</th>
                                 <th>TELEFONO</th>
-                                <th>FECHA DE ENTREVISTA</th>
+                                <th>COMUNA </th>
 
                                 <th>ESTADO</th>
                                 <th>BOTONES</th>
@@ -79,18 +79,26 @@
                     tr += '<td class="text-left" style="width: 12%">'+ (data.name ? data.name : "") +'</td>'
                     tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 15%">'+ (data.date ? data.date : "") + ' ' + (data.hour ? data.hour : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.comuna ? data.comuna : "") + ' ' + (data.hour ? data.hour : "") +'</td>'
 
 
                     if (data.state_id == 1) {
-                        tr += '<td class="text-left" style="width: 15%"><span class="text-warning">PENDIENTE</span></td>'
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-warning">NO CONTACTADO</span></td>'
                     }
                     else if (data.state_id == 2) {
-                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">GANADO</span></td>'
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">ENTREVISTA</span></td>'
                     }
-                    else {
-                        tr += '<td class="text-left" style="width: 15%"><span class="text-danger">PERDIDO</span></td>'
+                    else if (data.state_id == 3) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">DUDA</span></td>'
                     }
+                    else if (data.state_id == 4) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">NO CONTESTA</span></td>'
+                    }
+                    else if (data.state_id == 5) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">NO INTERESADO</span></td>'
+                    }
+
+
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
                     if (data.state_id == 1) {
@@ -98,7 +106,7 @@
                         tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
                         tr += 		'</a>'
                     }
-                    tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-pending/details/'+data.id+'" class="" style="margin-left:8px;">'
+                    tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-preview/details/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
                     tr += 		'</a>'
                     tr += 	'</div>'

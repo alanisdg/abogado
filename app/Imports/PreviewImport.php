@@ -21,10 +21,8 @@ class PreviewImport implements ToModel, WithHeadingRow
         return new Contact([
             'rut' => $row['rut'],
             'phone' => $row['telefono'],
-            'date' => Carbon::instance(\PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['fecha'])),
-            'hour' => $row['hora'],
             'email' => $row['email'],
-            'comuna' => $row['comuna'],
+            'comuna' => '',
             'name' => $row['nombre'],
             'state_id' => 1,
         ]);

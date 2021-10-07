@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Imports\PendingImport;
 use App\Imports\PreviewImport;
 use App\Models\Contact;
+use App\Models\Pending;
+use App\Models\Preview;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -33,9 +35,7 @@ class PreviewController extends Controller
     }
 
 
-    public function preview(){
-        return view('modules.preview.preview');
-    }
+
 
     public function upload(Request $request){
 
@@ -43,12 +43,45 @@ class PreviewController extends Controller
 
         Toastr::success("", "¡Carga de Datos Completada!");
 
-        return redirect('list-pending');
+        return redirect('list-preview');
     }
+
+    public function convertContactToPending($pending){
+        Pending::create([
+            'interview_date'=>$pending->date . ' ' . $pending->hour,
+            'names'=>$pending->name,
+            'rut'=>$pending->rut,
+            'email'=>$pending->email,
+            'phone'=>$pending->phone,
+            'interview_date'=>$pending->date,
+        ]);
+    }
+
+    public function update(Contact $contact){
+
+
+        $contact->state_id = request()->state_id;
+        $contact->date = request()->date;
+        $contact->rut = request()->rut;
+        $contact->name = request()->name;
+        $contact->comuna = request()->comuna;
+        $contact->phone = request()->phone;
+        $contact->hour = request()->hour_1 . ' a ' . request()->hour_2;
+        $contact->save();
+
+        if(request()->state_id == 2){
+            $this->convertContactToPending($contact);
+        }
+        Toastr::success("", "¡Carga de Datos Completada!");
+
+        return redirect('list-preview');
+    }
+
+
 
     public function listPreview(Request $request)
     {
-        $array = Contact::orderBy('id', 'DESC')->get();
+        $array = Contact::orderBy('id', 'DESC')->where('state_id','!=',2)->get();
 
         if ($request->ajax()) {
             return DataTables::of($array)->make(true);
@@ -58,6 +91,24 @@ class PreviewController extends Controller
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
     }
+
+
+
+    public function show($id)
+    {
+
+        $dataPending = Contact::find($id);
+        $hours = explode('a',$dataPending->hour);
+
+        $dataPending->hour_1 = substr($hours[0], 0, -1);
+        $dataPending->hour_2= ltrim($hours[1], ' ');
+
+        return view($this->config["routeView"] . "details")
+                ->with("breadcrumAction", "")
+                ->with('row', $dataPending)
+                ->with("config", $this->config);
+    }
+
 
 
 }
