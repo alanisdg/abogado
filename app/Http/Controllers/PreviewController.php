@@ -98,10 +98,13 @@ class PreviewController extends Controller
     {
 
         $dataPending = Contact::find($id);
-        $hours = explode('a',$dataPending->hour);
+        if(!empty($dataPending->hour)){
+            $hours = explode('a',$dataPending->hour);
 
-        $dataPending->hour_1 = substr($hours[0], 0, -1);
-        $dataPending->hour_2= ltrim($hours[1], ' ');
+            $dataPending->hour_1 = substr($hours[0], 0, -1);
+            $dataPending->hour_2= ltrim($hours[1], ' ');
+
+        }
 
         return view($this->config["routeView"] . "details")
                 ->with("breadcrumAction", "")

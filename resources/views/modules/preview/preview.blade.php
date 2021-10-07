@@ -21,7 +21,7 @@
                                 <th>RUT</th>
                                 <th>TELEFONO</th>
                                 <th>COMUNA </th>
-
+                                <th>FECHA</th>
                                 <th>ESTADO</th>
                                 <th>BOTONES</th>
                             </tr>
@@ -68,6 +68,7 @@
                     {data: 'id'},
                     {data: 'date'},
                     {data: 'name'},
+                    {data: 'comuna'},
 
                     {data: 'rut'},
                     {data: 'phone'},
@@ -79,7 +80,10 @@
                     tr += '<td class="text-left" style="width: 12%">'+ (data.name ? data.name : "") +'</td>'
                     tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 15%">'+ (data.comuna ? data.comuna : "") + ' ' + (data.hour ? data.hour : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.comuna ? data.comuna : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 15%">'+ (data.date ? data.date + ' ' + data.hour : "") +'</td>'
+
+
 
 
                     if (data.state_id == 1) {

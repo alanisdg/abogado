@@ -112,6 +112,18 @@
                                         {!! Form::number("phone", old('phone', @$row->phone), ["class" => "form-control"]) !!}
                                 </div>
                             </div>
+
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label for="first-name-icon">Comuna </label>
+                                <div class="input-group input-group-merge">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i data-feather='file-text'></i></span>
+                                    </div>
+                                        {!! Form::text("comuna", old('phone', @$row->comuna), ["class" => "form-control"]) !!}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
