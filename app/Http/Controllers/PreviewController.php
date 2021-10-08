@@ -47,13 +47,14 @@ class PreviewController extends Controller
     }
 
     public function convertContactToPending($pending){
-        Pending::create([
+
+        $pending = Pending::create([
             'interview_date'=>$pending->date . ' ' . $pending->hour,
             'names'=>$pending->name,
             'rut'=>$pending->rut,
             'email'=>$pending->email,
             'phone'=>$pending->phone,
-            'interview_date'=>$pending->date,
+            'status'=>1,
         ]);
     }
 
@@ -81,7 +82,7 @@ class PreviewController extends Controller
 
     public function listPreview(Request $request)
     {
-        $array = Contact::orderBy('id', 'DESC')->where('state_id','!=',2)->get();
+     $array = Contact::orderBy('id', 'DESC')->where('state_id','!=',2)->get();
 
         if ($request->ajax()) {
             return DataTables::of($array)->make(true);

@@ -21,7 +21,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                    {!! Form::date("date", old('date', @$row->date), ["class" => "form-control", 'required']) !!}
+                                    {!! Form::date("date", old('date', @$row->date), ["class" => "form-control date" ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                    {!! Form::time("hour_1", old('second_date', @$row->hour_1), ["class" => "form-control",'required']) !!}
+                                    {!! Form::time("hour_1", old('second_date', @$row->hour_1), ["class" => "form-control hour_1" ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                    {!! Form::time("hour_2", old('second_date', @$row->hour_2), ["class" => "form-control", 'required']) !!}
+                                    {!! Form::time("hour_2", old('second_date', @$row->hour_2), ["class" => "form-control hour_2" ]) !!}
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                    {!! Form::text("name", old('names', @$row->name), ["class" => "form-control", "readonly"]) !!}
+                                    {!! Form::text("name", old('names', @$row->name), ["class" => "form-control"]) !!}
                                 </div>
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='file-text'></i></span>
                                     </div>
-                                    <select  name="state_id" class="form-control">
+                                    <select  name="state_id" class="form-control selector">
                                         <option @if(@$row->state_id == 1) selected  @endif value="1">No contactado</option>
                                         <option @if(@$row->state_id == 2) selected  @endif value="2">Entrevista</option>
                                         <option @if(@$row->state_id == 3) selected  @endif value="3">Duda</option>
@@ -98,7 +98,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i data-feather='mail'></i></span>
                                     </div>
-                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control"]) !!}
+                                        {!! Form::email("email", old('email', @$row->email), ["class" => "form-control email"]) !!}
                                 </div>
                             </div>
                         </div>
@@ -141,6 +141,19 @@
 
 @section('scripts')
     <script>
-
+        $(document).ready(function (){
+            $('.selector').change(function(){
+                    $('.email').prop('required',false);
+                    $('.date').prop('required',false);
+                    $('.hour_1').prop('required',false);
+                    $('.hour_2').prop('required',false);
+                if(this.value == 2){
+                    $('.email').prop('required',true);
+                    $('.date').prop('required',true);
+                    $('.hour_1').prop('required',true);
+                    $('.hour_2').prop('required',true);
+                }
+            })
+        })
     </script>
 @endsection

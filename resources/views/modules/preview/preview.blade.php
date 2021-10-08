@@ -17,7 +17,7 @@
                             <tr>
                                 <th>ID</th>
                                 <th>NOMBRE</th>
-
+                                <th>EMAIL</th>
                                 <th>RUT</th>
                                 <th>TELEFONO</th>
                                 <th>COMUNA </th>
@@ -48,12 +48,13 @@
                 scrollX: true,
                 lengthMenu: false,
                 dom: 'Blfrtip',
+                order:[],
                 buttons: [
                 ],
                 ajax: {
                     url: '{{ url("list-preview") }}',
                     data: function (data) {
-                        console.log(data)
+
                         data.id = $('input[name=id]').val();
                         data.interview_date = $('input[name=interview_date]').val();
                         data.name = $('input[name=name]').val();
@@ -69,7 +70,7 @@
                     {data: 'date'},
                     {data: 'name'},
                     {data: 'comuna'},
-
+                    {data: 'email'},
                     {data: 'rut'},
                     {data: 'phone'},
                     {data: 'state_id'},
@@ -78,9 +79,11 @@
                 createdRow: function(row, data, dataIndex) {
                     tr = '<td class="text-left" style="width: 6%">'+ (data.id ? data.id : "") +'</td>'
                     tr += '<td class="text-left" style="width: 12%">'+ (data.name ? data.name : "") +'</td>'
+                    tr += '<td class="text-left" style="width: 12%">'+ (data.email ? data.email : "") +'</td>'
                     tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.comuna ? data.comuna : "") +'</td>'
+
                     tr += '<td class="text-left" style="width: 15%">'+ (data.date ? data.date + ' ' + data.hour : "") +'</td>'
 
 
@@ -105,11 +108,7 @@
 
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
-                    if (data.state_id == 1) {
-                        tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id);">'
-                        tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
-                        tr += 		'</a>'
-                    }
+
                     tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-preview/details/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
                     tr += 		'</a>'

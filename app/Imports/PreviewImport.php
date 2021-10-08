@@ -18,17 +18,12 @@ class PreviewImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        if(!empty($row['comuna'])){
-            $comuna =$row['comuna'];
-        }else{
-            $comuna = '';
-        }
         return new Contact([
-            'rut' => $row['rut'],
-            'phone' => $row['telefono'],
-            'email' => $row['email'],
-            'comuna' => $comuna,
-            'name' => $row['nombre'],
+            'rut' => !empty($row['rut']) ?   $row['rut'] :  '' ,
+            'phone' => !empty($row['phone']) ?   $row['phone'] :  '' ,
+            'email' => !empty($row['email']) ?   $row['email'] :  '' ,
+            'comuna' => !empty($row['comuna']) ?   $row['comuna'] :  '' ,
+            'name' => !empty($row['nombre']) ?   $row['nombre'] :  '' ,
             'state_id' => 1,
         ]);
 
