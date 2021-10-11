@@ -104,7 +104,7 @@ class PreviewController extends Controller
 
     public function events()
     {
-        $pendings =  Pending::where('id','>',26)->get();
+        $pendings =  Pending::all();
 
         $events = array();
         foreach($pendings as $pending){
