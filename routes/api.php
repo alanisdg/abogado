@@ -26,7 +26,7 @@ Route::post('/contact', function (Request $request) {
 
     $hour = explode ('-',$request->hour);
 
-    $hour = explode ('-',$hour);
+
 
 
     if (strlen($hour[0] )== 5) {
