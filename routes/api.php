@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/contact', function (Request $request) {
+Route::post('/contact', function (Request $request) {
 
 
     $hour = explode ('-',$request->hour);
