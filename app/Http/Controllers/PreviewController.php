@@ -94,6 +94,35 @@ class PreviewController extends Controller
     }
 
 
+    public function calendar(Request $request)
+    {
+        return view($this->config["routeView"] . "calendar")
+                ->with("breadcrumAction", "")
+                ->with("config", $this->config);
+    }
+
+
+    public function events()
+    {
+        $pendings =  Pending::where('id','>',26)->get();
+
+        $events = array();
+        foreach($pendings as $pending){
+            $deit = explode (' ', $pending->interview_date);
+
+            $event = array(
+                'start'=>$deit[0] . ' ' . $deit[1] ,
+                'end'=>$deit[0] . ' '. $deit[3] ,
+                'title'=>$pending->names,
+            );
+            array_push($events,$event);
+
+        }
+        return response()->json( $events);
+    }
+
+
+
 
     public function show($id)
     {

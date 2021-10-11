@@ -28,6 +28,7 @@
 <link rel="stylesheet" href="{{ asset('backend/css/assets/plugins/forms/form-wizard.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/assets/pages/page-auth.min.css') }}" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="{{ asset('backend/css/style.css') }}" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css" rel="stylesheet" type="text/css"/>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>

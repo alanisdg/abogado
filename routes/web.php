@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
 
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
            /* Routes Preview */
+           Route::get('calendar', [PreviewController::class, "calendar"])->name('calendar');
+           Route::get('events', [PreviewController::class, "events"]);
 
             Route::get('list-preview/details/{id}', [PreviewController::class, "show"])->name('list-preview/details');
 
