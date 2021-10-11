@@ -21,12 +21,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/contact', function (Request $request) {
+Route::get('/contact', function (Request $request) {
+
+
+    $hour = explode ('-',$request->hour);
+    $hour = $hour[0].'a'.$hour[1];
+
     Pending::create([
         'names'=>$request->name,
         'email'=>$request->email,
         'phone'=>$request->phone,
-        'interview_date'=> $request->day . ' a ' . $request->hour,
+        'interview_date'=> $request->day . ' ' . $hour,
         'status'=>1,
 
     ]);
