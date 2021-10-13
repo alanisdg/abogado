@@ -64,4 +64,8 @@ class DashboardController extends Controller
             ->with("config", $this->config);
     }
 
+
+    public function agenda(){
+        return view('wordpress.agenda');
+    }
 }

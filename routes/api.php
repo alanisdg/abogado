@@ -3,6 +3,7 @@
 use App\Models\Pending;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,13 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::post('/contact', function (Request $request) {
-
+Route::get('/contact', function (Request $request) {
 
     $hour = explode ('-',$request->hour);
-
-
-
 
     if (strlen($hour[0] )== 5) {
 
@@ -40,14 +37,30 @@ Route::post('/contact', function (Request $request) {
     }else{
         $hour = $hour[0].'a'.$hour[1];
     }
-
-
     Pending::create([
         'names'=>$request->name,
         'email'=>$request->email,
         'phone'=>$request->phone,
         'interview_date'=> $request->day . ' ' . $hour,
         'status'=>1,
-
     ]);
+
+    $emailDetails = [
+        'title' => 'Appboproc!',
+        'url'   => \Request::root(),
+        'user' => $request->name,
+        'email' => $request->email,
+        'entrevista' => $request->day . ' ' . $hour
+    ];
+
+    //Send mail
+
+    Mail::send('emails.entrevista', $emailDetails, function($message) use ($emailDetails) {
+        $message->from('contacto@appaboproc.com', 'Appboproc');
+        $message->to($emailDetails['email']);
+        $message->subject('Entrevista - Appboproc');
+    });
+
+
+
 });

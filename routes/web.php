@@ -35,6 +35,11 @@ Route::get('email', function() {
     return view('emails.create-contract');
 });
 
+
+Route::get('/agenda', [DashboardController::class, 'agenda'])->name('agenda');
+
+
+
 Route::middleware(['auth'])->group(function () {
     /* Dashboard */
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
