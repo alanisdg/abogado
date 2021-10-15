@@ -15,13 +15,13 @@ class CreateCollectionsTable extends Migration
     {
         Schema::create('collections', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('contract_id');
+
             $table->unsignedBigInteger('installment_number');
             $table->date('payment_date')->nullable();
             $table->string('amount')->nullable();
             $table->string('status');
             $table->timestamps();
-
+            $table->unsignedBigInteger('contract_id');
             $table->foreign('contract_id')->references('id')->on('contracts')->onDelete('cascade')->onUpdate('cascade');
         });
     }

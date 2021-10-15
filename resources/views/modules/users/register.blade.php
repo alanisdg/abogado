@@ -131,5 +131,5 @@
 @endsection
 
 @section('scripts')
-    
+
 @endsection

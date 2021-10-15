@@ -9,6 +9,7 @@ use App\Models\Contract;
 use App\Models\Customer;
 use App\Models\Cause;
 use App\Models\Collection;
+use App\Models\Log;
 use App\Models\Pending;
 use App\Models\User;
 use App\Models\Role;
@@ -163,6 +164,12 @@ class ContractController extends Controller
                     $addContract->status = 1;
                     $addContract->save();
 
+
+                    Log::create([
+                        'user_id'=>Auth::user()->id,
+                        'action'=>'Creo un nuevo contracto',
+                        'target_id'=>$addContract->id
+                    ]);
                 // Register causes
                     $addCause = new Cause();
                     $addCause->contract_id = $addContract->id;

@@ -10,8 +10,11 @@ use App\Models\Pending;
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
 use App\Imports\PendingImport;
+use App\Models\Log;
 use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
+use Illuminate\Notifications\Action;
+use Illuminate\Support\Facades\Auth;
 
 class PendingController extends Controller
 {
@@ -86,6 +89,12 @@ class PendingController extends Controller
                 'address' => $request->input('address'),
                 'observations' => $request->input('observations'),
                 'status' => 1
+            ]);
+
+            Log::create([
+                'user_id'=>Auth::user()->id,
+                'action'=>'Creo un nuevo cliente',
+                'target_id'=>$add->id
             ]);
 
         // Response

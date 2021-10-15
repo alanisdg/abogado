@@ -19,6 +19,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\ActualizationController;
 use App\Http\Controllers\CollectionController;
 use App\Http\Controllers\CreditorController;
+use App\Http\Controllers\LogController;
 use App\Http\Controllers\PaymentController;
 use App\Models\Pending;
 
@@ -51,6 +52,9 @@ Route::middleware(['auth'])->group(function () {
     /* Logout */
         Route::get('logout', [LoginController::class, 'logout']);
 
+        Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
+            Route::get('logs', [LogController::class, 'logs'])->name('logs');
+        });
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
             // Customers
                 Route::get('customers/create', [PendingController::class, 'create'])->name('customers/create');

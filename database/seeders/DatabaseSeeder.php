@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        \App\Models\State::factory(5)->create();
+
         $this->call(RolesPermissionSeeder::class);
         $this->call(ContactSeeder::class);
     }
