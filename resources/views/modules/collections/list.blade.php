@@ -72,24 +72,13 @@
             })
 
         // Search data collections from client
-            function searchCustomer()
-            {
-                // Empty table
-                    $("#tbody_list_collections").empty();
-                    //document.getElementById('dataCliente').innerText = ""
-                    //document.getElementById('totalAmount').innerText = ""
 
-                // Variables
-                    let customer_rut = document.getElementById('customer_rut').value,
+        function search(){
+            $("#tbody_list_collections").empty();
+            let customer_rut = document.getElementById('customer_rut').value,
                         token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
                         url = '/search/collections'
-
-                // Fetch
-                    if(customer_rut == "") {
-                        toastr["error"]("", "¡Ingrese un RUT válido!")
-                    }
-                    else {
-                        fetch(url, {
+            fetch(url, {
                             headers: {
                                 "Content-Type": "application/json",
                                 "Accept": "application/json, text-plain, */*",
@@ -124,7 +113,11 @@
                                             `<td id="valueWeigth">${ element.installment_number }</td>` +
                                             `<td id="valueWeigth">${ element.amount }</td>` +
                                             `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
-                                            `<td id="valueWeigth">${ element.status }</td>`
+                                            `<td id="valueWeigth">
+                                               <a  title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(${ element.id });">
+                                                <img src="../backend/images/assets/update.svg" style="width: 4%">
+                                                    </a>
+                                                ${ element.status }</td>`
                                         )
                                     })
                                 });
@@ -132,6 +125,30 @@
                                 document.getElementById('totalAmount').innerText = parseFloat(totalAmount).toLocaleString('de-DE')
                             }
                         })
+
+
+        }
+            function searchCustomer()
+            {
+                // Empty table
+                    $("#tbody_list_collections").empty();
+                    //document.getElementById('dataCliente').innerText = ""
+                    //document.getElementById('totalAmount').innerText = ""
+
+                // Variables
+                    let customer_rut = document.getElementById('customer_rut').value,
+                        token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                        url = '/search/collections'
+
+                // Fetch
+                    if(customer_rut == "") {
+                        toastr["error"]("", "¡Ingrese un RUT válido!")
+                    }
+                    else {
+                        search()
+
+
+
                         /*.catch(function(error) {
                             //emptyInputs()
                             //clearVariables()
@@ -141,5 +158,64 @@
                         });*/
                     }
             }
+
+
+            function updateStatus(id) {
+                swal({
+                    title: "¿Quieres cambiar el estado a Pagado?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "¡Si, actualizar estado!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: !0
+                }).then(function (e) {
+                    console.log( e)
+                    if (e.value === true) {
+                        // Variables
+                            let collection_id = id,
+                                token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                url = '/collection/update/'+ collection_id
+
+                        fetch(url, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                            },
+                            method: 'post',
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                id: collection_id
+                            })
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            search()
+                            console.log(data)
+
+
+
+
+                                toastr["success"]("", "¡Estado actualizado!")
+
+
+                        })
+                        .catch(function(error) {
+                            toastr["error"]("", "¡Error en la consulta de datos!")
+                        });
+
+                    } else {
+                        e.dismiss;
+                    }
+
+                }, function (dismiss) {
+                    return false;
+                })
+            }
+
+
+
     </script>
 @endsection

@@ -18,6 +18,7 @@ class PreviewImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        //dd($row);
         return new Contact([
             'rut' => !empty($row['rut']) ?   $row['rut'] :  '' ,
             'phone' => !empty($row['telefono']) ?   $row['telefono'] :  '' ,

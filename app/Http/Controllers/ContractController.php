@@ -114,6 +114,7 @@ class ContractController extends Controller
         $cuotes = json_decode($request->input('data_cuotes'));
 
         if ($request->input("data_type_register") === "annexed") {
+                $description_log = 'Creo un anexo';
             // We look for contracts that have an annex code
                 $dataContract = Contract::whereNotNull("annex_code")->orderBy('id', 'desc')->first();
                 if (!is_null($dataContract)) {
@@ -127,6 +128,7 @@ class ContractController extends Controller
                 $currentContractId = session("idContract");
         }
         else {
+            $description_log = 'Creo un contrato';
             $annexCode = null;
             $currentContractId = null;
         }
@@ -147,6 +149,7 @@ class ContractController extends Controller
                     "email" => $customer[9]
                 ]
             );
+
             if ($addCustomer) {
                 // Register contract
                     $addContract = new Contract();
@@ -167,8 +170,8 @@ class ContractController extends Controller
 
                     Log::create([
                         'user_id'=>Auth::user()->id,
-                        'action'=>'Creo un nuevo contracto',
-                        'target_id'=>$addContract->id
+                        'action'=>$description_log,
+                        'contract_id'=>$addContract->id
                     ]);
                 // Register causes
                     $addCause = new Cause();

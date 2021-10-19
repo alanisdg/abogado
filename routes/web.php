@@ -52,6 +52,13 @@ Route::middleware(['auth'])->group(function () {
     /* Logout */
         Route::get('logout', [LoginController::class, 'logout']);
 
+
+
+        Route::group(['middleware' => ['role:executive_administrator']], function() {
+            Route::post('collection/update/{collection}', [CollectionController::class, 'update'])->name('list-fess/create/transaction');
+
+        });
+
         Route::group(['middleware' => ['role:executive_administrator|legal_administrator|legal_executive']], function() {
             Route::get('logs', [LogController::class, 'logs'])->name('logs');
         });

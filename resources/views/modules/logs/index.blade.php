@@ -31,7 +31,10 @@
                                     @endif
 
                                     @if($data->contract_id != null)
-                                    <td>{{ $data->contract }}</td>
+                                    <td>
+                                        {{ $data->contract->contract_date }} <br>
+                                        {{ $data->contract->type_contract }}
+                                    </td>
                                     @endif
                                     <td>{{ $data->created_at }}</td>
                                 </tr>
