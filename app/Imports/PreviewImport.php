@@ -21,7 +21,7 @@ class PreviewImport implements ToModel, WithHeadingRow
         //dd($row);
         return new Contact([
             'rut' => !empty($row['rut']) ?   $row['rut'] :  '' ,
-            'phone' => !empty($row['telefono']) ?   $row['telefono'] :  '' ,
+            'phone' => !empty($row['telefono']) ?  strval( $row['telefono']) :  '' ,
             'email' => !empty($row['email']) ?   $row['email'] :  '' ,
             'comuna' => !empty($row['comuna']) ?   $row['comuna'] :  '' ,
             'name' => !empty($row['nombre']) ?   $row['nombre'] :  '' ,
