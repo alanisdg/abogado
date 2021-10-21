@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 // Models
 use App\Models\Cause;
 use App\Models\Contract;
+use App\Models\Log;
 use App\Models\Task;
 
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -74,6 +76,12 @@ class TaskController extends Controller
             'responsible' => $request->input('responsible'),
             'deadline' => $request->input('deadline'),
             'status' => 1,
+        ]);
+
+        Log::create([
+            'task_id'=>$addTask->id,
+            'action'=>'Creo una tarea',
+            'user_id'=>Auth::user()->id,
         ]);
 
         if ($addTask) {

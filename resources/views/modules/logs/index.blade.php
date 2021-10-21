@@ -36,6 +36,14 @@
                                         {{ $data->contract->type_contract }}
                                     </td>
                                     @endif
+
+                                    @if($data->task_id != null)
+                                    <td>
+                                        {{ $data->task->description  }}
+                                    </td>
+                                    @endif
+
+
                                     <td>{{ $data->created_at }}</td>
                                 </tr>
                                 @endforeach

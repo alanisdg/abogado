@@ -9,7 +9,7 @@ class Log extends Model
 {
     use HasFactory;
 
-    protected $fillable = ["user_id", "action","target_id","contract_id"];
+    protected $fillable = ["user_id", "action","target_id","contract_id","task_id"];
 
     public function user()
     {
@@ -25,4 +25,10 @@ class Log extends Model
     {
         return $this->belongsTo(Contract::class);
     }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
 }

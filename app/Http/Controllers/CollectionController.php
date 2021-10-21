@@ -138,8 +138,9 @@ class CollectionController extends Controller
                 ->with("contract", $req['contract'])
                 ->with("config", $this->config);
     }
-    public function update(Collection $collection){
-        $collection->status = 'PAGADA';
+    public function update(Request $request, Collection $collection){
+
+        $collection->status = $request->state;
         $collection->save();
         return $collection;
     }

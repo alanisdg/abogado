@@ -107,18 +107,30 @@
                                             num2 = Number(amount.replace(/\./g, ''))
 
                                         totalAmount = parseFloat(totalAmount) + parseFloat(num2)
-
-                                        $("#list-collections tbody").append("<tr>" +
+                                        if(element.status == 'FINIQUITADO'){
+                                            $("#list-collections tbody").append("<tr>" +
                                             `<td id="valueWeigth">${ element.contract_id }</td>` +
                                             `<td id="valueWeigth">${ element.installment_number }</td>` +
                                             `<td id="valueWeigth">${ element.amount }</td>` +
                                             `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
                                             `<td id="valueWeigth">
-                                               <a  title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(${ element.id });">
+
+                                                ${ element.status }</td>`
+                                        )
+                                        }else{
+                                            $("#list-collections tbody").append("<tr>" +
+                                            `<td id="valueWeigth">${ element.contract_id }</td>` +
+                                            `<td id="valueWeigth">${ element.installment_number }</td>` +
+                                            `<td id="valueWeigth">${ element.amount }</td>` +
+                                            `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
+                                            `<td id="valueWeigth">
+                                               <a  title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(${ element.id },'${element.status}');">
                                                 <img src="../backend/images/assets/update.svg" style="width: 4%">
                                                     </a>
                                                 ${ element.status }</td>`
                                         )
+                                        }
+
                                     })
                                 });
 
@@ -160,9 +172,21 @@
             }
 
 
-            function updateStatus(id) {
+            function updateStatus(id,estado) {
+                console.log(estado)
+                let newState;
+                if(estado == 'PENDIENTE')
+                {
+                     newState = 'PAGADA'
+                }
+                if(estado == 'PAGADA')
+                {
+                    console.log('fue pagada')
+                     newState = 'FINIQUITADO'
+                }
+                console.log(newState)
                 swal({
-                    title: "¿Quieres cambiar el estado a Pagado?",
+                    title: "¿Quieres cambiar el estado a "+newState+"?",
                     text: "",
                     type: "warning",
                     showCancelButton: !0,
@@ -187,7 +211,7 @@
                             method: 'post',
                             credentials: "same-origin",
                             body: JSON.stringify({
-                                id: collection_id
+                                state: newState
                             })
                         })
                         .then((response) => response.json())
