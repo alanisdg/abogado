@@ -50,6 +50,7 @@ Route::post('/contact', function (Request $request) {
         'url'   => \Request::root(),
         'user' => $request->name,
         'email' => $request->email,
+        'phone' => $request->phone,
         'entrevista' => $request->day . ' ' . $hour
     ];
 
