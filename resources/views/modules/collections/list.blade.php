@@ -114,7 +114,9 @@
                                             `<td id="valueWeigth">${ element.amount }</td>` +
                                             `<td id="valueWeigth">${ (element.payment_date == null) ? "" : element.payment_date }</td>` +
                                             `<td id="valueWeigth">
-
+                                                <a  title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(${ element.id },'${element.status}');">
+                                                <img src="../backend/images/assets/update.svg" style="width: 4%">
+                                                    </a>
                                                 ${ element.status }</td>`
                                         )
                                         }else{
@@ -176,6 +178,10 @@
                 console.log(estado)
                 let newState;
                 if(estado == 'PENDIENTE')
+                {
+                     newState = 'PAGADA'
+                }
+                if(estado == 'FINIQUITADO')
                 {
                      newState = 'PAGADA'
                 }

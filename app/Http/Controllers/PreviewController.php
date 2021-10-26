@@ -82,7 +82,7 @@ class PreviewController extends Controller
 
     public function listPreview(Request $request)
     {
-     $array = Contact::orderBy('id', 'DESC')->where('state_id','!=',2)->get();
+     $array = Contact::orderBy('id', 'DESC')->where('state_id','!=',2)->where('state_id','!=',5)->get();
 
         if ($request->ajax()) {
             return DataTables::of($array)->make(true);

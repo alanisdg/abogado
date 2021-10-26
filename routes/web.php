@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 
 // Controllers backend
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WordpressController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PreviewController;
 use App\Http\Controllers\CustomerController;
@@ -35,6 +36,8 @@ Auth::routes();
 Route::get('email', function() {
     return view('emails.create-contract');
 });
+Route::get('/form', [WordpressController::class, 'form']);
+Route::get('/getDates', [WordpressController::class, 'dates']);
 
 
 Route::get('/agenda', [DashboardController::class, 'agenda'])->name('agenda');

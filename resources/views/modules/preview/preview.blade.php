@@ -77,6 +77,7 @@
                     {defaultContent: ''},
                 ],
                 createdRow: function(row, data, dataIndex) {
+
                     tr = '<td class="text-left" style="width: 6%">'+ (data.id ? data.id : "") +'</td>'
                     tr += '<td class="text-left" style="width: 12%">'+ (data.name ? data.name : "") +'</td>'
                     tr += '<td class="text-left" style="width: 12%">'+ (data.email ? data.email : "") +'</td>'
