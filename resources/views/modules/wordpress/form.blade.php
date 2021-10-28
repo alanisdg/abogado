@@ -4,13 +4,13 @@
 
 @section('content')
 
-    <p>hola</p>
     <form action="https://appaboproc.com/api/contact" method="post">
         @csrf
-        <input id="email" name="email" type="email">
-        <input id="name" name="name" type="name">
-        <input id="date" name="day" type="date">
-        <select name="hour"   id="hora">
+        <input class="form-control mb-3" placeholder="E-mail" id="email" name="email" type="email">
+        <input class="form-control mb-3" placeholder="Nombre" id="name" name="name" type="name">
+        <input class="form-control mb-3" placeholder="Teléfono" id="name" name="phone" type="name">
+        <input class="form-control mb-3" id="date" name="day" type="date">
+        <select class="form-control"  name="hour"   id="hora">
             <option value="">Selecciona una hora</option>
             <option value="09:00 - 09:30">9:00 - 9:30</option>
             <option value="09:30 - 10:30">09:30 - 10:30</option>
@@ -23,9 +23,9 @@
             <option value="16:30 - 17:00">16:30 - 17:00</option>
         </select>
 
-        <p id="error">esta fecha esta ocupada</p>
+        <p  id="error">Esta hora esta ocupada, favor de elegir otro horario</p>
     </form>
-    <p id="submit" class="active">Enviar</p>
+    <p id="submit" class="active btn btn-primary mt-3">Enviar</p>
 @endsection
 
 @section('scripts')
@@ -45,7 +45,7 @@
 
             }).then(response => response.json())
             .then(json =>{
-
+                location.reload();
                 console.log(json)
             }
             );
@@ -75,6 +75,8 @@
 </script>
 <style>
     #error{
+        color: red;
+        margin-top:10px;
         display: none
     }
     .active{

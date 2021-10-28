@@ -1,6 +1,7 @@
 
     <div class="card">
     Agenda
+
     <form action="/api/contact" method="get">
         @csrf
         <input type="text" name="name">
