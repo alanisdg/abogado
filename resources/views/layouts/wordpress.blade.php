@@ -24,7 +24,7 @@
 
 
     {{-- Content --}}
-        <div class="app-content  ">
+        <div class="app-content  " style="padding: 20px !important">
             <div class="content-overlay"></div>
 
             {{-- Wrapper --}}
