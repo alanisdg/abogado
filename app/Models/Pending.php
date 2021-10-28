@@ -34,6 +34,7 @@ class Pending extends Model
         'region',
         'address',
         'home_phone',
-        'observations'
+        'observations',
+        'origen'
     ];
 }

@@ -112,6 +112,7 @@ class CauseController extends Controller
             'number_rit' => $request->input('number_rit'),
             'court' => $request->input('cours'),
             'matter' => $request->input('matter'),
+            'percent' => $request->input('percent'),
             'status' => 1
         ]);
 
@@ -161,6 +162,7 @@ class CauseController extends Controller
         $updateCause = Cause::find($request->input('cause_id'));
         $updateCause->number_rit = $request->input('number_rit');
         $updateCause->court = $request->input('cours');
+        $updateCause->percent = $request->input('percent');
         $updateCause->matter = $request->input('matter');
         if ($updateCause->save()) {
             Toastr::success("", "¡Causa actualizada");

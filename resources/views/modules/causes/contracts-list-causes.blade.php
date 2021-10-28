@@ -26,6 +26,7 @@
                                 <th>Tribunal</th>
                                 <th>Materia</th>
                                 <th>Estado</th>
+                                <th>Avance</th>
                                 <th>Opciones</th>
                             </tr>
                         </thead>
@@ -36,6 +37,7 @@
                                     <td>{{ $item->court }}</td>
                                     <td>{{ $item->matter }}</td>
                                     <td>{{ ($item->status == 2) ? "CERRADA" : "ABIERTA" }}</td>
+                                    <td>% {{ $item->percent }}</td>
                                     <td>
                                         @if ($item->status != 2)
                                             <a href="{{ url('causes/contracts/record-causes/add-cause/edit/'.$item->id) }}">

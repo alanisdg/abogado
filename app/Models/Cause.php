@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cause extends Model
 {
-    protected $fillable = ['contract_id', 'number_rit', 'court', 'matter', 'status'];
+    protected $fillable = ['contract_id', 'number_rit', 'court', 'matter', 'status','percent'];
     /**
      * Relations with contracts
      */

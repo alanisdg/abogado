@@ -46,6 +46,14 @@
                 </div>
 
                 <div class="row">
+                    <div class="form-group col-md-12">
+                        <label class="form-label" for="matter">Porcentaje</label>
+                        {!! Form::number("percent", old('percent', @$row->percent), ["class" => "form-control", "required", "onkeyup" => "upperCase(this);"]) !!}
+                    </div>
+                </div>
+
+
+                <div class="row">
                     <div class="col-12">
                         <a class="btn btn-danger waves-effect waves-float waves-light" href="{{ url("causes/contracts/record-causes/".@$row->contract_id) }}" id="cancel"><i data-feather='corner-up-left'></i> Regresar</a>
                         @if ($typeForm == 'create')

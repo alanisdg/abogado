@@ -3,12 +3,21 @@
 
 
 @section('content')
-
-    <form action="https://appaboproc.com/api/contact" method="post">
+     <form action="https://appaboproc.com/api/contact" method="post">
         @csrf
         <input class="form-control mb-3" placeholder="E-mail" id="email" name="email" type="email">
         <input class="form-control mb-3" placeholder="Nombre" id="name" name="name" type="name">
         <input class="form-control mb-3" placeholder="Teléfono" id="name" name="phone" type="name">
+        <label for="">¿En donde nos conociste?</label>
+        <select class="form-control mb-3" id="origen"  name="origen"    >
+            <option value="1">Instagram</option>
+            <option value="2">Facebook</option>
+            <option value="3">Llamadas</option>
+            <option value="4">Email</option>
+            <option value="5">Mensaje de texto</option>
+            <option value="6">Campaña Presencial</option>
+        </select>
+
         <input class="form-control mb-3" id="date" name="day" type="date">
         <select class="form-control"  name="hour"   id="hora">
             <option value="">Selecciona una hora</option>
@@ -38,7 +47,8 @@
                     hour:$('#hora').val(),
                     day:$('#date').val(),
                     name:$('#name').val(),
-                    email:$('#email').val()
+                    email:$('#email').val(),
+                    origen:$('#origen').val()
                 }),
                 headers: {"Content-type": "application/json; charset=UTF-8",
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
