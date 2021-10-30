@@ -7,7 +7,7 @@
         @csrf
         <input class="form-control mb-3" placeholder="E-mail" id="email" name="email" type="email">
         <input class="form-control mb-3" placeholder="Nombre" id="name" name="name" type="name">
-        <input class="form-control mb-3" placeholder="Teléfono" id="name" name="phone" type="name">
+        <input class="form-control mb-3" placeholder="Teléfono" id="phone" name="phone" type="name">
         <label for="">¿En donde nos conociste?</label>
         <select class="form-control mb-3" id="origen"  name="origen"    >
             <option value="1">Instagram</option>
@@ -58,6 +58,7 @@
                 method: "POST",
                 body: JSON.stringify({
                     hour:$('#hora').val(),
+                    phone:$('#phone').val(),
                     day:$('#date').val(),
                     name:$('#name').val(),
                     email:$('#email').val(),
