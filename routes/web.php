@@ -26,6 +26,7 @@ use App\Models\Pending;
 
 /* Routes web */
 Route::get('/', [HomeController::class, 'login'])->name('/');
+Route::get('/json', [HomeController::class, 'json']);
 
 /** Routes webpay */
 

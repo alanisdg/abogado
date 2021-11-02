@@ -258,7 +258,7 @@
 		}
 
 		.footerContainer .mcnTextContent a,.footerContainer .mcnTextContent p a{
-			/*@editable*/color:#FFFFFF;
+
 			/*@editable*/font-weight:normal;
 			/*@editable*/text-decoration:underline;
 		}
@@ -914,7 +914,7 @@ Detalle de tu cuota vencida.</div>
                         <td valign="top" class="mcnTextContent" style="padding-top:0; padding-right:18px; padding-bottom:9px; padding-left:18px;">
 
                             <br>
-<span style="color:#000000">Contacto: +56 2222 2222 22&nbsp; /&nbsp; contacto@abocrop.cl</span><br>
+<span style="color:#000000">Contacto: +56 9 6716 9206&nbsp; /&nbsp; contacto@abocrop.cl</span><br>
 &nbsp;
                         </td>
                     </tr>

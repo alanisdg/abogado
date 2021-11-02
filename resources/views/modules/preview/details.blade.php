@@ -85,6 +85,7 @@
                                         <option @if(@$row->state_id == 3) selected  @endif value="3">Duda</option>
                                         <option @if(@$row->state_id == 4) selected  @endif value="4">No contesta</option>
                                         <option @if(@$row->state_id == 5) selected  @endif value="5">No interesado</option>
+
                                     </select>
                                 </div>
                             </div>

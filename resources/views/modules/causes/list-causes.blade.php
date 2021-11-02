@@ -17,6 +17,7 @@
                                     <th>RIT</th>
                                     <th>TRIBUNAL</th>
                                     <th>MATERIA</th>
+                                    <th>PORCENTAJE</th>
                                     <th>ESTADO</th>
                                 </tr>
                             </thead>
@@ -26,6 +27,7 @@
                                         <td>{{ $item->number_rit }}</td>
                                         <td>{{ $item->court }}</td>
                                         <td>{{ $item->matter }}</td>
+                                        <td>% {{ $item->percent }}</td>
                                         <td>
                                             @if ($item->status == 1)
                                                 <span class="text-warning">ABIERTA</span>

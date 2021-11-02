@@ -107,6 +107,7 @@
                     }
 
 
+
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
 
