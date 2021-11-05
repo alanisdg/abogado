@@ -113,7 +113,9 @@ class PreviewController extends Controller
             $event = array(
                 'start'=>$deit[0] . ' ' . $deit[1] ,
                 'end'=>$deit[0] . ' '. $deit[3] ,
-                'title'=>$pending->names,
+                'title'=>$pending->names . ' <br> Email: ' . $pending->email . ' <br> Teléfono: ' .$pending->phone,
+                'email'=>$pending->email,
+                'phone'=>$pending->phone,
             );
             array_push($events,$event);
 

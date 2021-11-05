@@ -84,16 +84,19 @@
                     else if (data.status == 2) {
                         tr += '<td class="text-left" style="width: 15%"><span class="text-success">GANADO</span></td>'
                     }
+                    else if (data.status == 4) {
+                        tr += '<td class="text-left" style="width: 15%"><span class="text-success">DUDA</span></td>'
+                    }
                     else {
                         tr += '<td class="text-left" style="width: 15%"><span class="text-danger">PERDIDO</span></td>'
                     }
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
-                    if (data.status == 1) {
-                        tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id);">'
+
+                        tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id,'+data.status+' );">'
                         tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
                         tr += 		'</a>'
-                    }
+
                     tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-pending/details/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
                     tr += 		'</a>'
@@ -105,9 +108,30 @@
         });
 
         // Update status
-            function updateStatus(id) {
+            function updateStatus(id,status) {
+                console.log(status)
+                console.log(id)
+
+                let state
+                if(status == 1){
+                    status = 'GANADO'
+                    state = 2
+                }
+                if(status == 2){
+                    status = 'DUDA'
+                    state = 4
+                }
+
+                if(status == 4){
+                    status = 'PERDIDO'
+                    state = 3
+                }
+                if(status == 3){
+                    status = 'GANADO'
+                    state = 1
+                }
                 swal({
-                    title: "¿Quieres cambiar el estado a Cliente Perdido?",
+                    title: "¿Quieres cambiar el estado a "+status+"?",
                     text: "",
                     type: "warning",
                     showCancelButton: !0,
@@ -115,7 +139,7 @@
                     cancelButtonText: "No, cancelar!",
                     reverseButtons: !0
                 }).then(function (e) {
-
+                    console.log(id + ' ' + state)
                     if (e.value === true) {
                         // Variables
                             let pending_id = id,
@@ -132,7 +156,8 @@
                             method: 'post',
                             credentials: "same-origin",
                             body: JSON.stringify({
-                                id: pending_id
+                                id: pending_id,
+                                status:state
                             })
                         })
                         .then((response) => response.json())

@@ -1,10 +1,26 @@
-@extends('layouts.app')
+@extends('layouts.calendar')
 
 <div class="contenedor" style="margin:100px ">
       <div id='calendar'></div>
 </div>
 
+<div class="modal" id="exampleModal"  tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
 
+        <div class="modal-body">
+          <div id="dia"></div>
+            <div id="elevent2"></div>
+        </div>
+
+        <!--Este es el pie del modal aqui puedes agregar mas botones-->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
 @section('content')
 @endsection
 
@@ -15,6 +31,12 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
           events: '/events',
+          dateClick: function(info ) {
+            console.log(info)
+              $('#dia').html(info.dateStr)
+              $('#elevent2').html(info.dayEl.innerText)
+              $("#exampleModal").modal();
+  		    }
         });
         calendar.render();
       });

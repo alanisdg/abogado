@@ -5,11 +5,20 @@
 @section('content')
      <form action="https://appaboproc.com/api/contact" method="post">
         @csrf
-        <input class="form-control mb-3" placeholder="E-mail" id="email" name="email" type="email">
-        <input class="form-control mb-3" placeholder="Nombre" id="name" name="name" type="name">
-        <input class="form-control mb-3" placeholder="Teléfono" id="phone" name="phone" type="name">
+        <div id="emailError" class="errorField">Este campo es obligatorio</div>
+
+        <input class="form-control mb-3" required placeholder="E-mail" id="email" name="email" type="email">
+
+        <div id="nameError" class="errorField">Este campo es obligatorio</div>
+
+        <input class="form-control mb-3" required placeholder="Nombre" id="name" name="name" type="name">
+
+        <div id="phoneError" class="errorField">Este campo es obligatorio</div>
+
+        <input class="form-control mb-3" required placeholder="Teléfono" id="phone" name="phone" type="name">
+
         <label for="">¿En donde nos conociste?</label>
-        <select class="form-control mb-3" id="origen"  name="origen"    >
+        <select required class="form-control mb-3" id="origen"  name="origen"    >
             <option value="1">Instagram</option>
             <option value="2">Facebook</option>
             <option value="3">Llamadas</option>
@@ -18,8 +27,12 @@
             <option value="6">Campaña Presencial</option>
         </select>
 
-        <input class="form-control mb-3" id="date" name="day" type="date">
-        <select class="form-control"  name="hour"   id="hora">
+        <div id="dateError" class="errorField">Este campo es obligatorio</div>
+        <input required class="form-control mb-3" id="date" name="day" type="date">
+
+        <div id="hourError" class="errorField">Este campo es obligatorio</div>
+
+        <select required class="form-control"  name="hour"   id="hora">
             <option value="">Selecciona una hora</option>
             <option value="09:00 - 09:30">9:00 - 9:30</option>
             <option value="09:30 - 10:30">09:30 - 10:30</option>
@@ -31,7 +44,6 @@
             <option value="15:30 - 16:00">15:30 - 16:00</option>
             <option value="16:30 - 17:00">16:30 - 17:00</option>
         </select>
-
         <p  id="error">Esta hora esta ocupada, favor de elegir otro horario</p>
     </form>
 
@@ -52,6 +64,35 @@
  <script>
      $('#submit').click(function(){
          console.log('sibmir')
+
+         $('#dateError').hide()
+         $('#phoneError').hide()
+         $('#hourError').hide()
+         $('#emailError').hide()
+         $('#nameError').hide()
+
+
+
+         if($('#date').val() == ''){
+             $('#dateError').show()
+             return false
+         }
+         if($('#name').val() == ''){
+             $('#nameError').show()
+             return false
+         }
+         if($('#hora').val() == ''){
+             $('#hourError').show()
+             return false
+         }
+         if($('#phone').val() == ''){
+             $('#phoneError').show()
+             return false
+         }
+         if($('#email').val() == ''){
+             $('#emailError').show()
+             return false
+         }
          $('.lds').show()
          $('#submit').hide()
         fetch('api/contact', {
@@ -113,6 +154,24 @@
         color: red;
         margin-top:10px;
         display: none
+    }
+    #dateError{
+        display: none
+    }
+    #nameError{
+        display: none
+    }
+    #phoneError{
+        display: none
+    }
+    #hourError{
+        display: none
+    }
+    #emailError{
+        display: none
+    }
+    .errorField{
+        color:red
     }
     .active{
         display: none

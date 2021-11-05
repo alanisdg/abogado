@@ -176,8 +176,8 @@ class PendingController extends Controller
     public function updateStatus(Request $request)
     {
         $dataPending = Pending::whereId($request->input('id'))->first();
-        ($dataPending->status == 1) ? $status = 3 : $status = 1;
-        $dataPending->update(['status' => $status]);
+
+        $dataPending->update(['status' => $request->status ]);
 
         return response()->json(1);
     }
