@@ -101,6 +101,7 @@
                                             <th scope="col">Cuotas</th>
                                             <th scope="col">Primera Fecha de Pago</th>
                                             <th scope="col" class="text-center">Botones</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -117,6 +118,15 @@
                                                     </a>
                                                     <a href="{{ url('list-fees/'.$item->id) }}" title="Cuotas" class="btn btn-primary btn-sm">
                                                         Cuotas
+                                                    </a>
+
+                                                </td>
+                                                <td>
+                                                    <a href="{{ url('biblioteca/'.$item->id) }}"  class="btn btn-primary btn-sm">
+                                                        Biblioteca
+                                                    </a>
+                                                    <a href="{{ url('updloadFile/'.$item->id) }}"  class="btn btn-primary btn-sm">
+                                                        Subir Archivo
                                                     </a>
                                                 </td>
                                             </tr>

@@ -32,7 +32,7 @@
           initialView: 'dayGridMonth',
           events: '/events',
           dateClick: function(info ) {
-            console.log(info)
+                console.log(info)
               $('#dia').html(info.dateStr)
               $('#elevent2').html(info.dayEl.innerText)
               $("#exampleModal").modal();

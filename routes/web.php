@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 
 // Controllers backend
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\WordpressController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\PreviewController;
@@ -48,6 +49,15 @@ Route::get('/agenda', [DashboardController::class, 'agenda'])->name('agenda');
 Route::middleware(['auth'])->group(function () {
     /* Dashboard */
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+
+    /* Dashboard */
+    Route::get('/updloadFile/{id}', [FileController::class, 'index']);
+    Route::get('/biblioteca/{id}', [FileController::class, 'biblioteca'])->name('biblioteca');
+    Route::post('/biblioteca/store', [FileController::class, 'store']);
+
+    Route::get('/file/{id}', [FileController::class, 'download']);
+
 
     /* User profile */
         Route::get('user-profile', [UserController::class, 'editProfile'])->name('user-profile');
