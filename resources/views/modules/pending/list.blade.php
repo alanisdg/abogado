@@ -47,9 +47,11 @@
                 scrollX: true,
                 lengthMenu: false,
                 dom: 'Blfrtip',
+                order:[],
                 buttons: [
                 ],
                 ajax: {
+
                     url: '{{ url("list-pending") }}',
                     data: function (data) {
                         data.id = $('input[name=id]').val();

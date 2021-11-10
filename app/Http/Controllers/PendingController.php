@@ -109,7 +109,24 @@ class PendingController extends Controller
      */
     public function listPending(Request $request)
     {
-        $array = Pending::orderBy('id', 'DESC')->get();
+        //$array = Pending::orderBy('status', 'ASC')->get();
+        $ganados = Pending::where('status',2)->get()->toArray();
+        $duda = Pending::where('status',4)->get()->toArray();
+        $perdido = Pending::where('status',3)->get()->toArray();
+        $pendiente = Pending::where('status',1)->get()->toArray();
+        $array= array();
+        foreach($ganados as $ganado){
+            array_push($array,$ganado);
+        }
+        foreach($duda as $ganado){
+            array_push($array,$ganado);
+        }
+        foreach($pendiente as $ganado){
+            array_push($array,$ganado);
+        }
+        foreach($perdido as $ganado){
+            array_push($array,$ganado);
+        }
 
         if ($request->ajax()) {
             return Datatables::of($array)->make(true);
