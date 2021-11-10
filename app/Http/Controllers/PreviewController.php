@@ -108,19 +108,22 @@ class PreviewController extends Controller
 
         $events = array();
         foreach($pendings as $pending){
-            $deit = explode (' ', $pending->interview_date);
+            if($pending->interview_date != null){
+                $deit = explode (' ', $pending->interview_date);
 
-            $event = array(
-                'start'=>$deit[0] . ' ' . $deit[1] ,
-                'end'=>$deit[0] . ' '. $deit[3] ,
-                'title'=>$pending->names . ' <br> Email: '
-                        . $pending->email . ' <br> Teléfono: '
-                        . $pending->phone . ' <br> Horario: '
-                        . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<br><br>',
-                'email'=>$pending->email,
-                'phone'=>$pending->phone,
-            );
-            array_push($events,$event);
+                $event = array(
+                    'start'=>$deit[0] . ' ' . $deit[1] ,
+                    'end'=>$deit[0] . ' '. $deit[3] ,
+                    'title'=>$pending->names . ' <br> Email: '
+                            . $pending->email . ' <br> Teléfono: '
+                            . $pending->phone . ' <br> Horario: '
+                            . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<br><br>',
+                    'email'=>$pending->email,
+                    'phone'=>$pending->phone,
+                );
+                array_push($events,$event);
+            }
+
 
         }
         return response()->json( $events);
