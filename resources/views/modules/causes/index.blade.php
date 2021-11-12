@@ -73,14 +73,17 @@
                     tr += '<td class="text-left" style="width: 15%">'+ (data.annex_code ? data.annex_code : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.total_contract ? data.total_contract : "") +'</td>'
                     tr += '<td style="width: 15%">'
-                    tr +=   '<div class="pull-right">'
+                    tr +=   '<div style="display:flex">'
                     tr += 		'<a title="Registro de Causas" href="'+ BASE_URL +'/causes/contracts/record-causes/'+data.id+'" class="btn btn-primary btn-sm" style="margin-left:3px;">'
                     tr += 			'Causas'
                     tr += 		'</a>'
                     tr += 		'<a id="contacts__btnViewCausas" title="Ver Causas" onclick="getCausas('+data.id+')" class="btn btn-warning btn-sm" style="margin-left:1px;">'
                     tr += 			'Detalles'
                     tr += 		'</a>'
-                    tr += 	'</div>'
+                    tr += 		'<a id="contacts__btnViewCausas" title="Ver Causas" href="/causes/files/'+data.id+'" class="btn btn-warning btn-sm" style="margin-left:1px;">'
+                    tr += 			'Archivos'
+                    tr += 		'</a>'
+
                     tr += '</td>'
                     $(row).html(tr)
                 }

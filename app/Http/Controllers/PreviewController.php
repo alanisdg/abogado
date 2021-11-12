@@ -96,7 +96,20 @@ class PreviewController extends Controller
 
     public function calendar(Request $request)
     {
-        return view($this->config["routeView"] . "calendar")
+        $search = $request->search;
+        $date = date('Y-m-d');
+
+        if(!empty(request()->search)){
+            $pending =  Pending::where('names', 'like', '%' . request()->search . '%')
+            ->orWhere('phone', 'like', '%' . request()->search  . '%')
+            ->orWhere('email', 'like', '%' . request()->search  . '%')->take(1)->get();
+
+            $deit = explode (' ', $pending[0]->interview_date);
+            $date = $deit[0];
+        }
+
+
+        return view($this->config["routeView"] . "calendar",compact('search','date'))
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
     }
@@ -104,7 +117,16 @@ class PreviewController extends Controller
 
     public function events()
     {
-        $pendings =  Pending::all();
+        if(!empty(request()->search)){
+            $pendings =  Pending::where('names', 'like', '%' . request()->search . '%')
+            ->orWhere('phone', 'like', '%' . request()->search  . '%')
+            ->orWhere('email', 'like', '%' . request()->search  . '%')->take(1)->get();
+
+
+        }else{
+            $pendings =  Pending::all();
+        }
+
 
         $events = array();
         foreach($pendings as $pending){

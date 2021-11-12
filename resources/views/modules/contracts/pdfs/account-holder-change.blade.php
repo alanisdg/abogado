@@ -123,5 +123,8 @@
 
     <p style="margin-top: 1rem;"><strong>{{ $data->contract->customer->customer }}  ________________________</strong></p>
     <p style=""><strong>RUT {{ $data->contract->customer->rut }}</strong></p>
+
+    <img style="margin-top: 20px;" src="{{ public_path('/backend/images/assets/firma.JPG') }}">
+
 </body>
 </html>

@@ -1,6 +1,15 @@
 @extends('layouts.calendar')
 
 <div class="contenedor" style="margin:100px ">
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <form action="/calendar" method="get">
+                <input type="text" name="search" placeholder="Escribe un criterio de busqueda" class="form-control">
+                <input class="btn btn-primary btn-sm mt-1" type="submit" value="Buscar">
+            </form>
+        </div>
+    </div>
+
       <div id='calendar'></div>
 </div>
 
@@ -30,7 +39,8 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
-          events: '/events',
+          events: '/events?search={{$search}}',
+          initialDate: '{{$date}}',
           dateClick: function(info ) {
                 console.log(info)
               $('#dia').html(info.dateStr)
@@ -40,6 +50,7 @@
         });
         calendar.render();
       });
-</script>
+
+ </script>
 
 @endsection

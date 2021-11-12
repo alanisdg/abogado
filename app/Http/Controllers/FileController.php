@@ -37,7 +37,7 @@ class FileController extends Controller
         $request->file('file')->storeAs('filesbiblioteca',$name);
         File::create([
             'path'=>$name,
-            'name'=>'default',
+            'name'=>$request->name,
             'contract_id'=>$request->contract_id,
             'user_id'=>Auth::user()->id,
         ]);

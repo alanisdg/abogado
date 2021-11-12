@@ -12,9 +12,16 @@
             <div class="row mt-2">
                 <div class="form-group col-md-3">
                     <input type="hidden" name="contract_id" value="{{ $id }}">
-                    <label class="form-label" for="customer">Archivo <span class="text-danger">*</span></label>
+                    <label class="form-label" for="customer">Nombre del archivo <span class="text-danger">*</span></label>
+                    {!! Form::text("name", old('name', null), ["class" => "form-control", "id" => "name", "onkeyup" => "upperCase(this);", "autofocus", "required"]) !!}
+
+                    <input type="hidden" name="contract_id" value="{{ $id }}">
+                    <label class="form-label mt-3" for="customer">Archivo <span class="text-danger">*</span></label>
                     {!! Form::file("file", old('name', null), ["class" => "form-control", "id" => "name", "onkeyup" => "upperCase(this);", "autofocus", "required"]) !!}
+
                 </div>
+
+
             </div>
             @if ($errors->any())
                 @foreach ($errors->all() as $error)

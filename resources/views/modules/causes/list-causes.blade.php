@@ -27,7 +27,29 @@
                                         <td>{{ $item->number_rit }}</td>
                                         <td>{{ $item->court }}</td>
                                         <td>{{ $item->matter }}</td>
-                                        <td>% {{ $item->percent }}</td>
+                                        <td>
+                                            @if($item->percent <= 9)
+                                            Recopilación preliminar de antecedentes.
+                                            @endif
+
+                                            @if($item->percent > 9 AND $item->percent<= 30)
+                                            Inicio de tramitación.
+                                            @endif
+
+                                            @if($item->percent > 30 AND $item->percent<= 70)
+                                            Tramitación en proceso.
+                                            @endif
+
+                                            @if($item->percent > 75 AND $item->percent<= 95)
+                                            Tramitación en proceso.
+                                            @endif
+
+
+                                            @if($item->percent > 95)
+                                            Terminada.
+                                            @endif
+
+                                            % {{ $item->percent }}</td>
                                         <td>
                                             @if ($item->status == 1)
                                                 <span class="text-warning">ABIERTA</span>

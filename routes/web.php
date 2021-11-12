@@ -176,6 +176,8 @@ Route::middleware(['auth'])->group(function () {
                 Route::group(['prefix' => 'causes'], function () {
                     /* List causes */
                         Route::get('contracts', [CauseController::class, 'index'])->name('causes/contracts');
+                        Route::get('/files/{cause}', [CauseController::class, 'files']);
+
                         Route::get('contracts/record-causes/{id}', [CauseController::class, 'recordCauses'])->name('causes/contracts/record-causes');
                         Route::get('contracts/record-causes/add-cause/{id}', [CauseController::class, 'create'])->name('causes/contracts/record-causes/add-cause');
                         Route::post('contracts/record-causes/add-cause/store', [CauseController::class, 'store'])->name('causes/contracts/record-causes/add-cause/store');

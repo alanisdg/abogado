@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 // Models
 use App\Models\Cause;
 use App\Models\Contract;
-
+use App\Models\File;
 // Helpers
 use Brian2694\Toastr\Facades\Toastr;
 use DataTables;
@@ -55,6 +55,17 @@ class CauseController extends Controller
         // Return response
             return response()->json($dataList);
     }
+
+
+    public function files(Cause $cause)
+    {
+
+        $files = File::where('contract_id',$cause->contract_id)->get();
+
+        return view("modules.causes.files",compact('files'));
+
+    }
+
 
     /**
      * List causes customer
