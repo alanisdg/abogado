@@ -98,9 +98,6 @@
                         tr += '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">Estado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item duda" state="4" ide="'+data.id+'"  >Duda</a><a class="dropdown-item duda" state="1" ide="'+data.id+'" >Pendiente</a><a class="dropdown-item duda" state="2" ide="'+data.id+'" >Ganado</a><a class="dropdown-item duda" state="3" ide="'+data.id+'" >Perdido</a></div></div>'
 
 
-                        tr += 		'<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Dropdown button</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"><li><a class="dropdown-item" >Action</a></li><li><a class="dropdown-item" href="#">Another action</a></li><li><a class="dropdown-item" href="#">Something else here</a></li></ul></div><a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id,'+data.status+' );">'
-                        tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
-                        tr += 		'</a>'
 
                     tr += 		'<a title="Detalles" href="'+ BASE_URL +'/list-pending/details/'+data.id+'" class="" style="margin-left:8px;">'
                     tr += 			'<img src="../backend/images/assets/detail.svg" style="width: 15%">'
