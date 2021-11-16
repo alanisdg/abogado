@@ -156,7 +156,6 @@
     <p style="margin-top: 20px; ">
         El cliente declara que al momento de contratar el servicio, fue informado en forma clara, precisa y oportuna respecto de los elementos esenciales que conforman este contrato, particularmente respecto al alcance de los servicios y/o juicios contratados, el precio, la forma de pago y los canales de recepción de él, la existencia de gastos accesorios a los procedimientos judiciales, canales de atención al cliente para recabo de información sobre el estado procesal de las causas judiciales contratadas, la naturaleza de la obligación de medio que reviste al mandatario, la obligación de confidencialidad que irroga a los contratantes y, en general, todo elemento considerado como esencial para el correcto desempeño del presente contrato.
     </p>
-    <img style="margin-top: 20px;" src="{{ public_path('/backend/images/assets/firma.JPG') }}">
-
+    <img style="margin-top: 20px;" src="https://appaboproc.com/backend/images/assets/firma.JPG">
 </body>
 </html>
