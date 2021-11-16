@@ -6,6 +6,7 @@
     <section id="basic-datatable">
         <div class="row">
             <div class="col-12">
+
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
@@ -94,8 +95,10 @@
                     }
                     tr += '<td style="width: 15%">'
                     tr +=   '<div class="pull-right">'
+                        tr += '<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">Estado</button><div class="dropdown-menu" aria-labelledby="dropdownMenuButton"><a class="dropdown-item duda" state="4" ide="'+data.id+'"  >Duda</a><a class="dropdown-item duda" state="1" ide="'+data.id+'" >Pendiente</a><a class="dropdown-item duda" state="2" ide="'+data.id+'" >Ganado</a><a class="dropdown-item duda" state="3" ide="'+data.id+'" >Perdido</a></div></div>'
 
-                        tr += 		'<a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id,'+data.status+' );">'
+
+                        tr += 		'<div class="dropdown"><button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Dropdown button</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1"><li><a class="dropdown-item" >Action</a></li><li><a class="dropdown-item" href="#">Another action</a></li><li><a class="dropdown-item" href="#">Something else here</a></li></ul></div><a id="'+data.id+'" title="Actualizar Estado" href="#" class="" style="margin-left:3px;" onclick="updateStatus(this.id,'+data.status+' );">'
                         tr += 			'<img src="../backend/images/assets/update.svg" style="width: 15%">'
                         tr += 		'</a>'
 
@@ -105,11 +108,99 @@
                     tr += 	'</div>'
                     tr += '</td>'
                     $(row).html(tr)
+                },
+                "initComplete": function () {
+                    updateStatusButton()
+
                 }
             });
+
+
         });
 
         // Update status
+
+        function updateStatusButton(){
+            $('.duda').click(function(){
+                        id = $(this).attr("ide")
+                        state = $(this).attr("state")
+                        console.log(state)
+                        if(state == 1){
+                            name = 'PENDIENTE'
+
+                        }
+                        if(state == 2){
+                            name = 'GANADO'
+
+                        }
+
+                        if(state == 4){
+                            name = 'DUDA'
+
+                        }
+                        if(state == 3){
+                            name = 'PERDIDO'
+
+                        }
+                        swal({
+                    title: "¿Quieres cambiar el estado a "+name+"?",
+                    text: "",
+                    type: "warning",
+                    showCancelButton: !0,
+                    confirmButtonText: "¡Si, actualizar estado!",
+                    cancelButtonText: "No, cancelar!",
+                    reverseButtons: !0
+                }).then(function (e) {
+                    console.log(id + ' ' + state)
+                    if (e.value === true) {
+                        // Variables
+                            let pending_id = id,
+                                token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                url = '/pending/update-status'
+
+                        fetch(url, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Accept": "application/json, text-plain, */*",
+                                "X-Requested-With": "XMLHttpRequest",
+                                "X-CSRF-TOKEN": token
+                            },
+                            method: 'post',
+                            credentials: "same-origin",
+                            body: JSON.stringify({
+                                id: pending_id,
+                                status:state
+                            })
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+
+                            if (data == 1) {
+
+                                $('#tableCrud').DataTable().ajax.reload(function(){
+                                    updateStatusButton()
+                                });
+
+                                toastr["success"]("", "¡Estado actualizado!")
+                            } else {
+                                toastr["error"]("", "¡Error en la acutalización del estado!")
+                            }
+
+                        })
+                        .catch(function(error) {
+                            toastr["error"]("", "¡Error en la consulta de datos!")
+                        });
+
+                    } else {
+                        e.dismiss;
+                    }
+
+                }, function (dismiss) {
+                    return false;
+                })
+
+                    })
+        }
             function updateStatus(id,status) {
                 console.log(status)
                 console.log(id)
@@ -187,6 +278,8 @@
                     return false;
                 })
             }
+
+
 
         // Clear localstorage
             document.addEventListener("DOMContentLoaded", function () {

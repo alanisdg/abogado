@@ -16,6 +16,75 @@
                         @endrole
                     </div>
                     <div class="card-body statistics-body">
+                        @hasanyrole('customer')
+                        @if ($user->terms == null)
+                            @if ($message = Session::get('error'))
+                            <div class="alert alert-danger alert-block p-1">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @endif
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <form class="auth-login-form mt-2" method="POST" action="/customer/complete" autocomplete="off">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="login-email" class="form-label">Nombre</label>
+                                        <input
+                                            type="text"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            id="login-email"
+                                            name="name"
+                                            required
+                                            placeholder="Nombre"
+                                            aria-describedby="login-email"
+                                            tabindex="1"
+                                            autofocus
+                                        />
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong> </strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="login-email" class="form-label">
+                                            <input type="checkbox" name="terms" id="">
+                                            Aceptar Términos y Condiciones</label>
+
+                                    </div>
+                                    <button class="btn btn-primary btn-block" tabindex="4">Continuar <i data-feather='log-in'></i></button>
+                                </form>
+
+                            </div>
+                            <div class="col-md-6" style="height: 249px;
+                            overflow: auto;">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quia corrupti, quas nam eaque nesciunt ipsam quos tenetur deserunt, voluptatum possimus enim totam provident quisquam, est quasi dolor eligendi fugit! Dolorum!
+                                <br>
+                            </div>
+                        </div>
+                        @endif
+
+                        @endrole
+
                         @hasanyrole('executive_administrator|legal_administrator')
                             <div class="row">
                                 <div class="col-xl-3 col-sm-6 col-12 mt-2 mb-xl-0">
@@ -91,6 +160,7 @@
                             </div>
                         @endrole
                         @hasanyrole('customer')
+                        @if ($user->terms != null)
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
@@ -138,12 +208,14 @@
                                     </tbody>
                                 </table>
                             </div>
+                            @endif
                         @endrole
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
 @endsection
 
 @section('scripts')

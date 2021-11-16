@@ -115,9 +115,7 @@ class PendingController extends Controller
         $perdido = Pending::where('status',3)->get()->toArray();
         $pendiente = Pending::where('status',1)->get()->toArray();
         $array= array();
-        foreach($ganados as $ganado){
-            array_push($array,$ganado);
-        }
+
         foreach($duda as $ganado){
             array_push($array,$ganado);
         }
@@ -125,6 +123,9 @@ class PendingController extends Controller
             array_push($array,$ganado);
         }
         foreach($perdido as $ganado){
+            array_push($array,$ganado);
+        }
+        foreach($ganados as $ganado){
             array_push($array,$ganado);
         }
 

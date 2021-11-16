@@ -211,6 +211,11 @@ Route::middleware(['auth'])->group(function () {
         });
 
         Route::group(['middleware' => ['role:customer']], function() {
+
+            //Profile
+            Route::post('/customer/complete', [UserController::class, 'updateTerms']);
+
+
             // List Causes
                 Route::get('list-causes/{id}', [CauseController::class, 'list'])->name('list-causes');
 

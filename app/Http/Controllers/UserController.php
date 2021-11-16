@@ -40,11 +40,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $array = User::with('roles')->orderBy('id', 'DESC')->get();
-        
+
         if ($request->ajax()) {
             return Datatables::of($array)->make(true);
         }
-   
+
         return view($this->config["routeView"] . "index")
                 ->with("breadcrumAction", "")
                 ->with("config", $this->config);
@@ -231,5 +231,19 @@ class UserController extends Controller
                 return redirect('user-profile');
             }
 
+    }
+
+    public function updateTerms(Request $request){
+        $user = Auth::user();
+        $user = User::find($user->id);
+        if($request->terms == 'on'){
+            $user->terms = 1;
+            $user->name = $request->name;
+            $user->save();
+            return redirect()->back();
+        }else{
+            return redirect()->back()
+            ->with('error','Tienes que aceptar los términos y condiciones');
+        }
     }
 }
