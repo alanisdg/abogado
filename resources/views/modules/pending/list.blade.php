@@ -43,6 +43,9 @@
                 processing: true,
                 serverSide: true,
                 lengthChange: false,
+                drawCallback: function( settings ) {
+                    updateStatusButton()
+                },
                 deferRender: true,
                 autoWidth: true,
                 scrollX: true,

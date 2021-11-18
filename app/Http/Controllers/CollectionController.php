@@ -178,6 +178,24 @@ class CollectionController extends Controller
                             // Update quote status
                                 $collection->update(['status' => "PAGADA"]);
 
+                                $email = $collection->contract->user->email;
+                                $emailDetails = [
+                                    'title' => 'Appboproc!',
+                                    'url'   => \Request::root(),
+                                    'user' => $collection->contract->user,
+                                    'email' =>  $email,
+                                    'cuota' => $collection
+                                ];
+
+                            //Send mail
+                            //return $request->input("data_type_register");
+
+                            Mail::send('emails.confirm-payment', $emailDetails, function($message) use ($emailDetails) {
+                                $message->from('contacto@appaboproc.com', 'Appboproc');
+                                $message->to($emailDetails['email']);
+                                $message->subject('Confirmación de pago - Appboproc');
+                            });
+
                             // Return response
                                 Toastr::success("", "¡Pago Procesado!");
                                 return redirect('dashboard');
