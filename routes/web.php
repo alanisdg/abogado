@@ -151,6 +151,7 @@ Route::middleware(['auth'])->group(function () {
                 Route::get('list-pending', [PendingController::class, "listPending"])->name('list-pending');
                 Route::get('list-pending/details/{id}', [PendingController::class, "show"])->name('list-pending/details');
                 Route::post('pending/update-status', [PendingController::class, "updateStatus"])->name('pending/update-status');
+                Route::post('/update/interview', [PendingController::class, "updateInterview"]);
 
             // Preview
             Route::get('list-preview', [PreviewController::class, "listPreview"])->name('list-preview');

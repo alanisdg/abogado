@@ -32,10 +32,23 @@
                                         <label for="login-email" class="form-label">Nombre</label>
                                         <input
                                             type="text"
+                                            class="form-control mb-2 @error('email') is-invalid @enderror"
+                                            id="login-email"
+                                            name="name"
+                                            required
+                                            placeholder="Nombre"
+                                            aria-describedby="login-email"
+                                            tabindex="1"
+                                            autofocus
+                                        />
+                                        <label for="login-email" class="form-label">Rutificador</label>
+                                        <input
+                                            type="text"
                                             class="form-control @error('email') is-invalid @enderror"
                                             id="login-email"
                                             name="name"
                                             required
+                                            value="{{$user->rut }}"
                                             placeholder="Nombre"
                                             aria-describedby="login-email"
                                             tabindex="1"

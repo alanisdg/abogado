@@ -1,5 +1,13 @@
 @extends('layouts.calendar')
-
+<style>
+.fc-daygrid-event-harness {
+    margin-bottom: 12px;
+    margin: 7px;
+    padding: 2px;
+    border-radius: 7px;
+    border: 1px solid #d1d8e0;
+}
+</style>
 <div class="contenedor" style="margin:100px ">
     <div class="row">
         <div class="col-md-3 mb-3">
@@ -7,6 +15,7 @@
                 <input type="text" name="search" placeholder="Escribe un criterio de busqueda" class="form-control">
                 <input class="btn btn-primary btn-sm mt-1" type="submit" value="Buscar">
             </form>
+            <a href="/calendar" class="btn btn-secondary btn-sm mt-1" type="submit"  >Borrar Filtros </a>
         </div>
     </div>
 

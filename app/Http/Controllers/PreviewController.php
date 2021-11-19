@@ -139,7 +139,7 @@ class PreviewController extends Controller
                     'title'=>$pending->names . ' <br> Email: '
                             . $pending->email . ' <br> Teléfono: '
                             . $pending->phone . ' <br> Horario: '
-                            . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<br><br>',
+                            . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<hr><br><br>',
                     'email'=>$pending->email,
                     'phone'=>$pending->phone,
                 );

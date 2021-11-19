@@ -147,6 +147,22 @@ class PendingController extends Controller
     public function show($id)
     {
         $dataPending = Pending::find($id);
+        $date = explode( ' ' , $dataPending->interview_date);
+
+        $dataPending->date2 = '';
+        $dataPending->hour2 = '';
+        if($dataPending->second_date != '' ){
+            $date2 = explode( ' ' , $dataPending->second_date);
+            $dataPending->date2 = $date2[0];
+            $dataPending->hour2 = $date2[1].' '. $date2[2].' '.$date2[3];
+        }
+
+
+        $dataPending->date = $date[0];
+        $dataPending->hour = $date[1].' '. $date[2].' '.$date[3];
+
+
+
 
         return view($this->config["routeView"] . "details")
                 ->with("breadcrumAction", "")
@@ -154,6 +170,24 @@ class PendingController extends Controller
                 ->with("config", $this->config);
     }
 
+    public function updateInterview(Request $request){
+
+
+        $date1 = $request->day1 . ' ' . $request->hour1;
+        $date2 = $request->day2 . ' ' . $request->hour2;
+
+
+        $pending = Pending::find($request->id);
+        $pending->interview_date = $date1;
+        if( $date2 != " "){
+            $pending->second_date = $date2;
+        }
+
+
+        $pending->save();
+        return redirect()->back();
+
+    }
     /**
      * Show the form for editing the specified resource.
      *

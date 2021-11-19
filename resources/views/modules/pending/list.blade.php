@@ -18,9 +18,9 @@
                             <tr>
                                 <th>ID</th>
                                 <th>NOMBRE</th>
-                                <th>APELLIDO</th>
                                 <th>RUT</th>
                                 <th>TELEFONO</th>
+                                <th>ORIGEN</th>
                                 <th>FECHA DE ENTREVISTA</th>
                                 <th>ESTADO</th>
                                 <th>BOTONES</th>
@@ -71,18 +71,42 @@
                     {data: 'id'},
                     {data: 'interview_date'},
                     {data: 'names'},
-                    {data: 'surnames'},
                     {data: 'rut'},
                     {data: 'phone'},
+                    {data: 'origen'},
                     {data: 'status'},
+
                     {defaultContent: ''},
                 ],
+
+
+
+
                 createdRow: function(row, data, dataIndex) {
                     tr = '<td class="text-left" style="width: 6%">'+ (data.id ? data.id : "") +'</td>'
                     tr += '<td class="text-left" style="width: 12%">'+ (data.names ? data.names : "") +'</td>'
-                    tr += '<td class="text-left" style="width: 12%">'+ (data.surnames ? data.surnames : "") + '</td>'
-                    tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
+                     tr += '<td class="text-left" style="width: 10%">'+ (data.rut ? data.rut : "") +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.phone ? data.phone : "") +'</td>'
+                    name=''
+                    if(data.origen == 1){
+                        name = 'Instagram'
+                    }
+                    if(data.origen == 2){
+                        name = 'Facebook'
+                    }
+                    if(data.origen == 3){
+                        name = 'Llamadas'
+                    }
+                    if(data.origen == 4){
+                        name = 'Email'
+                    }
+                    if(data.origen == 5){
+                        name = 'Mensaje de texto'
+                    }
+                    if(data.origen == 6){
+                        name = 'Campaña Presencial'
+                    }
+                    tr += '<td class="text-left" style="width: 15%">'+ name +'</td>'
                     tr += '<td class="text-left" style="width: 15%">'+ (data.interview_date ? data.interview_date : "") +'</td>'
                     if (data.status == 1) {
                         tr += '<td class="text-left" style="width: 15%"><span class="text-warning">PENDIENTE</span></td>'
