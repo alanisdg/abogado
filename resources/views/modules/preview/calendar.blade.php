@@ -18,7 +18,9 @@
             <a href="/calendar" class="btn btn-secondary btn-sm mt-1" type="submit"  >Borrar Filtros </a>
         </div>
     </div>
-
+        @if ($error != false)
+            {{ $error }}
+        @endif
       <div id='calendar'></div>
 </div>
 
