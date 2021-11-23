@@ -49,12 +49,14 @@ class PaymentMail extends Command
         Log::info($collections);
         foreach($collections as $collection){
             $email = $collection->contract->user->email;
+            $password =  substr($collection->contract->user->rut, 0, 6);
             $emailDetails = [
                 'title' => 'Appboproc!',
                 'url'   => \Request::root(),
                 'user' => $collection->contract->user,
                 'email' =>  $email,
-                'cuota' => $collection
+                'cuota' => $collection,
+                'password'=>$password
             ];
 
             //Send mail
@@ -73,12 +75,14 @@ class PaymentMail extends Command
         foreach($collections as $collection){
             if($collection->status=='PENDIENTE'){
                 $email = $collection->contract->user->email;
+                $password =  substr($collection->contract->user->rut, 0, 6);
                 $emailDetails = [
                     'title' => 'Appboproc!',
                     'url'   => \Request::root(),
                     'user' => $collection->contract->user,
                     'email' =>  $email,
-                    'cuota' => $collection
+                    'cuota' => $collection,
+                    'password'=>$password
                 ];
 
                 //Send mail

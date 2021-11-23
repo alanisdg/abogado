@@ -111,16 +111,12 @@ class PreviewController extends Controller
             ->orWhere('email', 'like', '%' . request()->search  . '%')->take(1)->count();
 
 
-
-
             if($count > 0){
-
                 $deit = explode (' ', $pending[0]->interview_date);
                 $date = $deit[0];
             }else{
                 $error = 'No se han encontrado resultados';
             }
-
 
         }
 
@@ -152,13 +148,38 @@ class PreviewController extends Controller
                 $event = array(
                     'start'=>$deit[0] . ' ' . $deit[1] ,
                     'end'=>$deit[0] . ' '. $deit[3] ,
+
+                    'title'=>$pending->names . ' <br> Email: '
+                            . $pending->email . ' <br> Teléfono: '
+                            . $pending->phone . ' <br> Horario: '
+                            . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<hr><br><br>',
+                            'color'=>'purple',
+                            'textColor'=>'red',
+                            'backgroundColor'=>'red',
+                            'borderColor'=>'yellow',
+                            'className'=>'lecolor',
+                            'email'=>$pending->email,
+                    'phone'=>$pending->phone,
+                );
+                array_push($events,$event);
+            }
+
+            if($pending->second_date != null){
+                $deit = explode (' ', $pending->second_date);
+
+                $event = array(
+                    'start'=>$deit[0] . ' ' . $deit[1] ,
+                    'end'=>$deit[0] . ' '. $deit[3] ,
+                    'className'=>'second_inter',
                     'title'=>$pending->names . ' <br> Email: '
                             . $pending->email . ' <br> Teléfono: '
                             . $pending->phone . ' <br> Horario: '
                             . $deit[0] . ' ' . $deit[1] .' a '. $deit[0] . ' '. $deit[3] . '<hr><br><br>',
                     'email'=>$pending->email,
                     'phone'=>$pending->phone,
+                    'interview'=>2
                 );
+
                 array_push($events,$event);
             }
 

@@ -15,6 +15,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use DataTables;
 use Illuminate\Notifications\Action;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Undefined;
 
 class PendingController extends Controller
 {
@@ -116,17 +117,24 @@ class PendingController extends Controller
         $pendiente = Pending::where('status',1)->get()->toArray();
         $array= array();
 
-        foreach($duda as $ganado){
-            array_push($array,$ganado);
-        }
-        foreach($pendiente as $ganado){
-            array_push($array,$ganado);
-        }
-        foreach($perdido as $ganado){
-            array_push($array,$ganado);
-        }
-        foreach($ganados as $ganado){
-            array_push($array,$ganado);
+        if($request->id == 'false'){
+
+            foreach($duda as $ganado){
+                array_push($array,$ganado);
+            }
+            foreach($pendiente as $ganado){
+                array_push($array,$ganado);
+            }
+            foreach($perdido as $ganado){
+                array_push($array,$ganado);
+            }
+            foreach($ganados as $ganado){
+                array_push($array,$ganado);
+            }
+        }else{
+            $array = Pending::where('status',$request->id)->get()->toArray();
+
+
         }
 
         if ($request->ajax()) {

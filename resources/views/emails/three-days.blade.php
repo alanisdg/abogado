@@ -559,7 +559,7 @@ Detalle de tu cuota vencida.</div>
 
                     </tr>
                     <tr>
-                        <td>
+                        <td style="text-align: center">
 
                             <table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="bodyTable">
                                 <tr>
@@ -601,7 +601,9 @@ Detalle de tu cuota vencida.</div>
                             </table>
 
 
-
+                            <a style="padding:10px 20px; background:#053638; color:white; border-radius:8px; width:200px; heigth:40px"  href="https://appaboproc.com/">Visitar aboproc.com</a>
+                            <p>Usuario: {{@$email}} </p>
+                            <p>Contraseña: {{@$password}} </p>
                         </td>
                     </tr>
                 </tbody></table>

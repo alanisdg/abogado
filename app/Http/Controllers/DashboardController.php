@@ -54,6 +54,9 @@ class DashboardController extends Controller
         // Customer contracts
             $data = Customer::with('contracts')->whereRut(Auth::user()->rut)->first();
 
+
+            $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($data->contracts->first->get()->id);
+
             $user = Auth::user();
         return view($this->config["routeView"] . 'index')
             ->with('pendingFees', $pendingFees)
@@ -63,7 +66,8 @@ class DashboardController extends Controller
             ->with('contractsWon', $contractsWon)
             ->with('dataContract', $data)
             ->with('user', $user)
-            ->with("config", $this->config);
+            ->with("config", $this->config)
+            ->with("data", $dataContract);
     }
 
 

@@ -109,6 +109,7 @@ class ContractController extends Controller
      */
     public function store(Request $request)
     {
+
         $customer = json_decode($request->input('data_customer'));
         $parameters = json_decode($request->input('data_parameters'));
         $cuotes = json_decode($request->input('data_cuotes'));
@@ -261,18 +262,30 @@ class ContractController extends Controller
 
                     //Send mail
                     //return $request->input("data_type_register");
+
+                    //ADJUNTAR PDF
+                    $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($addContract->id);
+
+                    // Share data to view
+                        view()->share('data', $dataContract);
+
+                    $pdf = PDF::loadView('modules.contracts.pdfs.contract');
+
+
                     if ($request->input("data_type_register") === "annexed") {
-                        Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails) {
+                        Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails,$pdf) {
                             $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
-                            $message->subject('Registro de Anexo - Appboproc');
+                            $message->subject('Registro de Anexo - Appboproc')
+                            ->attachData($pdf->output(), "contrato.pdf");
                         });
                     }
                     else {
-                        Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails) {
+                        Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails,$pdf) {
                             $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
-                            $message->subject('Registro de Contrato - Appboproc');
+                            $message->subject('Registro de Contrato - Appboproc')
+                            ->attachData($pdf->output(), "contrato.pdf");
                         });
                     }
 

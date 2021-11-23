@@ -24,4 +24,6 @@ class Collection extends Model
     {
         return $this->hasMany(Payment::class);
     }
+
+
 }

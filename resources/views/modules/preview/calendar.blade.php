@@ -50,8 +50,15 @@
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
           initialView: 'dayGridMonth',
+          eventColor: 'green',
           events: '/events?search={{$search}}',
           initialDate: '{{$date}}',
+          eventRender: function (event, element, view) {
+            console.log(event)
+   if (event.color) {
+       element.css('background-color', event.color)
+   }
+},
           dateClick: function(info ) {
                 console.log(info)
               $('#dia').html(info.dateStr)
@@ -59,9 +66,16 @@
               $("#exampleModal").modal();
   		    }
         });
+
         calendar.render();
+        events = calendar.getEvents(new Date("January 01, 2013 00:00:00 UTC"), new Date("October 01, 2025 23:59:59 UTC"), {search: 'FIRST'})
+      console.log(events)
       });
 
  </script>
-
+<style>
+    .second_inter{
+        background-color:rgb(255, 219, 57)
+    }
+</style>
 @endsection

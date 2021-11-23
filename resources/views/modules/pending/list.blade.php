@@ -6,13 +6,24 @@
     <section id="basic-datatable">
         <div class="row">
             <div class="col-12">
-
                 <div class="card" style="padding: 15px;">
                     <div class="card-header border-bottom p-1">
                         <div class="head-label">
                             <h4 class="mb-0">{{ $config['moduleName'] }}</h4>
                         </div>
                     </div>
+                    <div class="dropdown">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Contratos por Estado
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <a class="dropdown-item" href="?id=1">Pendientes</a>
+                          <a class="dropdown-item" href="?id=2">Ganados</a>
+                          <a class="dropdown-item" href="?id=3">Perdidos</a>
+                          <a class="dropdown-item" href="?id=4">Duda</a>
+                        </div>
+                      </div>
                     <table class="table" id="tableCrud">
                         <thead>
                             <tr>
@@ -37,6 +48,26 @@
     <script>
         $(document).ready(function (){
             // ejecuta la tabla
+
+            getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+    return false;
+};
+
+
+            var get = getUrlParameter('id');
+
             var tableInit = $('#tableCrud').DataTable({
                 language: {"url":"//cdn.datatables.net/plug-ins/1.10.15/i18n/Spanish.json"},
                 responsive: true,
@@ -56,7 +87,7 @@
                 ],
                 ajax: {
 
-                    url: '{{ url("list-pending") }}',
+                    url: '/list-pending?id='+get,
                     data: function (data) {
                         data.id = $('input[name=id]').val();
                         data.interview_date = $('input[name=interview_date]').val();
