@@ -18,7 +18,8 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <a class="dropdown-item" href="?id=1">Pendientes</a>
+                            <a class="dropdown-item" href="/list-pending">todos</a>
+                            <a class="dropdown-item" href="?id=1">Pendientes</a>
                           <a class="dropdown-item" href="?id=2">Ganados</a>
                           <a class="dropdown-item" href="?id=3">Perdidos</a>
                           <a class="dropdown-item" href="?id=4">Duda</a>
