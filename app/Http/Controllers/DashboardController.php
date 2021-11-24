@@ -54,21 +54,24 @@ class DashboardController extends Controller
         // Customer contracts
             $data = Customer::with('contracts')->whereRut(Auth::user()->rut)->first();
 
+            $dataContract = '';
+            if(isset($data->contracts)){
+                $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($data->contracts->first->get()->id);
 
-            $dataContract = Contract::with(['causes', 'collections', 'customer'])->find($data->contracts->first->get()->id);
+            }
 
             $user = Auth::user();
-        return view($this->config["routeView"] . 'index')
-            ->with('pendingFees', $pendingFees)
-            ->with('pendingClients', $pendingClients)
-            ->with('pendingTasks', $pendingTasks)
-            ->with('lostContracts', $lostContracts)
-            ->with('contractsWon', $contractsWon)
-            ->with('dataContract', $data)
-            ->with('user', $user)
-            ->with("config", $this->config)
-            ->with("data", $dataContract);
-    }
+                return view($this->config["routeView"] . 'index')
+                    ->with('pendingFees', $pendingFees)
+                    ->with('pendingClients', $pendingClients)
+                    ->with('pendingTasks', $pendingTasks)
+                    ->with('lostContracts', $lostContracts)
+                    ->with('contractsWon', $contractsWon)
+                    ->with('dataContract', $data)
+                    ->with('user', $user)
+                    ->with("config", $this->config)
+                    ->with("data", $dataContract);
+            }
 
 
     public function agenda(){
