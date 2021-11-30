@@ -150,7 +150,7 @@ class DashboardController extends Controller
 $dateE = Carbon::now()->endOfMonth();
 $collections_per_month = Collection::whereBetween('created_at',[$dateS,$dateE])
 ->get();
-
+dd($collections_per_month);
 $total_cuota_x_mes = 0;
 $total_cuota_x_mes_pagada = 0;
 $users_couta_x_mes = array();
