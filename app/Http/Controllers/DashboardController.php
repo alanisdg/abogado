@@ -81,28 +81,8 @@ class DashboardController extends Controller
             $promedio_numero_de_cuotas = $total_cuotas / $contracts_total;
             $promedio_valor_de_cuotas = $valor_cuotas / $total_cuotas;
 
+/*
 
-           // dd($contracts);
-
-            /*
-            if(data.origen == 1){
-                name = 'Instagram'
-            }
-            if(data.origen == 2){
-                name = 'Facebook'
-            }
-            if(data.origen == 3){
-                name = 'Llamadas'
-            }
-            if(data.origen == 4){
-                name = 'Email'
-            }
-            if(data.origen == 5){
-                name = 'Mensaje de texto'
-            }
-            if(data.origen == 6){
-                name = 'Campaña Presencial'
-            }*/
 
             $instagram = 0;
             $facebook = 0;
@@ -206,7 +186,7 @@ $data = array(
 
 array_push($tablero,$data );
 
-
+*/
 
 //dd($users_couta_x_mes,$users_couta_x_mes_pagada);
 
@@ -226,7 +206,6 @@ array_push($tablero,$data );
                     ->with('dataContract', $data)
                     ->with('user', $user)
                     ->with("config", $this->config)
-                    ->with("tablero", $tablero)
                     ->with("data", $dataContract);
             }
 
