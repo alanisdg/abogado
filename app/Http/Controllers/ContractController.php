@@ -273,12 +273,20 @@ class ContractController extends Controller
 
 
                     if ($request->input("data_type_register") === "annexed") {
+                        Mail::send('emails.contract-documents', $emailDetails, function($message) use ($emailDetails,$pdf) {
+                            $message->from('contacto@appaboproc.com', 'Appboproc');
+                            $message->to($emailDetails['email']);
+                            $message->subject('Registro de Anexo - Appboproc')
+                            ->attachData($pdf->output(), "contrato.pdf");
+                        });
+
                         Mail::send('emails.create-annexes', $emailDetails, function($message) use ($emailDetails,$pdf) {
                             $message->from('contacto@appaboproc.com', 'Appboproc');
                             $message->to($emailDetails['email']);
                             $message->subject('Registro de Anexo - Appboproc')
                             ->attachData($pdf->output(), "contrato.pdf");
                         });
+
                     }
                     else {
                         Mail::send('emails.create-contract', $emailDetails, function($message) use ($emailDetails,$pdf) {

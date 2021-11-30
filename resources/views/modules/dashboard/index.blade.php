@@ -284,8 +284,232 @@
                                         </div>
                                     </div>
                                 </div>
+
+                        @endrole
+
+                        @hasanyrole('executive_administrator|legal_administrator')
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{round($tablero[0]['promedio_valor_contrato'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Promedio valor de contrato</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{round($tablero[0]['promedio_valor_de_cuotas'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Promedio valor de cuotas</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['promedio_numero_de_cuotas'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Promedio numero de cuotas</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['facebook'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Facebook</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['instagram'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Instagram</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['llamadas'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">LLamadas</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['email'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Email</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['sms'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">SMS</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['campana'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">Campaña</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['total_cuota_x_mes'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">cuotas por mes</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-xl-2 col-sm-6 col-12 mt-2 mb-xl-0 mb-5">
+                                    <div class="d-flex flex-row">
+                                        <div class="avatar bg-light-warning me-2">
+                                            <div class="avatar-content">
+                                                <i data-feather='archive'></i>
+                                            </div>
+                                        </div>
+                                        <div class="my-auto ml-2">
+                                            <h2 class="fw-bolder mb-0">{{ round($tablero[0]['total_cuota_x_mes_pagada'])}}</h2>
+                                            <p class="card-text font-small-5 mb-0">cuotas por mes pagadas</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <h5>Cuota por Usuario por mes</h5>
+                                <table class="table table-striped mb-3">
+                                    <thead>
+                                        <th>Usuario</th>
+                                        <td>total</td>
+                                    </thead>
+                                    <tbody></tbody>
+                                @foreach ($tablero[0]['users_couta_x_mes'] as $user_mes)
+                                <tr>
+                                    <td>
+                                        {{ $user_mes['customer']['customer']}}
+                                    </td>
+                                    <td>
+                                        {{ $user_mes['total_cuotas']}}
+                                    </td>
+
+                                </tr>
+
+                                @endforeach
+                            </tbody>
+                        </table>
+
+
+
+
+                        <h5>Cuota por Usuario por mes pagadas</h5>
+                        <table class="table table-striped">
+                            <thead>
+                                <th>Usuario</th>
+                                <td>total</td>
+                            </thead>
+                            <tbody></tbody>
+                        @foreach ($tablero[0]['users_couta_x_mes_pagada'] as $user_mes)
+                        <tr>
+                            <td>
+                                {{ $user_mes['customer']['customer']}}
+                            </td>
+                            <td>
+                                {{ $user_mes['total_cuotas']}}
+                            </td>
+
+                        </tr>
+
+                        @endforeach
+                    </tbody>
+                </table>
+
+
+
+
+
+
+
+
+
                             </div>
                         @endrole
+
+
                         @hasanyrole('customer')
                         @if ($user->terms != null)
                             <div class="table-responsive">

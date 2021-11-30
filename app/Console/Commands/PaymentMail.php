@@ -42,6 +42,42 @@ class PaymentMail extends Command
      */
     public function handle()
     {
+
+
+        $contracts = Collection::where('installment_number',1)->where('notification',0)->get();
+
+            foreach($contracts as $collection){
+                //dd(  Carbon::create($contract->payment_date)->addDays(5) );
+
+                if(Carbon::now( )->format('Y-m-d') == Carbon::create($collection->payment_date)->addDays(5)->format('Y-m-d')){
+                    $email = $collection->contract->user->email;
+                    $password =  substr($collection->contract->user->rut, 0, 6);
+                    $emailDetails = [
+                        'title' => 'Appboproc!',
+                        'url'   => \Request::root(),
+                        'user' => $collection->contract->user,
+                        'email' =>  $email,
+                        'cuota' => $collection,
+                        'password'=>$password
+                    ];
+
+                    //Send mail
+                    //return $request->input("data_type_register");
+
+                    Mail::send('emails.contract-documents', $emailDetails, function($message) use ($emailDetails) {
+                        $message->from('contacto@appaboproc.com', 'Appboproc');
+                        $message->to($emailDetails['email']);
+                        $message->subject('Próximo pago - Appboproc');
+                    });
+
+                    $collection->notification = 1;
+                    $collection->save();
+                }
+        }
+
+
+
+
         Log::info('start');
            // 5 días antes del pago
 

@@ -46,12 +46,13 @@
                         <span class="menu-title text-truncate">Crear Cliente</span>
                     </a>
                 </li>
+                <!--
                 <li class="{{ active('list-pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('list-preview') }}">
                         <i data-feather='alert-circle'></i>
                         <span class="menu-title text-truncate">Preview</span>
                     </a>
-                </li>
+                </li>-->
                 <li class="{{ active('list-pending*') }} nav-item">
                     <a class="d-flex align-items-center" href="{{ url('list-pending') }}">
                         <i data-feather='alert-circle'></i>
